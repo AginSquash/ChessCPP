@@ -6,7 +6,13 @@ out/
 .idea/*
 
 # Debug files
-cmake-build-*/
+cmake-build-debug/CMakeFiles
+cmake-build-debug/ChessCPP
+cmake-build-debug/ChessCPP.cbp
+cmake-build-debug/cmake_install.cmake
+cmake-build-debug/CMakeCache.txt
+cmake-build-debug/Makefile
+
 
 #CMakeFiles
 CMakeLists.txt
