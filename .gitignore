@@ -8,8 +8,12 @@ out/
 # Debug files
 cmake-build-*/
 
+#CMakeFiles
+CMakeLists.txt
+
 # Prerequisites
 *.d
+*.DS_Store
 
 # Compiled Object files
 *.slo
