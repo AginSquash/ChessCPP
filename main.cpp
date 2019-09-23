@@ -3,7 +3,24 @@
 
 int main() {
 
-    sf::RenderWindow window ( sf::VideoMode(900, 900), "ChessCPP");
+
+    // Window creation
+    // 800*800 => 100*100 for one
+    sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
+
+    sf::Texture textureArray[8][8];
+
+    /*
+     *  [0][1][2][3][4][5][6][7]
+     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *
+     */
+
 
     sf::Texture texture;
     if (!texture.loadFromFile("resources/horse.jpg"))
