@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+
 int main() {
 
 
@@ -8,25 +9,21 @@ int main() {
     // 800*800 => 100*100 for one
     sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
-    sf::Texture textureArray[8][8];
+    std::string textureArray[8][8];
 
     /*
      *  [0][1][2][3][4][5][6][7]
-     *  [ ][ ][ ][ ][ ][ ][ ][ ]
-     *  [ ][ ][ ][ ][ ][ ][ ][ ]
-     *  [ ][ ][ ][ ][ ][ ][ ][ ]
-     *  [ ][ ][ ][ ][ ][ ][ ][ ]
-     *  [ ][ ][ ][ ][ ][ ][ ][ ]
-     *  [ ][ ][ ][ ][ ][ ][ ][ ]
+     *  [1][ ][ ][ ][ ][ ][ ][ ]
+     *  [2][ ][ ][ ][ ][ ][ ][ ]
+     *  [3][ ][ ][ ][ ][ ][ ][ ]
+     *  [4][ ][ ][ ][ ][ ][ ][ ]
+     *  [5][ ][ ][ ][ ][ ][ ][ ]
+     *  [6][ ][ ][ ][ ][ ][ ][ ]
+     *  [7][ ][ ][ ][ ][ ][ ][ ]
      *
      */
 
 
-    sf::Texture texture;
-    if (!texture.loadFromFile("resources/horse.jpg"))
-        return EXIT_FAILURE;
-
-    sf::Sprite sprite(texture);
 
     while (window.isOpen())
     {
@@ -42,7 +39,6 @@ int main() {
         }
 
         window.clear();
-        window.draw( sprite );
         window.display();
     }
 
