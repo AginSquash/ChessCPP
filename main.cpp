@@ -18,18 +18,15 @@ int drawField(sf::Sprite spriteField[8][8])
     return 0;
 }
 
-sf::Sprite getTexture(std::string name){
-    sf::Texture texture;
+sf::Sprite& getTexture(std::string name){
+    static sf::Texture texture;
     std::string filePath = "resources/" + name + ".png";
     texture.loadFromFile(filePath);
-    sf::Sprite sprite(texture);
+    static sf::Sprite sprite(texture);
     return sprite;
 }
 
 int main() {
-
-
-    //sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
     std::string field[8][8];
     /*
@@ -44,7 +41,6 @@ int main() {
      *
      */
 
-
     sf::Sprite spriteField[8][8];
 
     for (int x = 0; x < 8; x++)
@@ -52,15 +48,10 @@ int main() {
         for (int y = 0; y < 8; y ++)
         {
             std::string name = field[x][y];
+
             name = "debug";                    //TODO После дебага имя будет не константой
 
-            sf::Texture texture;
-            std::string filePath = "resources/" + name +".png";
-            texture.loadFromFile(filePath);
-            sf::Sprite sprite(texture);
-
-
-            spriteField[x][y] =  sprite;       //FIXME getTexture("debug") не возвращает sprite
+            spriteField[x][y] =  getTexture(name);
 
         }
     }
