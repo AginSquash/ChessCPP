@@ -1,7 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-
+// Window creation
+// 800*800 => 100*100 for one
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
 int drawField(sf::Sprite spriteField[8][8])
@@ -14,24 +15,21 @@ int drawField(sf::Sprite spriteField[8][8])
             window.draw(spriteField[x][y]);
         }
     }
-
     return 0;
 }
 
 sf::Sprite getTexture(std::string name){
     sf::Texture texture;
-    std::string filePath = "resources/" + name + ".png"; //TODO Это точно оптимальный метод?
+    std::string filePath = "resources/" + name + ".png";
     texture.loadFromFile(filePath);
     sf::Sprite sprite(texture);
-    return  sprite;
+    return sprite;
 }
 
 int main() {
 
 
-    // Window creation
-    // 800*800 => 100*100 for one
-
+    //sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
     std::string field[8][8];
     /*
@@ -54,9 +52,25 @@ int main() {
         for (int y = 0; y < 8; y ++)
         {
             std::string name = field[x][y];
-            spriteField[x][y] = getTexture("def"); //TODO После дебага имя будет не константой
+            name = "debug";                    //TODO После дебага имя будет не константой
+
+            sf::Texture texture;
+            std::string filePath = "resources/" + name +".png";
+            texture.loadFromFile(filePath);
+            sf::Sprite sprite(texture);
+
+
+            spriteField[x][y] =  sprite;       //FIXME getTexture("debug") не возвращает sprite
+
         }
     }
+
+    printf("SpriteField loading is succefull\n");
+
+    sf::Texture texture;
+    if (!texture.loadFromFile("resources/debug.png"))
+        return EXIT_FAILURE;
+    sf::Sprite sprite(texture);
 
 
     while (window.isOpen())
@@ -71,8 +85,9 @@ int main() {
 
             // Some CallBack functions will be here
         }
-        drawField(spriteField);
+
         window.clear();
+        drawField(spriteField);
         window.display();
     }
 
