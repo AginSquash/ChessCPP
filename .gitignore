@@ -12,7 +12,7 @@ cmake-build-debug/ChessCPP.cbp
 cmake-build-debug/cmake_install.cmake
 cmake-build-debug/CMakeCache.txt
 cmake-build-debug/Makefile
-
+psd/*
 
 #CMakeFiles
 CMakeLists.txt
