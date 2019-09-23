@@ -55,14 +55,7 @@ int main() {
 
         }
     }
-
     printf("SpriteField loading is succefull\n");
-
-    sf::Texture texture;
-    if (!texture.loadFromFile("resources/debug.png"))
-        return EXIT_FAILURE;
-    sf::Sprite sprite(texture);
-
 
     while (window.isOpen())
     {
