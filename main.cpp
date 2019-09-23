@@ -2,15 +2,38 @@
 #include <SFML/Graphics.hpp>
 
 
+sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
+
+int drawField(sf::Sprite spriteField[8][8])
+{
+    for (int x = 0; x < 8; x++)
+    {
+        for (int y = 0; y < 8; y ++)
+        {
+            spriteField[x][y].setPosition( float(x * 100) , float(y * 100)  );
+            window.draw(spriteField[x][y]);
+        }
+    }
+
+    return 0;
+}
+
+sf::Sprite getTexture(std::string name){
+    sf::Texture texture;
+    std::string filePath = "resources/" + name + ".png"; //TODO Это точно оптимальный метод?
+    texture.loadFromFile(filePath);
+    sf::Sprite sprite(texture);
+    return  sprite;
+}
+
 int main() {
 
 
     // Window creation
     // 800*800 => 100*100 for one
-    sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
-    std::string textureArray[8][8];
 
+    std::string field[8][8];
     /*
      *  [0][1][2][3][4][5][6][7]
      *  [1][ ][ ][ ][ ][ ][ ][ ]
@@ -23,6 +46,17 @@ int main() {
      *
      */
 
+
+    sf::Sprite spriteField[8][8];
+
+    for (int x = 0; x < 8; x++)
+    {
+        for (int y = 0; y < 8; y ++)
+        {
+            std::string name = field[x][y];
+            spriteField[x][y] = getTexture("def"); //TODO После дебага имя будет не константой
+        }
+    }
 
 
     while (window.isOpen())
@@ -37,7 +71,7 @@ int main() {
 
             // Some CallBack functions will be here
         }
-
+        drawField(spriteField);
         window.clear();
         window.display();
     }
