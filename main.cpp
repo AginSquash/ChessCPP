@@ -11,11 +11,15 @@ int drawField(sf::Sprite spriteField[8][8])
     {
         for (int y = 0; y < 8; y ++)
         {
-            spriteField[x][y].setPosition( float(x * 100) , float(y * 100)  );
-            window.draw(spriteField[x][y]);
+
+                spriteField[x][y].setPosition(float(x * 100), float(y * 100));
+                window.draw(spriteField[x][y]);
+
+
         }
     }
     return 0;
+
 }
 
 sf::Sprite& getTexture(std::string name){
@@ -27,6 +31,19 @@ sf::Sprite& getTexture(std::string name){
 }
 
 int main() {
+    sf::Texture texture;
+    if (!texture.loadFromFile("C:\\Users\\lonep\\Documents\\GitHub\\ChessCPP\\textures\\chessdesk.jpg"))
+    {
+        // ошибка...
+    }
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
+    sf::Vector2f targetSize(800.0f, 800.0f); //целевой размер
+
+    sprite.setScale(
+            targetSize.x / sprite.getLocalBounds().width,
+            targetSize.y / sprite.getLocalBounds().height); // Подгоняет текстуру шахматной доски под размер окна.
+
 
     std::string field[8][8];
     /*
@@ -72,6 +89,7 @@ int main() {
 
         window.clear();
         drawField(spriteField);
+        window.draw(sprite);
         window.display();
     }
 
