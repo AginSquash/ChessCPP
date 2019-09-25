@@ -32,12 +32,13 @@ sf::Sprite& getTexture(std::string name){
 sf::Sprite& drawChessDesk()
 {
     static sf::Texture texture;
-    if (!texture.loadFromFile("resources/chessdesk.jpg"))
+    if (!texture.loadFromFile("resources/chessboard_800x800.png"))
     {
-        printf("Loading chessdesk is fail");
+        printf("Loading chessdesk is fail\n");
     }
     static sf::Sprite sprite;
     sprite.setTexture(texture);
+    
     sf::Vector2f targetSize(800.0f, 800.0f); //целевой размер
 
     sprite.setScale(
