@@ -3,6 +3,7 @@
 
 // Window creation
 // 800*800 => 100*100 for one
+
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
 int drawField(sf::Sprite spriteField[8][8])
@@ -68,7 +69,7 @@ int main() {
 
     sf::Sprite spriteField[8][8];
 
-    for (int x = 0; x < 8; x++)
+    for (int x = 0; x < 8; x++) //Цикл
     {
         for (int y = 0; y < 8; y ++)
         {
