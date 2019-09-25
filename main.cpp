@@ -38,7 +38,8 @@ sf::Sprite& drawChessDesk()
     }
     static sf::Sprite sprite;
     sprite.setTexture(texture);
-    
+
+    //TODO Вообще у нас доска уже пре-рендерная поэтому хз нужен ли следующий код
     sf::Vector2f targetSize(800.0f, 800.0f); //целевой размер
 
     sprite.setScale(
