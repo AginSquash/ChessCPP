@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 
 
-#define PATH std::string("resources/9307/chess24/")
+#define PATH std::string("resources/textures/chess24/")
 
 sf::Texture texture[12];
 
