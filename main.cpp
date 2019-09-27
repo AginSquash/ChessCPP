@@ -8,14 +8,13 @@
 
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
-int drawFieldNEW(std::string Field[8][8])
+int drawFieldNEW(std::string Field[8][8]) // Работает лучше!
 {
-    for (int x = 0; x < 8; x++)
+    for (int y = 0; y < 8; y ++)
     {
-        for (int y = 0; y < 8; y ++)
-        {
-
-            std::string name = PATH + Field[x][y];
+            for (int x = 0; x < 8; x++)
+            {
+            std::string name = PATH + Field[y][x]; //Поправил таблицу
 
             sf::Texture texture;
             std::string filePath = "resources/" + name + ".png";
@@ -37,30 +36,6 @@ int drawFieldNEW(std::string Field[8][8])
 
 }
 
-int drawField(sf::Sprite spriteField[8][8])
-{
-    for (int x = 0; x < 8; x++)
-    {
-        for (int y = 0; y < 8; y ++)
-        {
-
-                spriteField[x][y].setPosition(float(x * 100), float(y * 100));
-
-                window.draw(spriteField[x][y]);
-
-        }
-    }
-    return 0;
-
-}
-
-sf::Sprite& getTexture(std::string name){
-    static sf::Texture texture;
-    std::string filePath = "resources/" + name + ".png";
-    texture.loadFromFile(filePath);
-    static sf::Sprite sprite(texture);
-    return sprite;
-}
 
 sf::Sprite& drawChessDesk()
 {
@@ -110,20 +85,6 @@ int main() {
 
     field[0][0] = "bK";
     field[0][1] = "bB";
-   /* for (int x = 0; x < 8; x++) //Цикл
-    {
-        for (int y = 0; y < 8; y ++)
-        {
-            std::string name = field[x][y];
-
-            //name = "bK";                    //TODO После дебага имя будет не константой
-
-            //spriteField[x][y] =  getTexture(name);
-
-        }
-    }
-    printf("SpriteField loading is succefull\n");
-    */
     while (window.isOpen())
     {
         sf::Event event;
@@ -139,7 +100,7 @@ int main() {
 
         window.clear();
         window.draw(chessdesk);
-        //drawField(spriteField);
+
         drawFieldNEW(field);
         window.display();
     }
