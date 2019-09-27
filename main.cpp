@@ -4,7 +4,38 @@
 // Window creation
 // 800*800 => 100*100 for one
 
+#define PATH std::string("9307/chess24/")
+
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
+
+int drawFieldNEW(std::string Field[8][8])
+{
+    for (int x = 0; x < 8; x++)
+    {
+        for (int y = 0; y < 8; y ++)
+        {
+
+            std::string name = PATH + Field[x][y];
+
+            sf::Texture texture;
+            std::string filePath = "resources/" + name + ".png";
+            texture.loadFromFile(filePath);
+            sf::Sprite sprite(texture);
+
+            sf::Vector2f targetSize(100.0f, 100.0f); //целевой размер
+
+            sprite.setScale(
+                    targetSize.x / sprite.getLocalBounds().width,
+                    targetSize.y / sprite.getLocalBounds().height);
+
+            sprite.setPosition(float(x * 100), float(y * 100));
+            window.draw( sprite );
+
+        }
+    }
+    return 0;
+
+}
 
 int drawField(sf::Sprite spriteField[8][8])
 {
@@ -14,6 +45,7 @@ int drawField(sf::Sprite spriteField[8][8])
         {
 
                 spriteField[x][y].setPosition(float(x * 100), float(y * 100));
+
                 window.draw(spriteField[x][y]);
 
         }
@@ -51,6 +83,8 @@ sf::Sprite& drawChessDesk()
     return sprite;
 }
 
+
+
 int main() {
 
     sf::Sprite chessdesk = drawChessDesk(); //Думаю так это будет лучше выглядеть
@@ -74,20 +108,22 @@ int main() {
 
     sf::Sprite spriteField[8][8];
 
-    for (int x = 0; x < 8; x++) //Цикл
+    field[0][0] = "bK";
+    field[0][1] = "bB";
+   /* for (int x = 0; x < 8; x++) //Цикл
     {
         for (int y = 0; y < 8; y ++)
         {
             std::string name = field[x][y];
 
-            name = "debug";                    //TODO После дебага имя будет не константой
+            //name = "bK";                    //TODO После дебага имя будет не константой
 
-            spriteField[x][y] =  getTexture(name);
+            //spriteField[x][y] =  getTexture(name);
 
         }
     }
     printf("SpriteField loading is succefull\n");
-
+    */
     while (window.isOpen())
     {
         sf::Event event;
@@ -104,6 +140,7 @@ int main() {
         window.clear();
         window.draw(chessdesk);
         //drawField(spriteField);
+        drawFieldNEW(field);
         window.display();
     }
 
