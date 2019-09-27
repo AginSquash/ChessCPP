@@ -1,34 +1,56 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+
+#define PATH std::string("resources/9307/chess24/")
+
+sf::Texture texture[12];
+
+void loadTexture()
+{
+    texture[0].loadFromFile( PATH + "bB.png");
+    texture[1].loadFromFile( PATH + "bK.png");
+    texture[2].loadFromFile( PATH + "bN.png");
+    texture[3].loadFromFile( PATH + "bP.png");
+    texture[4].loadFromFile( PATH + "bQ.png");
+    texture[5].loadFromFile( PATH + "bR.png");
+
+    texture[6].loadFromFile( PATH + "wB.png");
+    texture[7].loadFromFile( PATH + "wK.png");
+    texture[8].loadFromFile( PATH + "wN.png");
+    texture[9].loadFromFile( PATH + "wP.png");
+    texture[10].loadFromFile( PATH + "wQ.png");
+    texture[11].loadFromFile( PATH + "wR.png");
+}
+
+
 // Window creation
 // 800*800 => 100*100 for one
-
-#define PATH std::string("9307/chess24/")
-
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
-int drawFieldNEW(std::string Field[8][8]) // Работает лучше!
+//TODO  Небольшой экскурс:
+//      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение.
+//      Например вместо "bB" испольщовать 0, "bK" -> 1 и т.д.
+
+int drawField(short Field[8][8]) // Работает лучше!
 {
     for (int y = 0; y < 8; y ++)
     {
             for (int x = 0; x < 8; x++)
             {
-            std::string name = PATH + Field[y][x]; //Поправил таблицу
+                if (Field[y][x] >= 0) {
+                    sf::Sprite sprite(texture[Field[y][x]]);
 
-            sf::Texture texture;
-            std::string filePath = "resources/" + name + ".png";
-            texture.loadFromFile(filePath);
-            sf::Sprite sprite(texture);
+                    sf::Vector2f targetSize(100.0f, 100.0f); //целевой размер
 
-            sf::Vector2f targetSize(100.0f, 100.0f); //целевой размер
+                    sprite.setScale(
+                            targetSize.x / sprite.getLocalBounds().width,
+                            targetSize.y / sprite.getLocalBounds().height);
 
-            sprite.setScale(
-                    targetSize.x / sprite.getLocalBounds().width,
-                    targetSize.y / sprite.getLocalBounds().height);
+                    sprite.setPosition(float(x * 100), float(y * 100));
 
-            sprite.setPosition(float(x * 100), float(y * 100));
-            window.draw( sprite );
+                    window.draw(sprite);
+                }
 
         }
     }
@@ -39,6 +61,7 @@ int drawFieldNEW(std::string Field[8][8]) // Работает лучше!
 
 sf::Sprite& drawChessDesk()
 {
+
     static sf::Texture texture;
     if (!texture.loadFromFile("resources/chessboard_800x800.png"))
     {
@@ -62,12 +85,16 @@ sf::Sprite& drawChessDesk()
 
 int main() {
 
+    loadTexture();
+
     sf::Sprite chessdesk = drawChessDesk(); //Думаю так это будет лучше выглядеть
 
-    std::string field[8][8]; // Поле в оперативной памяти, отвечающее за положение фигур
+    short field[8][8] = { [0 ... 7][0 ... 7] = -1 } ;
+                             // Поле в оперативной памяти, отвечающее за положение фигур
                              // каждая переменная имеет значение соотв. фигуре
-                             // (напрмиер field[0][0] имеет значение равное "b_rook")
+                             // (напрмиер field[0][0] имеет значение равное 0)
                              // Этот массив нужен для удобного перемещенния фигур
+                             // TODO Поумолчанию все элменеты массива равны -1, что сооветсвует пустому полю
 
     /*
      *  [0][1][2][3][4][5][6][7]
@@ -81,10 +108,9 @@ int main() {
      *
      */
 
-    sf::Sprite spriteField[8][8];
+    field[0][0] = 0;
+    field[0][1] = 1;
 
-    field[0][0] = "bK";
-    field[0][1] = "bB";
     while (window.isOpen())
     {
         sf::Event event;
@@ -101,7 +127,7 @@ int main() {
         window.clear();
         window.draw(chessdesk);
 
-        drawFieldNEW(field);
+        drawField(field);
         window.display();
     }
 
