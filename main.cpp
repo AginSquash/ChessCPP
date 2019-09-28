@@ -4,26 +4,6 @@
 
 #define PATH std::string("resources/textures/chess24/")
 
-enum figure_type {
-
-    BLANK = -1,
-
-    b_Bishop = 0,
-    b_King   = 1,
-    b_Night  = 2,
-    b_Pawn   = 3,
-    b_Qween  = 4,
-    b_Rook   = 5,
-
-    w_Bishop = 6,
-    w_King   = 7,
-    w_Night  = 8,
-    w_Pawn   = 9,
-    w_Qween = 10,
-    w_Rook  = 11
-
-};
-
 sf::Texture texture[12];
 void loadTexture()
 {
@@ -48,10 +28,30 @@ void loadTexture()
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
 //TODO  Небольшой экскурс:
-//      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение.
-//      Например вместо "bB" испольщовать 0, "bK" -> 1 и т.д.
+//      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
+//      Например вместо "bB" испольщовать 0 (ИЛИ b_Bishop), "bK" -> 1 и т.д.
 
-int drawField(short Field[8][8]) // Работает лучше!
+enum figure_type {
+
+    BLANK = -1,
+
+    b_Bishop = 0,
+    b_King   = 1,
+    b_Night  = 2,
+    b_Pawn   = 3,
+    b_Qween  = 4,
+    b_Rook   = 5,
+
+    w_Bishop = 6,
+    w_King   = 7,
+    w_Night  = 8,
+    w_Pawn   = 9,
+    w_Qween = 10,
+    w_Rook  = 11
+
+};
+
+int drawField(figure_type Field[8][8]) // Работает лучше!
 {
     for (int y = 0; y < 8; y ++)
     {
@@ -107,7 +107,8 @@ int main() {
 
     sf::Sprite chessdesk = drawChessDesk(); //Думаю так это будет лучше выглядеть
 
-    short field[8][8] = { [0 ... 7][0 ... 7] = -1 } ;
+    //short field[8][8] = { [0 ... 7][0 ... 7] = -1 } ;
+    figure_type field[8][8] = { [0 ... 7][0 ... 7] = BLANK } ;
                              // Поле в оперативной памяти, отвечающее за положение фигур
                              // каждая переменная имеет значение соотв. фигуре
                              // (напрмиер field[0][0] имеет значение равное 0)
@@ -126,8 +127,8 @@ int main() {
      *
      */
 
-    field[0][0] = 0; 
-    field[0][1] = 1;
+    field[0][0] = w_Bishop;
+    field[0][1] = b_Qween;
 
     while (window.isOpen())
     {
