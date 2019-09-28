@@ -4,8 +4,27 @@
 
 #define PATH std::string("resources/textures/chess24/")
 
-sf::Texture texture[12];
+enum figure_type {
 
+    BLANK = -1,
+
+    b_Bishop = 0,
+    b_King   = 1,
+    b_Night  = 2,
+    b_Pawn   = 3,
+    b_Qween  = 4,
+    b_Rook   = 5,
+
+    w_Bishop = 6,
+    w_King   = 7,
+    w_Night  = 8,
+    w_Pawn   = 9,
+    w_Qween = 10,
+    w_Rook  = 11
+
+};
+
+sf::Texture texture[12];
 void loadTexture()
 {
     texture[0].loadFromFile( PATH + "bB.png");
@@ -48,7 +67,6 @@ int drawField(short Field[8][8]) // Работает лучше!
                             targetSize.y / sprite.getLocalBounds().height);
 
                     sprite.setPosition(float(x * 100), float(y * 100));
-
                     window.draw(sprite);
                 }
 
@@ -108,7 +126,7 @@ int main() {
      *
      */
 
-    field[0][0] = 0;
+    field[0][0] = 0; 
     field[0][1] = 1;
 
     while (window.isOpen())
