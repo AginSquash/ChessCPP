@@ -4,25 +4,6 @@
 
 #define PATH std::string("resources/textures/chess24/")
 
-sf::Texture texture[12];
-void loadTexture()
-{
-    texture[0].loadFromFile( PATH + "bB.png");
-    texture[1].loadFromFile( PATH + "bK.png");
-    texture[2].loadFromFile( PATH + "bN.png");
-    texture[3].loadFromFile( PATH + "bP.png");
-    texture[4].loadFromFile( PATH + "bQ.png");
-    texture[5].loadFromFile( PATH + "bR.png");
-
-    texture[6].loadFromFile( PATH + "wB.png");
-    texture[7].loadFromFile( PATH + "wK.png");
-    texture[8].loadFromFile( PATH + "wN.png");
-    texture[9].loadFromFile( PATH + "wP.png");
-    texture[10].loadFromFile( PATH + "wQ.png");
-    texture[11].loadFromFile( PATH + "wR.png");
-}
-
-
 // Window creation
 // 800*800 => 100*100 for one
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
@@ -50,6 +31,25 @@ enum figure_type {
     w_Rook  = 11
 
 };
+
+sf::Texture texture[12];
+void loadTexture()
+{
+    texture[0].loadFromFile( PATH + "bB.png");
+    texture[1].loadFromFile( PATH + "bK.png");
+    texture[2].loadFromFile( PATH + "bN.png");
+    texture[3].loadFromFile( PATH + "bP.png");
+    texture[4].loadFromFile( PATH + "bQ.png");
+    texture[5].loadFromFile( PATH + "bR.png");
+
+    texture[6].loadFromFile( PATH + "wB.png");
+    texture[7].loadFromFile( PATH + "wK.png");
+    texture[8].loadFromFile( PATH + "wN.png");
+    texture[9].loadFromFile( PATH + "wP.png");
+    texture[10].loadFromFile( PATH + "wQ.png");
+    texture[11].loadFromFile( PATH + "wR.png");
+}
+
 
 int drawField(figure_type Field[8][8]) // Работает лучше!
 {
@@ -99,8 +99,6 @@ sf::Sprite& drawChessDesk()
     return sprite;
 }
 
-
-
 int main() {
 
     loadTexture();
@@ -113,7 +111,7 @@ int main() {
                              // каждая переменная имеет значение соотв. фигуре
                              // (напрмиер field[0][0] имеет значение равное 0)
                              // Этот массив нужен для удобного перемещенния фигур
-                             // TODO Поумолчанию все элменеты массива равны -1, что сооветсвует пустому полю
+                             // TODO Поумолчанию все элменеты массива равны BLANK(-1), что сооветсвует пустому полю
 
     /*
      *  [0][1][2][3][4][5][6][7]
