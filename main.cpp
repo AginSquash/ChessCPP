@@ -32,6 +32,13 @@ enum figure_type {
 
 };
 
+struct new_figure
+{
+    int x;
+    int y;
+    sf::Texture texture;
+};
+
 sf::Texture texture[12];
 void loadTexture()
 {
