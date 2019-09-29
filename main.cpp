@@ -32,7 +32,7 @@ enum figure_type {
 
 };
 
-struct new_figure
+struct chess_figure //Структура (надеюсь) будет использованна в дальнейшем 
 {
     int x;
     int y;
