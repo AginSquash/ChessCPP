@@ -18,14 +18,14 @@ enum figure_type {
 
     b_Bishop = 0,
     b_King   = 1,
-    b_Night  = 2,
+    b_Night  = 2, //(*) Нз, баг или фича, но конь - knight
     b_Pawn   = 3,
     b_Qween  = 4,
     b_Rook   = 5,
 
     w_Bishop = 6,
     w_King   = 7,
-    w_Night  = 8,
+    w_Night  = 8, //(*)
     w_Pawn   = 9,
     w_Qween = 10,
     w_Rook  = 11
@@ -138,8 +138,31 @@ int main() {
      *
      */
 
-    field[0][0] = w_Bishop;
-    field[0][1] = b_Qween;
+    field[0][0] = b_Rook;
+    field[0][1] = b_Night;
+    field[0][2] = b_Bishop;
+    field[0][3] = b_King;
+    field[0][4] = b_Qween;
+    field[0][5] = b_Bishop;
+    field[0][6] = b_Night;
+    field[0][7] = b_Rook;
+
+    for(int y = 0; y<8;y++)
+        field[1][y] = b_Pawn;
+    field[7][0] = w_Rook;
+    field[7][1] = w_Night;
+    field[7][2] = w_Bishop;
+    field[7][3] = w_Qween;
+    field[7][4] = w_King;
+    field[7][5] = w_Bishop;
+    field[7][6] = w_Night;
+    field[7][7] = w_Rook;
+    for(int y = 0; y<8;y++)
+        field[6][y] = w_Pawn;
+
+
+
+
 
     while (window.isOpen())
     {
