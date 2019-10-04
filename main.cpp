@@ -172,12 +172,78 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
     p_figures[2].postion.y = 0;
     p_figures[2].texture = LoadFigureTexture( b_Night);
 
+    p_figures[3].postion.x = 500;
+    p_figures[3].postion.y = 0;
+    p_figures[3].texture = LoadFigureTexture( b_Night);
+
+    p_figures[4].postion.x = 300;
+    p_figures[4].postion.y = 0;
+    p_figures[4].texture = LoadFigureTexture( b_Qween);
+
+    p_figures[5].postion.x = 400;
+    p_figures[5].postion.y = 0;
+    p_figures[5].texture = LoadFigureTexture( b_King);
+
+    p_figures[6].postion.x = 0;
+    p_figures[6].postion.y = 0;
+    p_figures[6].texture = LoadFigureTexture( b_Rook);
+
+    p_figures[7].postion.x = 700;
+    p_figures[7].postion.y = 0;
+    p_figures[7].texture = LoadFigureTexture( b_Rook);
+
+    // /////////
+
+    p_figures[17].postion.x = 100; //координата по X
+    p_figures[17].postion.y = 700; //Координата по y
+    p_figures[17].texture = LoadFigureTexture(w_Bishop);
+
+    p_figures[18].postion.x = 600;
+    p_figures[18].postion.y = 700;
+    p_figures[18].texture = LoadFigureTexture(w_Bishop);
+
+
+    p_figures[19].postion.x = 200;
+    p_figures[19].postion.y = 700;
+    p_figures[19].texture = LoadFigureTexture( w_Night);
+
+    p_figures[20].postion.x = 500;
+    p_figures[20].postion.y = 700;
+    p_figures[20].texture = LoadFigureTexture( w_Night);
+
+    p_figures[21].postion.x = 300;
+    p_figures[21].postion.y = 700;
+    p_figures[21].texture = LoadFigureTexture( w_Qween);
+
+    p_figures[22].postion.x = 400;
+    p_figures[22].postion.y = 700;
+    p_figures[22].texture = LoadFigureTexture( w_King);
+
+    p_figures[23].postion.x = 0;
+    p_figures[23].postion.y = 700;
+    p_figures[23].texture = LoadFigureTexture( w_Rook);
+
+    p_figures[24].postion.x = 700;
+    p_figures[24].postion.y = 700;
+    p_figures[24].texture = LoadFigureTexture( w_Rook);
+
     for (int i = 8; i < 16; i++)
     {
         p_figures[i].postion.x = (i - 8) * 100;
         p_figures[i].postion.y = 100;
         p_figures[i].texture = LoadFigureTexture(b_Pawn);
+
     }
+
+
+    for (int i = 25; i < 33; i++)
+    {
+        p_figures[i].postion.x = (i - 25) * 100;
+        p_figures[i].postion.y = 600;
+        p_figures[i].texture = LoadFigureTexture(w_Pawn);
+
+    }
+
     return p_figures;
 }
 
