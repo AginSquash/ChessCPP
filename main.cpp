@@ -194,34 +194,39 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
 
     // /////////
 
-    p_figures[17].postion.x = 100; //координата по X
-    p_figures[17].postion.y = 700; //Координата по y
+    p_figures[16].postion.x = 100; //координата по X
+    p_figures[16].postion.y = 700; //Координата по y
+    p_figures[16].texture = LoadFigureTexture(w_Bishop);
+
+    p_figures[17].postion.x = 600;
+    p_figures[17].postion.y = 700;
     p_figures[17].texture = LoadFigureTexture(w_Bishop);
 
-    p_figures[18].postion.x = 600;
+
+    p_figures[18].postion.x = 200;
     p_figures[18].postion.y = 700;
-    p_figures[18].texture = LoadFigureTexture(w_Bishop);
+    p_figures[18].texture = LoadFigureTexture( w_Night);
 
-
-    p_figures[19].postion.x = 200;
+    p_figures[19].postion.x = 500;
     p_figures[19].postion.y = 700;
     p_figures[19].texture = LoadFigureTexture( w_Night);
 
-    p_figures[20].postion.x = 500;
+    p_figures[20].postion.x = 300;
     p_figures[20].postion.y = 700;
-    p_figures[20].texture = LoadFigureTexture( w_Night);
+    p_figures[20].texture = LoadFigureTexture( w_Qween);
 
-    p_figures[21].postion.x = 300;
+    p_figures[21].postion.x = 400;
     p_figures[21].postion.y = 700;
-    p_figures[21].texture = LoadFigureTexture( w_Qween);
+    p_figures[21].texture = LoadFigureTexture( w_King);
 
-    p_figures[22].postion.x = 400;
+    p_figures[22].postion.x = 0;
     p_figures[22].postion.y = 700;
-    p_figures[22].texture = LoadFigureTexture( w_King);
+    p_figures[22].texture = LoadFigureTexture( w_Rook);
 
-    p_figures[23].postion.x = 0;
+    p_figures[23].postion.x = 700;
     p_figures[23].postion.y = 700;
     p_figures[23].texture = LoadFigureTexture( w_Rook);
+
 
     p_figures[24].postion.x = 700;
     p_figures[24].postion.y = 700;
@@ -230,15 +235,15 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
 
     for (int i = 8; i < 16; i++)
     {
-        p_figures[i].postion.x = (i - 8) * 100;
+        p_figures[i].postion.x = (i - 8) * 100; //Объявление черных пешек
         p_figures[i].postion.y = 100;
         p_figures[i].texture = LoadFigureTexture(b_Pawn);
 
     }
     
-    for (int i = 25; i < 33; i++)
+    for (int i = 24; i < 32; i++)
     {
-        p_figures[i].postion.x = (i - 25) * 100;
+        p_figures[i].postion.x = (i - 24) * 100; //Объявление белых пешек
         p_figures[i].postion.y = 600;
         p_figures[i].texture = LoadFigureTexture(w_Pawn);
 
