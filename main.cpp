@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#define WINDOWS  //TODO Откоментируй при комплияции под винду
+//#define WINDOWS  //TODO Откоментируй при комплияции под винду
 #define DEBUG
 
 
@@ -58,8 +58,7 @@ enum figure_type {
 
 struct chess_figure //Структура (надеюсь) будет использованна в дальнейшем 
 {
-    int x;
-    int y;
+    sf::Vector2f postion;
     sf::Texture texture;
     bool isAlive = true;
 };
@@ -77,7 +76,7 @@ void drawField(chess_figure* p_figures)
                     targetSize.x / sprite.getLocalBounds().width,
                     targetSize.y / sprite.getLocalBounds().height);
 
-            sprite.setPosition(p_figures[i].x * 100, p_figures[i].y * 100);
+            sprite.setPosition( p_figures[i].postion );
             window.draw(sprite);
         }
     }
@@ -160,23 +159,23 @@ sf::Texture LoadFigureTexture(figure_type type) ///Можно поробоват
 chess_figure* LoadFigures(chess_figure* p_figures) {
 
 
-    p_figures[0].x = 1; //координата по X
-    p_figures[0].y = 0; //Координата по y
+    p_figures[0].postion.x = 100; //координата по X
+    p_figures[0].postion.y  = 0; //Координата по y
     p_figures[0].texture = LoadFigureTexture(b_Bishop);
 
-    p_figures[1].x = 6;
-    p_figures[1].y = 0;
+    p_figures[1].postion.x = 600;
+    p_figures[1].postion.y = 0;
     p_figures[1].texture = LoadFigureTexture(b_Bishop);
 
 
-    p_figures[2].x = 2;
-    p_figures[2].y = 0;
+    p_figures[2].postion.x = 200;
+    p_figures[2].postion.y = 0;
     p_figures[2].texture = LoadFigureTexture( b_Night);
 
     for (int i = 8; i < 16; i++)
     {
-        p_figures[i].x = i - 8;
-        p_figures[i].y = 1;
+        p_figures[i].postion.x = (i - 8) * 100;
+        p_figures[i].postion.y = 100;
         p_figures[i].texture = LoadFigureTexture(b_Pawn);
     }
     return p_figures;
@@ -439,6 +438,14 @@ field[white_pawn7.x][white_pawn7.y] = w_Pawn;
     */
 }
 
+void GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos)
+{
+    for (int i = 0; i < 16; i++)
+    {
+
+    }
+}
+
 int main() {
 
         window.setFramerateLimit(15);
@@ -466,8 +473,6 @@ int main() {
                     std::cout <<  pos.x << std::endl;
                 }
 
-
-                // Some CallBack functions will be here
             }
 
             window.clear();
