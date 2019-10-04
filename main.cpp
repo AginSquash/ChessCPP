@@ -42,6 +42,29 @@ std::string GetCurrentWorkingDir( void ) {  //Получение текущей 
 }
 
 
+struct chess_move{  //Структура для возможных ходов
+    sf::Vector2f move;
+};
+int desk[8][8];
+
+
+
+void possiblemove(short i , sf::Vector2f coor){ //Массив для нахождения возможных ходов
+                                    //i - номер объекта с фигурой
+                                    // coor - вектор с координатами
+  /*  switch(i){
+        case(2):
+            window.draw(coor.x + 100; coor.y + 300 );
+            window.draw(coor.x - 300; coor.y + 100 );
+            window.draw(coor.x + 300; coor.y + 100 );
+            window.draw(selected);
+            break;
+
+    }*/
+
+}
+
+
 void drawField(chess_figure* p_figures)
 {
     for (int i = 0; i < 32; i++)
