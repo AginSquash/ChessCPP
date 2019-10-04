@@ -73,7 +73,18 @@ int desk[8][8];
 
 
 
-void possiblemove(int x , int y){ //Массив для нахождения возможных ходов
+void possiblemove(short i , sf::Vector2f coor){ //Массив для нахождения возможных ходов
+                                    //i - номер объекта с фигурой
+                                    // coor - вектор с координатами
+  /*  switch(i){
+        case(2):
+            window.draw(coor.x + 100; coor.y + 300 );
+            window.draw(coor.x - 300; coor.y + 100 );
+            window.draw(coor.x + 300; coor.y + 100 );
+            window.draw(selected);
+            break;
+
+    }*/
 
 }
 
