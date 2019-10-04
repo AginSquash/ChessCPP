@@ -440,10 +440,15 @@ field[white_pawn7.x][white_pawn7.y] = w_Pawn;
 
 void GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos)
 {
+    int index;
     for (int i = 0; i < 16; i++)
     {
-
+        if (p_figures[i].postion == pos )
+        {
+            index = i;
+        }
     }
+
 }
 
 int main() {
@@ -470,7 +475,7 @@ int main() {
                 {
                     sf::Vector2i mouse_world =  sf::Mouse::getPosition(window);
                     sf::Vector2f pos = window.mapPixelToCoords(mouse_world);
-                    std::cout <<  pos.x << std::endl;
+                    GetChoisedFigure(p_figures, pos);
                 }
 
             }
