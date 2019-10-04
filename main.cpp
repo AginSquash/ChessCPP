@@ -1,10 +1,10 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "DataLoading.h"
-
+#include "configWorker.h"
 
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
-#define DEBUG
+//#define DEBUG
 
 
 #ifdef WINDOWS
@@ -16,23 +16,24 @@
 #endif
 
 #if defined(WINDOWS) || defined(DEBUG)
-    #define PATH_to_textures std::string("/resources/textures/chess24/")
+    #define PATH std::string("/")
 #else
-    #define PATH_to_textures std::string("/.projects/ChessCPP/resources/textures/chess24/")
+    #define PATH std::string("/.ChessCPP/")
 #endif
 
-std::string PATH = "";
+//std::string textures_path = "";
 
-// Window creation
-// 800*800 => 100*100 for one
+// Создание окна
+// 800*800 => 100*100 для каждой фигуры
+
 sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 
-//TODO  Небольшой экскурс:
+//      Небольшой экскурс:
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
 //      Например вместо "bB" испольщовать 0 (ИЛИ b_Bishop), "bK" -> 1 и т.д.
 
 
-int figure_to_move_index = -1; //Индекс фигуры которую мы перетаскиваем
+int figure_to_move_index = -1; // Индекс фигуры которую мы перетаскиваем
 
 std::string GetCurrentWorkingDir( void ) {  //Получение текущей директории
     char buff[FILENAME_MAX];
@@ -83,11 +84,11 @@ void drawField(chess_figure* p_figures)
     }
 }
 
-sf::Sprite& drawChessDesk()
+sf::Sprite& drawChessDesk(std::string resource_path)
 {
 
     static sf::Texture texture;
-    if (!texture.loadFromFile( PATH + "background.png"))
+    if (!texture.loadFromFile( resource_path + "background.png"))
     {
         printf("Loading chessdesk is fail\n");
     }
@@ -124,58 +125,70 @@ int GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos) //Функция
 
 int main() {
 
-        window.setFramerateLimit(10);
+    window.setFramerateLimit(10);
 
-        PATH = GetCurrentWorkingDir() + PATH_to_textures;
+    //Получаем рабочую директорию (windows/Unix-like)
+    std::string path_to_workdir = GetCurrentWorkingDir();
 
-        sf::Sprite chessdesk = drawChessDesk(); //Думаю так это будет лучше выглядеть
+    //Создаем ОС-зависимую переменные (пути к ресурсам)
+    std::string resource_path = path_to_workdir + PATH + "resources/";
 
-        sf::Texture texture;
-        texture.loadFromFile( PATH + "selected.png");
-        sf::Sprite selected(texture);
+    //Функция из "configWorker.cpp". Читает конфиг и возвращает нужную папку с теустурами шахмат
+    // (т.е. chess24, wikipedia и т.д.)
+    std::string chess_type = getChessType( resource_path );
 
-        chess_figure *p_figures = new chess_figure[32];
-        LoadFigures(p_figures, PATH);
+    //Создаем ОС-зависимую переменные (пути к текстурам)
+    std::string textures_path = path_to_workdir + PATH + "resources/textures/" + chess_type + "/";
+
+    sf::Sprite chessdesk = drawChessDesk( resource_path ); //Думаю так это будет лучше выглядеть
+
+    sf::Texture texture;
+    texture.loadFromFile( resource_path + "selected.png");
+    sf::Sprite selected(texture);
+
+    chess_figure *p_figures = new chess_figure[32];
+    LoadFigures(p_figures, textures_path);
 
 
-        bool isClicked = false;
-        while (window.isOpen()) {
-            sf::Event event;
-            while (window.pollEvent(event)) {
-                if (event.type == sf::Event::Closed) {
-                    window.close();
+    bool isClicked = false;
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
+                sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
+                if (!isClicked) {
+                    figure_to_move_index = GetChoisedFigure(p_figures, pos);
+                    selected.setPosition( p_figures[figure_to_move_index].postion ); // Подсвечимваем выбранную область
+                    // (дебаг или оставить?)
+                    isClicked = true;
+                } else {
+                    pos.x = int(pos.x / 100) * 100;
+                    pos.y = int(pos.y / 100) * 100;
+
+                    p_figures[figure_to_move_index].postion = pos;
+
+                    isClicked = false;
                 }
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                {
-                    sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
-                    sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
-                    if (!isClicked) {
-                        figure_to_move_index = GetChoisedFigure(p_figures, pos);
-                        selected.setPosition( p_figures[figure_to_move_index].postion ); // Подсвечимваем выбранную область
-                                                                                         // (дебаг или оставить?)
-                        isClicked = true;
-                    } else
-                    {
-                        pos.x = int(pos.x / 100) * 100;
-                        pos.y = int(pos.y / 100) * 100;
-
-                        p_figures[figure_to_move_index].postion = pos;
-
-                        isClicked = false;
-                    }
-                }
-
             }
 
-            window.clear();
-            window.draw(chessdesk);
-            drawField(p_figures);
-            if (isClicked) {
-                window.draw(selected);
-            }
-            window.display();
         }
 
-        delete[] p_figures;
-        return EXIT_SUCCESS;
+        window.clear();
+        window.draw(chessdesk);
+        drawField(p_figures);
+        if (isClicked) {
+            window.draw(selected);
+        }
+        window.display();
+    }
+
+    delete[] p_figures;
+    return EXIT_SUCCESS;
 }
