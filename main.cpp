@@ -29,7 +29,10 @@ sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
 //      Например вместо "bB" испольщовать 0 (ИЛИ b_Bishop), "bK" -> 1 и т.д.
 
-std::string GetCurrentWorkingDir( void ) {
+
+int figure_to_move_index = -1; //Индекс фигуры которую мы перетаскиваем
+
+std::string GetCurrentWorkingDir( void ) {  //Получение текущей директории
     char buff[FILENAME_MAX];
     GetCurrentDir( buff, FILENAME_MAX );
     std::string current_working_dir(buff);
@@ -97,7 +100,7 @@ sf::Sprite& drawChessDesk()
 {
 
     static sf::Texture texture;
-    if (!texture.loadFromFile( PATH + "chessboard_800x800.png"))
+    if (!texture.loadFromFile( PATH + "background.png"))
     {
         printf("Loading chessdesk is fail\n");
     }
@@ -114,6 +117,7 @@ sf::Sprite& drawChessDesk()
 
     return sprite;
 }
+
 
 sf::Texture LoadFigureTexture(figure_type type) ///Можно поробовать это сделать через указатели
 {
@@ -167,11 +171,11 @@ sf::Texture LoadFigureTexture(figure_type type) ///Можно поробоват
     return texture;
 }
 
-chess_figure* LoadFigures(chess_figure* p_figures) {
-
+chess_figure* LoadFigures(chess_figure* p_figures) {    //вот прям чую, что мы протупили и можно было нормально объявить
+                                                        // но хз как именно
 
     p_figures[0].postion.x = 100; //координата по X
-    p_figures[0].postion.y  = 0; //Координата по y
+    p_figures[0].postion.y  = 0;  //Координата по y
     p_figures[0].type = b_Bishop;
     p_figures[0].texture = LoadFigureTexture(b_Bishop);
 
@@ -198,49 +202,60 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
 
     p_figures[5].postion.x = 400;
     p_figures[5].postion.y = 0;
+    p_figures[5].type = b_King;
     p_figures[5].texture = LoadFigureTexture( b_King);
 
     p_figures[6].postion.x = 0;
     p_figures[6].postion.y = 0;
+    p_figures[6].type = b_Rook;
     p_figures[6].texture = LoadFigureTexture( b_Rook);
 
     p_figures[7].postion.x = 700;
     p_figures[7].postion.y = 0;
+    p_figures[7].type = b_Rook;
     p_figures[7].texture = LoadFigureTexture( b_Rook);
 
     // /////////
 
     p_figures[16].postion.x = 100; //координата по X
     p_figures[16].postion.y = 700; //Координата по y
+    p_figures[16].type = w_Bishop;
     p_figures[16].texture = LoadFigureTexture(w_Bishop);
 
     p_figures[17].postion.x = 600;
     p_figures[17].postion.y = 700;
+    p_figures[17].type = w_Bishop;
     p_figures[17].texture = LoadFigureTexture(w_Bishop);
 
 
     p_figures[18].postion.x = 200;
     p_figures[18].postion.y = 700;
+    p_figures[18].type = w_Night;
     p_figures[18].texture = LoadFigureTexture( w_Night);
 
     p_figures[19].postion.x = 500;
     p_figures[19].postion.y = 700;
+    p_figures[19].type = w_Night;
     p_figures[19].texture = LoadFigureTexture( w_Night);
 
     p_figures[20].postion.x = 300;
     p_figures[20].postion.y = 700;
+    p_figures[20].type = w_Qween;
     p_figures[20].texture = LoadFigureTexture( w_Qween);
 
     p_figures[21].postion.x = 400;
     p_figures[21].postion.y = 700;
+    p_figures[21].type = w_King;
     p_figures[21].texture = LoadFigureTexture( w_King);
 
     p_figures[22].postion.x = 0;
     p_figures[22].postion.y = 700;
+    p_figures[22].type = w_Rook;
     p_figures[22].texture = LoadFigureTexture( w_Rook);
 
     p_figures[23].postion.x = 700;
     p_figures[23].postion.y = 700;
+    p_figures[23].type = w_Rook;
     p_figures[23].texture = LoadFigureTexture( w_Rook);
 
 
@@ -253,6 +268,7 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
     {
         p_figures[i].postion.x = (i - 8) * 100; //Объявление черных пешек
         p_figures[i].postion.y = 100;
+        p_figures[i].type = b_Pawn;
         p_figures[i].texture = LoadFigureTexture(b_Pawn);
 
     }
@@ -261,6 +277,7 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
     {
         p_figures[i].postion.x = (i - 24) * 100; //Объявление белых пешек
         p_figures[i].postion.y = 600;
+        p_figures[i].type = w_Pawn;
         p_figures[i].texture = LoadFigureTexture(w_Pawn);
 
     }
@@ -268,33 +285,40 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
     return p_figures;
 }
 
-void GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos)
+int GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
 {
+    pos.x = int(pos.x / 100) * 100;
+    pos.y = int(pos.y / 100) * 100;
+
     int index;
-    for (int i = 0; i < 16; i++)
+    for (int i = 0; i < 32; i++)
     {
         if (p_figures[i].postion == pos )
         {
-            index = i;
+            return i;
         }
     }
-
+    return -1;
+    
 }
 
 int main() {
 
-        window.setFramerateLimit(15);
+        window.setFramerateLimit(10);
 
         PATH = GetCurrentWorkingDir() + PATH_to_textures;
 
         sf::Sprite chessdesk = drawChessDesk(); //Думаю так это будет лучше выглядеть
 
+        sf::Texture texture;
+        texture.loadFromFile( PATH + "selected.png");
+        sf::Sprite selected(texture);
 
         chess_figure *p_figures = new chess_figure[32];
         LoadFigures(p_figures);
 
 
-
+        bool isClicked = false;
         while (window.isOpen()) {
             sf::Event event;
             while (window.pollEvent(event)) {
@@ -303,17 +327,32 @@ int main() {
                 }
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
-                    sf::Vector2i mouse_world =  sf::Mouse::getPosition(window);
-                    sf::Vector2f pos = window.mapPixelToCoords(mouse_world);
-                    GetChoisedFigure(p_figures, pos);
+                    sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
+                    sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
+                    if (!isClicked) {
+                        figure_to_move_index = GetChoisedFigure(p_figures, pos);
+                        selected.setPosition( p_figures[figure_to_move_index].postion ); // Подсвечимваем выбранную область
+                                                                                         // (дебаг или оставить?)
+                        isClicked = true;
+                    } else
+                    {
+                        pos.x = int(pos.x / 100) * 100;
+                        pos.y = int(pos.y / 100) * 100;
+
+                        p_figures[figure_to_move_index].postion = pos;
+
+                        isClicked = false;
+                    }
                 }
 
             }
 
             window.clear();
             window.draw(chessdesk);
-
             drawField(p_figures);
+            if (isClicked) {
+                window.draw(selected);
+            }
             window.display();
         }
 
