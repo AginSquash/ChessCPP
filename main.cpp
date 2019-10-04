@@ -229,7 +229,7 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
 
     for (int i = 8; i < 16; i++)
     {
-        p_figures[i].postion.x = (i - 8) * 100;
+        p_figures[i].postion.x = (i - 8) * 100; //Объявление черных пешек
         p_figures[i].postion.y = 100;
         p_figures[i].texture = LoadFigureTexture(b_Pawn);
 
@@ -238,7 +238,7 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
 
     for (int i = 25; i < 33; i++)
     {
-        p_figures[i].postion.x = (i - 25) * 100;
+        p_figures[i].postion.x = (i - 25) * 100; //Объявление белыъ пешек
         p_figures[i].postion.y = 600;
         p_figures[i].texture = LoadFigureTexture(w_Pawn);
 
