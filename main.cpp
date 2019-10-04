@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 
 #define WINDOWS  //TODO Откоментируй при комплияции под винду
+#define DEBUG
+
 
 #ifdef WINDOWS
 #include <direct.h>
@@ -11,7 +13,7 @@
 #define GetCurrentDir getcwd
 #endif
 
-#ifdef WINDOWS
+#if defined(WINDOWS) || defined(DEBUG)
 #define PATH_to_textures std::string("/resources/textures/chess24/")
 #else
 #define PATH_to_textures std::string("/.projects/ChessCPP/resources/textures/chess24/")
@@ -456,8 +458,12 @@ int main() {
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) {
                     window.close();
-
-
+                }
+                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+                {
+                    sf::Vector2i mouse_world =  sf::Mouse::getPosition(window);
+                    sf::Vector2f pos = window.mapPixelToCoords(mouse_world);
+                    std::cout <<  pos.x << std::endl;
                 }
 
 
