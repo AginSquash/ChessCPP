@@ -85,7 +85,7 @@ sf::Sprite& drawChessDesk()
 {
 
     static sf::Texture texture;
-    if (!texture.loadFromFile( PATH + "/chessboard_800x800.png"))
+    if (!texture.loadFromFile( PATH + "chessboard_800x800.png"))
     {
         printf("Loading chessdesk is fail\n");
     }
