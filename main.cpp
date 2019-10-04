@@ -60,6 +60,7 @@ struct chess_figure //Структура (надеюсь) будет испол�
 {
     sf::Vector2f postion;
     sf::Texture texture;
+    figure_type type; // что именно за фигруа (пешка, конь и т.д.) Будет использоваться для опознания фигруы по координатам
     bool isAlive = true;
 };
 
@@ -161,23 +162,28 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
 
     p_figures[0].postion.x = 100; //координата по X
     p_figures[0].postion.y  = 0; //Координата по y
+    p_figures[0].type = b_Bishop;
     p_figures[0].texture = LoadFigureTexture(b_Bishop);
 
     p_figures[1].postion.x = 600;
     p_figures[1].postion.y = 0;
+    p_figures[1].type = b_Bishop;
     p_figures[1].texture = LoadFigureTexture(b_Bishop);
 
 
     p_figures[2].postion.x = 200;
     p_figures[2].postion.y = 0;
+    p_figures[2].type = b_Night;
     p_figures[2].texture = LoadFigureTexture( b_Night);
 
     p_figures[3].postion.x = 500;
     p_figures[3].postion.y = 0;
+    p_figures[3].type = b_Night;
     p_figures[3].texture = LoadFigureTexture( b_Night);
 
     p_figures[4].postion.x = 300;
     p_figures[4].postion.y = 0;
+    p_figures[4].type = b_Qween;
     p_figures[4].texture = LoadFigureTexture( b_Qween);
 
     p_figures[5].postion.x = 400;
