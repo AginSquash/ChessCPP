@@ -1,8 +1,23 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#define WINDOWS  //TODO Откоментируй при комплияции под винду
 
-#define PATH std::string("resources/textures/chess24/")
+#ifdef WINDOWS
+#include <direct.h>
+#define GetCurrentDir _getcwd
+#else
+#include <unistd.h>
+#define GetCurrentDir getcwd
+#endif
+
+#ifdef WINDOWS
+#define PATH_to_textures std::string("/resources/textures/chess24/")
+#else
+#define PATH_to_textures std::string("/.projects/ChessCPP/resources/textures/chess24/")
+#endif
+
+std::string PATH = "";
 
 // Window creation
 // 800*800 => 100*100 for one
@@ -11,6 +26,13 @@ sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
 //TODO  Небольшой экскурс:
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
 //      Например вместо "bB" испольщовать 0 (ИЛИ b_Bishop), "bK" -> 1 и т.д.
+
+std::string GetCurrentWorkingDir( void ) {
+    char buff[FILENAME_MAX];
+    GetCurrentDir( buff, FILENAME_MAX );
+    std::string current_working_dir(buff);
+    return current_working_dir;
+}
 
 enum figure_type {
 
@@ -63,7 +85,7 @@ sf::Sprite& drawChessDesk()
 {
 
     static sf::Texture texture;
-    if (!texture.loadFromFile("resources/chessboard_800x800.png"))
+    if (!texture.loadFromFile( PATH + "/chessboard_800x800.png"))
     {
         printf("Loading chessdesk is fail\n");
     }
@@ -124,6 +146,10 @@ sf::Texture LoadFigureTexture(figure_type type) ///Можно поробоват
         case w_Rook:
             texture.loadFromFile( PATH + "wR.png" );
             break;
+
+        case BLANK:
+            texture.loadFromFile( PATH + "BLANK.png" );
+            break;
     }
 
     return texture;
@@ -151,7 +177,7 @@ chess_figure* LoadFigures(chess_figure* p_figures) {
         p_figures[i].y = 1;
         p_figures[i].texture = LoadFigureTexture(b_Pawn);
     }
-
+    return p_figures;
 }
 
 void LEGACYCODE()
@@ -412,6 +438,10 @@ field[white_pawn7.x][white_pawn7.y] = w_Pawn;
 }
 
 int main() {
+
+        window.setFramerateLimit(15);
+
+        PATH = GetCurrentWorkingDir() + PATH_to_textures;
 
         sf::Sprite chessdesk = drawChessDesk(); //Думаю так это будет лучше выглядеть
 

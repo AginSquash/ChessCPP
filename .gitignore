@@ -15,6 +15,8 @@ cmake-build-debug/Makefile
 cmake-build-debug/Project.cbp
 psd/*
 
+cmake-build-release/*
+
 #CMakeFiles
 CMakeLists.txt
 
@@ -51,3 +53,6 @@ CMakeLists.txt
 *.exe
 *.out
 *.app
+/cmake-build-debug/CPackConfig.cmake
+/cmake-build-debug/CPackSourceConfig.cmake
+/resources/
