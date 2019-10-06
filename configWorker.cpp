@@ -4,22 +4,28 @@
 
 #include "configWorker.h"
 #include <fstream>
-#include <iostream>
+#include <map>
+#include <string>
 
-std::string getChessType(std::string PATH) {
+map<string, string> loadConfig(string PATH) {
 
+    map<string, string> config;
+
+    string line;
     std::ifstream in(   PATH + "config.txt");
 
-    std::string textures_path = "";
     if (in.is_open())
     {
-        std::string conf;
-        getline(in, conf);
-        std::cout <<  conf << std::endl;
-        textures_path += conf;
+        while (getline(in, line))
+        {
+            short index = line.find("=");
+            string key = line.substr(0, index);
+            string value = line.substr(index + 1);
+            config.insert( make_pair( key, value )  );
+        }
     } else {
-        textures_path += "chess24";
+        cout << "Error!" << endl << "Config file is broken!" << endl; 
     }
 
-    return textures_path;
+    return config;
 }

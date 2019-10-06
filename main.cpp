@@ -3,7 +3,7 @@
 #include "DataLoading.h"
 #include "configWorker.h"
 
-//#define WINDOWS  //TODO Откоментируй при комплияции под винду
+#define WINDOWS  //TODO Откоментируй при комплияции под винду
 //#define DEBUG
 
 
@@ -27,9 +27,7 @@
 // 800*800 => 100*100 для каждой фигуры
 
 
-const float scale = 0.5f;
-
-sf::RenderWindow window ( sf::VideoMode(800 * scale, 800 * scale), "ChessCPP");
+float scale = 0.5f;
 
 //      Небольшой экскурс:
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
@@ -69,7 +67,7 @@ void possiblemove(short i , sf::Vector2f coor){ //Массив для нахож
 }
 
 
-void drawField(chess_figure* p_figures)
+void drawField(chess_figure* p_figures,sf::RenderWindow *window)
 {
     for (int i = 0; i < 32; i++)
     {
@@ -83,7 +81,7 @@ void drawField(chess_figure* p_figures)
 
 
             sprite.setPosition( p_figures[i].position );
-            window.draw(sprite);
+            window->draw(sprite);
         }
     }
 }
@@ -129,18 +127,39 @@ int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функц�
 
 int main() 
 {
-
-    window.setFramerateLimit(10);
-
     //Получаем рабочую директорию (windows/Unix-like)
     std::string path_to_workdir = GetCurrentWorkingDir();
 
     //Создаем ОС-зависимую переменные (пути к ресурсам)
     std::string resource_path = path_to_workdir + PATH + "resources/";
 
+    map<string, string> config = loadConfig( resource_path );   // Подгружаем конфиг
+
+    std::string chess_type;
+    for ( map<string, string> :: iterator it = config.begin(); it != config.end(); it++ )   //Обработка конфига
+    {
+        cout << "Key: " << it->first << endl;
+        cout << "Value: " << it->second << endl;
+
+        string key = it->first;
+        string value = it->second;
+
+        if (key == "scale")
+        {
+            scale = atof(value.c_str());    // Перевод стринг в флоат
+        }
+        if (key == "texture_pack")
+        {
+            chess_type = value;
+        }
+    }
+    
+    sf::RenderWindow window ( sf::VideoMode(800 * scale, 800 * scale), "ChessCPP" );
+    window.setFramerateLimit(10);
+
     //Функция из "configWorker.cpp". Читает конфиг и возвращает нужную папку с теустурами шахмат
     // (т.е. chess24, wikipedia и т.д.)
-    std::string chess_type = getChessType( resource_path );
+    //std::string chess_type = getChessType( resource_path );
 
     //Создаем ОС-зависимую переменные (пути к текстурам)
     std::string textures_path = path_to_workdir + PATH + "resources/textures/" + chess_type + "/";
@@ -228,7 +247,7 @@ int main()
 
         window.clear();
         window.draw(chessdesk);
-        drawField(p_figures);
+        drawField(p_figures, &window);
         if (isClicked) {
             window.draw(selected);
         }
