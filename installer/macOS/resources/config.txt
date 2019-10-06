@@ -1,1 +1,2 @@
-wikipedia
+scale=1.5
+texture_pack=wikipedia
