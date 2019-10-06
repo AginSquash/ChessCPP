@@ -110,7 +110,7 @@ sf::Sprite& drawChessDesk(std::string resource_path)
     return sprite;
 }
 
-int GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
+int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
 {
     pos.x = int( (pos.x/scale) / 100) * 100 * scale;
     pos.y = int( (pos.y/scale) / 100) * 100 * scale;
@@ -156,7 +156,10 @@ int main()
     LoadFigures(p_figures, textures_path, scale);
 
 
-    bool isClicked = false;
+    bool isClicked = false; // Перемнная, которая хранит состояние мышки. Если false - то это "первый" клик.
+                            // Если true - то это "второй" клик, а значит нужно передвинуть фигуру выбранную на первом клике
+                            // в(???) координаты второго клика
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -164,26 +167,55 @@ int main()
         {
             switch (event.type)
             {
-                case sf::Event::Closed:
+                case sf::Event::Closed:         //Если закрываем окно
                     window.close();
                     break;
                 
-                case sf::Event::MouseButtonReleased:
-                    if (event.mouseButton.button == sf::Mouse::Left)
+                case sf::Event::MouseButtonReleased:      //Если нажимем кнопку на мыш(и)
+                    if (event.mouseButton.button == sf::Mouse::Left)  
                     {
                         sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
                         sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
-                        if (!isClicked) {
-                            figure_to_move_index = GetChoisedFigure(p_figures, pos);
+                        if (!isClicked) {       //Если это "первый" клик
+                            figure_to_move_index = GetFigureByPosition(p_figures, pos);
                             selected.setPosition( p_figures[figure_to_move_index].position ); // Подсвечимваем выбранную область
                             // (дебаг или оставить?)
                             isClicked = true;
+                            
                         } else {
-                            pos.x = int( (pos.x/scale) / 100) * 100 * scale;
-                            pos.y = int( (pos.y/scale) / 100) * 100 * scale;
 
-                            p_figures[figure_to_move_index].position = pos;
+                            if (figure_to_move_index != -1) {     // Если мы до этого выбрали пустую область - не стоит что-либо делать
 
+                                pos.x = int( (pos.x/scale) / 100) * 100 * scale;
+                                pos.y = int( (pos.y/scale) / 100) * 100 * scale;
+
+                                int field_index = GetFigureByPosition( p_figures= p_figures, pos= pos);     // Получаем фигуру по координатам нажатия
+                                if ( field_index == -1 )                                // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
+                                                                                        //      пустую клетку
+                                {
+                                p_figures[figure_to_move_index].position = pos; 
+
+                                } else {     
+
+                                    if ( (field_index < 16 ) && (figure_to_move_index >= 16) ) // Значит field_index белая, а figure_to_move_index - черная
+                                    {                                                          // поэтому мы убираем field_index, а на ее место 
+                                        p_figures[field_index].isAlive = false;                // ставим figure_to_move_index
+                                        p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale); // Переносим за карту
+                                        p_figures[figure_to_move_index].position = pos;
+
+                                    } else if ( (field_index >= 16) && (figure_to_move_index < 16) )// Та же функция что и выше, но при условии
+                                    {                                                            // что field_index черная, а figure_to_move_index - белая
+                                        p_figures[field_index].isAlive = false;  
+                                        p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale);          
+                                        p_figures[figure_to_move_index].position = pos;
+
+                                    } else {
+                                        std::cout << "Это фигуры одного цвета!" << std::endl;
+                                    }
+                                    
+                                }
+                            }
+                        
                             isClicked = false;
                         }
                     }
