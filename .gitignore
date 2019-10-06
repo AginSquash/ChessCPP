@@ -4,6 +4,7 @@
 # IntelliJ
 out/
 .idea/*
+.vscode
 
 # Debug files
 cmake-build-debug/CMakeFiles
@@ -14,6 +15,7 @@ cmake-build-debug/CMakeCache.txt
 cmake-build-debug/Makefile
 cmake-build-debug/Project.cbp
 psd/*
+build/*
 
 cmake-build-release/*
 

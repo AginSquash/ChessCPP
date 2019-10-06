@@ -21,6 +21,8 @@ def copytree(src, dst, symlinks=0):
     except (IOError, os.error):
       print ("Can't copy %s to %s: %s", srcname, dstname, str(IOError))
 
+
+
 appName = "ChessCPP"
 
 login = os.getlogin()

@@ -29,7 +29,7 @@ enum figure_type {
 
 struct chess_figure //Структура (надеюсь) будет использованна в дальнейшем
 {
-    sf::Vector2f postion;
+    sf::Vector2f position;
     sf::Texture texture;
     figure_type type; // что именно за фигруа (пешка, конь и т.д.) Будет использоваться для опознания фигруы по координатам
     bool isAlive = true;
@@ -37,6 +37,6 @@ struct chess_figure //Структура (надеюсь) будет испол�
 
 sf::Texture LoadFigureTexture(figure_type type, std::string PATH);
 
-chess_figure* LoadFigures(chess_figure* p_figures, std::string);
+chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale);
 
 #endif //CHESSCPP_DATALOADING_H

@@ -57,103 +57,103 @@ sf::Texture LoadFigureTexture(figure_type type, std::string PATH) ///Можно 
     return texture;
 }
 
-chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH) {    //вот прям чую, что мы протупили и можно было нормально объявить
+chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale) {    //вот прям чую, что мы протупили и можно было нормально объявить
     // но хз как именно
 
-    p_figures[0].postion.x = 100; //координата по X
-    p_figures[0].postion.y  = 0;  //Координата по y
+    p_figures[0].position.x = scale * 100; //координата по X
+    p_figures[0].position.y  = 0;  //Координата по y
     p_figures[0].type = b_Bishop;
     p_figures[0].texture = LoadFigureTexture(b_Bishop, PATH);
 
-    p_figures[1].postion.x = 600;
-    p_figures[1].postion.y = 0;
+    p_figures[1].position.x = scale * 600;
+    p_figures[1].position.y = scale * 0;
     p_figures[1].type = b_Bishop;
     p_figures[1].texture = LoadFigureTexture(b_Bishop, PATH);
 
 
-    p_figures[2].postion.x = 200;
-    p_figures[2].postion.y = 0;
+    p_figures[2].position.x = scale * 200;
+    p_figures[2].position.y = scale * 0;
     p_figures[2].type = b_Night;
     p_figures[2].texture = LoadFigureTexture( b_Night, PATH);
 
-    p_figures[3].postion.x = 500;
-    p_figures[3].postion.y = 0;
+    p_figures[3].position.x = scale * 500;
+    p_figures[3].position.y = scale * 0;
     p_figures[3].type = b_Night;
     p_figures[3].texture = LoadFigureTexture( b_Night, PATH);
 
-    p_figures[4].postion.x = 300;
-    p_figures[4].postion.y = 0;
+    p_figures[4].position.x = scale * 300;
+    p_figures[4].position.y = scale * 0;
     p_figures[4].type = b_Qween;
     p_figures[4].texture = LoadFigureTexture( b_Qween, PATH);
 
-    p_figures[5].postion.x = 400;
-    p_figures[5].postion.y = 0;
+    p_figures[5].position.x = scale * 400;
+    p_figures[5].position.y = scale * 0;
     p_figures[5].type = b_King;
     p_figures[5].texture = LoadFigureTexture( b_King, PATH);
 
-    p_figures[6].postion.x = 0;
-    p_figures[6].postion.y = 0;
+    p_figures[6].position.x = scale * 0;
+    p_figures[6].position.y = scale * 0;
     p_figures[6].type = b_Rook;
     p_figures[6].texture = LoadFigureTexture( b_Rook, PATH);
 
-    p_figures[7].postion.x = 700;
-    p_figures[7].postion.y = 0;
+    p_figures[7].position.x = scale * 700;
+    p_figures[7].position.y = scale * 0;
     p_figures[7].type = b_Rook;
     p_figures[7].texture = LoadFigureTexture( b_Rook, PATH);
 
     // /////////
 
-    p_figures[16].postion.x = 100; //координата по X
-    p_figures[16].postion.y = 700; //Координата по y
+    p_figures[16].position.x = scale * 100; //координата по X
+    p_figures[16].position.y = scale * 700; //Координата по y
     p_figures[16].type = w_Bishop;
     p_figures[16].texture = LoadFigureTexture(w_Bishop, PATH);
 
-    p_figures[17].postion.x = 600;
-    p_figures[17].postion.y = 700;
+    p_figures[17].position.x = scale * 600;
+    p_figures[17].position.y = scale * 700;
     p_figures[17].type = w_Bishop;
     p_figures[17].texture = LoadFigureTexture(w_Bishop, PATH);
 
 
-    p_figures[18].postion.x = 200;
-    p_figures[18].postion.y = 700;
+    p_figures[18].position.x = scale * 200;
+    p_figures[18].position.y = scale * 700;
     p_figures[18].type = w_Night;
     p_figures[18].texture = LoadFigureTexture( w_Night, PATH);
 
-    p_figures[19].postion.x = 500;
-    p_figures[19].postion.y = 700;
+    p_figures[19].position.x = scale * 500;
+    p_figures[19].position.y = scale * 700;
     p_figures[19].type = w_Night;
     p_figures[19].texture = LoadFigureTexture( w_Night, PATH);
 
-    p_figures[20].postion.x = 300;
-    p_figures[20].postion.y = 700;
+    p_figures[20].position.x = scale * 300;
+    p_figures[20].position.y = scale * 700;
     p_figures[20].type = w_Qween;
     p_figures[20].texture = LoadFigureTexture( w_Qween, PATH);
 
-    p_figures[21].postion.x = 400;
-    p_figures[21].postion.y = 700;
+    p_figures[21].position.x = scale * 400;
+    p_figures[21].position.y = scale * 700;
     p_figures[21].type = w_King;
     p_figures[21].texture = LoadFigureTexture( w_King, PATH);
 
-    p_figures[22].postion.x = 0;
-    p_figures[22].postion.y = 700;
+    p_figures[22].position.x = scale * 0;
+    p_figures[22].position.y = scale * 700;
     p_figures[22].type = w_Rook;
     p_figures[22].texture = LoadFigureTexture( w_Rook, PATH);
 
-    p_figures[23].postion.x = 700;
-    p_figures[23].postion.y = 700;
+    p_figures[23].position.x = scale * 700;
+    p_figures[23].position.y = scale * 700;
     p_figures[23].type = w_Rook;
     p_figures[23].texture = LoadFigureTexture( w_Rook, PATH);
 
 
-    p_figures[24].postion.x = 700;
-    p_figures[24].postion.y = 700;
+    p_figures[24].position.x = scale * 700;
+    p_figures[24].position.y = scale * 700;
     p_figures[24].texture = LoadFigureTexture( w_Rook, PATH);
 
 
     for (int i = 8; i < 16; i++)
     {
-        p_figures[i].postion.x = (i - 8) * 100; //Объявление черных пешек
-        p_figures[i].postion.y = 100;
+        p_figures[i].position.x = scale * (i - 8) * 100; //Объявление черных пешек
+        p_figures[i].position.y = scale * 100;
         p_figures[i].type = b_Pawn;
         p_figures[i].texture = LoadFigureTexture(b_Pawn, PATH);
 
@@ -161,8 +161,8 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH) {    //во
 
     for (int i = 24; i < 32; i++)
     {
-        p_figures[i].postion.x = (i - 24) * 100; //Объявление белых пешек
-        p_figures[i].postion.y = 600;
+        p_figures[i].position.x = scale * (i - 24) * 100; //Объявление белых пешек
+        p_figures[i].position.y = scale * 600;
         p_figures[i].type = w_Pawn;
         p_figures[i].texture = LoadFigureTexture(w_Pawn, PATH);
 

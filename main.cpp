@@ -26,7 +26,10 @@
 // Создание окна
 // 800*800 => 100*100 для каждой фигуры
 
-sf::RenderWindow window ( sf::VideoMode(800, 800), "ChessCPP");
+
+const float scale = 0.5f;
+
+sf::RenderWindow window ( sf::VideoMode(800 * scale, 800 * scale), "ChessCPP");
 
 //      Небольшой экскурс:
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
@@ -73,12 +76,13 @@ void drawField(chess_figure* p_figures)
         if ( p_figures[i].isAlive ) {
             sf::Sprite sprite(p_figures[i].texture);
 
-            sf::Vector2f targetSize(100.0f, 100.0f); //целевой размер
+            sf::Vector2f targetSize(100.0f * scale, 100.0f * scale); //целевой размер
             sprite.setScale(
                     targetSize.x / sprite.getLocalBounds().width,
                     targetSize.y / sprite.getLocalBounds().height);
 
-            sprite.setPosition( p_figures[i].postion );
+
+            sprite.setPosition( p_figures[i].position );
             window.draw(sprite);
         }
     }
@@ -95,8 +99,8 @@ sf::Sprite& drawChessDesk(std::string resource_path)
     static sf::Sprite sprite;
     sprite.setTexture(texture);
 
-    //TODO Вообще у нас доска уже пре-рендерная поэтому хз нужен ли следующий код
-    sf::Vector2f targetSize(800.0f, 800.0f); //целевой размер
+
+    sf::Vector2f targetSize(800.0f * scale, 800.0f * scale); //целевой размер
 
     sprite.setScale(
             targetSize.x / sprite.getLocalBounds().width,
@@ -108,13 +112,13 @@ sf::Sprite& drawChessDesk(std::string resource_path)
 
 int GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
 {
-    pos.x = int(pos.x / 100) * 100;
-    pos.y = int(pos.y / 100) * 100;
+    pos.x = int( (pos.x/scale) / 100) * 100 * scale;
+    pos.y = int( (pos.y/scale) / 100) * 100 * scale;
 
     int index;
     for (int i = 0; i < 32; i++)
     {
-        if (p_figures[i].postion == pos )
+        if (p_figures[i].position == pos )
         {
             return i;
         }
@@ -123,7 +127,8 @@ int GetChoisedFigure(chess_figure* p_figures, sf::Vector2f pos) //Функция
     
 }
 
-int main() {
+int main() 
+{
 
     window.setFramerateLimit(10);
 
@@ -145,9 +150,10 @@ int main() {
     sf::Texture texture;
     texture.loadFromFile( resource_path + "selected.png");
     sf::Sprite selected(texture);
+    selected.setScale(scale, scale);
 
     chess_figure *p_figures = new chess_figure[32];
-    LoadFigures(p_figures, textures_path);
+    LoadFigures(p_figures, textures_path, scale);
 
 
     bool isClicked = false;
@@ -156,28 +162,36 @@ int main() {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed) {
-                window.close();
-            }
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            switch (event.type)
             {
-                sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
-                sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
-                if (!isClicked) {
-                    figure_to_move_index = GetChoisedFigure(p_figures, pos);
-                    selected.setPosition( p_figures[figure_to_move_index].postion ); // Подсвечимваем выбранную область
-                    // (дебаг или оставить?)
-                    isClicked = true;
-                } else {
-                    pos.x = int(pos.x / 100) * 100;
-                    pos.y = int(pos.y / 100) * 100;
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                
+                case sf::Event::MouseButtonReleased:
+                    if (event.mouseButton.button == sf::Mouse::Left)
+                    {
+                        sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
+                        sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
+                        if (!isClicked) {
+                            figure_to_move_index = GetChoisedFigure(p_figures, pos);
+                            selected.setPosition( p_figures[figure_to_move_index].position ); // Подсвечимваем выбранную область
+                            // (дебаг или оставить?)
+                            isClicked = true;
+                        } else {
+                            pos.x = int( (pos.x/scale) / 100) * 100 * scale;
+                            pos.y = int( (pos.y/scale) / 100) * 100 * scale;
 
-                    p_figures[figure_to_move_index].postion = pos;
+                            p_figures[figure_to_move_index].position = pos;
 
-                    isClicked = false;
-                }
+                            isClicked = false;
+                        }
+                    }
+                    break;
+
+                default:
+                    break;
             }
-
         }
 
         window.clear();
@@ -192,3 +206,4 @@ int main() {
     delete[] p_figures;
     return EXIT_SUCCESS;
 }
+
