@@ -4,8 +4,8 @@
 #include "configWorker.h"
 #include <fstream>
 
-#define WINDOWS  //TODO Откоментируй при комплияции под винду
-#define DEBUG
+//#define WINDOWS  //TODO Откоментируй при комплияции под винду
+//#define DEBUG
 
 
 #ifdef WINDOWS
@@ -182,29 +182,36 @@ int main()
     sf::Clock clock; //Запускаем часы
     clock.restart();
 
+    //Загрузка шрифта
     sf::Font font;
     font.loadFromFile(resource_path + "sansation.ttf");
+
+    //Таймер
     sf::Text time;
     time.setFont(font);
     time.setPosition( 375 * scale, 825 * scale );
     time.setCharacterSize(36 * scale);
 
+    //Прогресс
+    sf::Text progress;
+    progress.setFont(font);
+    progress.setPosition( 50 * scale, 830 * scale);
+    progress.setCharacterSize(30 * scale);
+
     bool isClicked = false; // Перемнная, которая хранит состояние мышки. Если false - то это "первый" клик.
                             // Если true - то это "второй" клик, а значит нужно передвинуть фигуру выбранную на первом клике
                             // в(???) координаты второго клика
 
+    bool isWhiteQueue = true;
     while (window.isOpen())
     {
-        sf::Time elapsed = clock.getElapsedTime();
+        sf::Time elapsed = clock.getElapsedTime(); //Получаем время со старта 
     
-        int sec = int(elapsed.asSeconds() );
+        int sec = int(elapsed.asSeconds() ); //переводим в секунды
         int min = int ( sec / 60 );
         sec -= min * 60;
 
-        std::cout << "min: " << min;
-        std::cout << " sec: " << sec << std::endl;
-
-        time.setString( std::to_string(min) + ":" + std::to_string(sec) );
+        time.setString( std::to_string(min) + ":" + std::to_string(sec) ); //Составляем строку
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -256,13 +263,20 @@ int main()
                                         p_figures[figure_to_move_index].position = pos;
                                         inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
 
-                                    } else if(field_index != figure_to_move_index)//Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру
+                                    } else if(field_index != figure_to_move_index) //Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру
                                         std::cout << "This position is taken by an allied figure." << std::endl;
+                     
+                                }                     
 
-                                    
-                                }
                             }
-                        
+
+                            // isWhiteQueue != isWhiteQueue - почему-то не работает, приходится через костыли
+                            if (isWhiteQueue)   //Чет плюсы меня огорчают
+                            {
+                                isWhiteQueue = false;
+                            } else {
+                                isWhiteQueue = true;
+                            }
                             isClicked = false;
                         }
                     }
@@ -273,17 +287,26 @@ int main()
             }
         }
 
+        if (isWhiteQueue)
+        {
+            progress.setString("Now white to move!");
+        } else {
+            progress.setString("Now black to move!");
+        }
+
+
         window.clear();
         window.draw(chessdesk);
-        window.draw(backBar); //TODO Объеденить эти два спрайта?
+        window.draw(backBar);
         drawField(p_figures, &window);
         if (isClicked) {
             window.draw(selected);
         }
         window.draw(time);
+        window.draw(progress);
         window.display();
     }
-    for (int i = 0;i<32;i++){
+    for (int i = 0; i < 32; i++){
         filesave << "figure_type[" << i << "] = "<< p_figures[i].position.x<<"\t"<<p_figures[i].position.y<<"\tIs live - "<<p_figures[i].isAlive<<"\n";
 
     }
