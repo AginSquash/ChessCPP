@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "DataLoading.h"
 #include "configWorker.h"
+#include <fstream>
 
 #define WINDOWS  //TODO Откоментируй при комплияции под винду
 #define DEBUG
@@ -28,6 +29,8 @@
 
 
 float scale = 0.5f;
+ofstream ChessMoves("resources/Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
+
 
 //      Небольшой экскурс:
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
@@ -44,27 +47,21 @@ std::string GetCurrentWorkingDir( void ) {  //Получение текущей 
 }
 
 
-struct chess_move{  //Структура для возможных ходов
-    sf::Vector2f move;
+
+
+//int desk[8][8]; остатки какой то более развитой цивилизации.
+
+
+
+
+
+void inputInSave(int IndexFigure,sf::Vector2f pos, int FieldIndex){
+    ChessMoves <<"Figure " << IndexFigure << "\t"<< "x ="<<pos.x<<"\t"<<"y="<<pos.y<<"\n";
+    if (FieldIndex!=0)
+        ChessMoves <<"Figure "<<FieldIndex<<" is die \n";
+
+
 };
-int desk[8][8];
-
-
-
-void possiblemove(short i , sf::Vector2f coor){ //Массив для нахождения возможных ходов
-                                    //i - номер объекта с фигурой
-                                    // coor - вектор с координатами
-  /*  switch(i){
-        case(2):
-            window.draw(coor.x + 100; coor.y + 300 );
-            window.draw(coor.x - 300; coor.y + 100 );
-            window.draw(coor.x + 300; coor.y + 100 );
-            window.draw(selected);
-            break;
-
-    }*/
-
-}
 
 
 void drawField(chess_figure* p_figures,sf::RenderWindow *window)
@@ -212,7 +209,8 @@ int main()
                                 if ( field_index == -1 )                                // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
                                                                                         //      пустую клетку
                                 {
-                                p_figures[figure_to_move_index].position = pos; 
+                                p_figures[figure_to_move_index].position = pos;
+                                    inputInSave(figure_to_move_index,pos,0);
 
                                 } else {     
 
@@ -221,12 +219,14 @@ int main()
                                         p_figures[field_index].isAlive = false;                // ставим figure_to_move_index
                                         p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale); // Переносим за карту
                                         p_figures[figure_to_move_index].position = pos;
+                                        inputInSave(figure_to_move_index,pos,field_index);
 
                                     } else if ( (field_index >= 16) && (figure_to_move_index < 16) )// Та же функция что и выше, но при условии
                                     {                                                            // что field_index черная, а figure_to_move_index - белая
                                         p_figures[field_index].isAlive = false;  
                                         p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale);          
                                         p_figures[figure_to_move_index].position = pos;
+                                        inputInSave(figure_to_move_index,pos,field_index);
 
                                     } else if(field_index != figure_to_move_index)//Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру
                                         std::cout << "This position is taken by an allied figure." << std::endl;
