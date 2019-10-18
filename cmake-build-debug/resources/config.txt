@@ -1,2 +1,2 @@
 scale=0.5
-texture_pack=wikipedia
+texture_pack=alpha
