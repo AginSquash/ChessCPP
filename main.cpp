@@ -154,7 +154,7 @@ int main()
     
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
 
-    window.setFramerateLimit(10);
+    window.setFramerateLimit(5);
 
     //Функция из "configWorker.cpp". Читает конфиг и возвращает нужную папку с теустурами шахмат
     // (т.е. chess24, wikipedia и т.д.)
@@ -179,6 +179,15 @@ int main()
     chess_figure *p_figures = new chess_figure[32];
     LoadFigures(p_figures, textures_path, scale);
 
+    sf::Clock clock; //Запускаем часы
+    clock.restart();
+
+    sf::Font font;
+    font.loadFromFile(resource_path + "sansation.ttf");
+    sf::Text time;
+    time.setFont(font);
+    time.setPosition( 375 * scale, 825 * scale );
+    time.setCharacterSize(36 * scale);
 
     bool isClicked = false; // Перемнная, которая хранит состояние мышки. Если false - то это "первый" клик.
                             // Если true - то это "второй" клик, а значит нужно передвинуть фигуру выбранную на первом клике
@@ -186,6 +195,17 @@ int main()
 
     while (window.isOpen())
     {
+        sf::Time elapsed = clock.getElapsedTime();
+    
+        int sec = int(elapsed.asSeconds() );
+        int min = int ( sec / 60 );
+        sec -= min * 60;
+
+        std::cout << "min: " << min;
+        std::cout << " sec: " << sec << std::endl;
+
+        time.setString( std::to_string(min) + ":" + std::to_string(sec) );
+
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -255,11 +275,12 @@ int main()
 
         window.clear();
         window.draw(chessdesk);
-        window.draw(backBar);
+        window.draw(backBar); //TODO Объеденить эти два спрайта?
         drawField(p_figures, &window);
         if (isClicked) {
             window.draw(selected);
         }
+        window.draw(time);
         window.display();
     }
 
