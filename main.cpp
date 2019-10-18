@@ -154,7 +154,8 @@ int main()
         }
     }
     
-    sf::RenderWindow window ( sf::VideoMode(800 * scale, 800 * scale), "ChessCPP" );
+    sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
+
     window.setFramerateLimit(10);
 
     //Функция из "configWorker.cpp". Читает конфиг и возвращает нужную папку с теустурами шахмат
@@ -166,9 +167,15 @@ int main()
 
     sf::Sprite chessdesk = drawChessDesk( resource_path ); //Думаю так это будет лучше выглядеть
 
-    sf::Texture texture;
-    texture.loadFromFile( resource_path + "selected.png");
-    sf::Sprite selected(texture);
+    sf::Texture backBar_texture;
+    backBar_texture.loadFromFile(resource_path + "backbar.png");
+    sf::Sprite backBar(backBar_texture);
+    backBar.setScale(scale, scale);
+    backBar.setPosition(0.0f, 800.0f * scale);
+
+    sf::Texture selected_texture;
+    selected_texture.loadFromFile( resource_path + "selected.png");
+    sf::Sprite selected(selected_texture);
     selected.setScale(scale, scale);
 
     chess_figure *p_figures = new chess_figure[32];
@@ -247,6 +254,7 @@ int main()
 
         window.clear();
         window.draw(chessdesk);
+        window.draw(backBar);
         drawField(p_figures, &window);
         if (isClicked) {
             window.draw(selected);
