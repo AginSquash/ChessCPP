@@ -228,9 +228,9 @@ int main()
                                         p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale);          
                                         p_figures[figure_to_move_index].position = pos;
 
-                                    } else {
-                                        std::cout << "Это фигуры одного цвета!" << std::endl;
-                                    }
+                                    } else if(field_index != figure_to_move_index)//Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру
+                                        std::cout << "This position is taken by an allied figure." << std::endl;
+
                                     
                                 }
                             }
