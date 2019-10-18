@@ -4,8 +4,8 @@
 #include "configWorker.h"
 #include <fstream>
 
-//#define WINDOWS  //TODO Откоментируй при комплияции под винду
-//#define DEBUG
+#define WINDOWS  //TODO Откоментируй при комплияции под винду
+#define DEBUG
 
 
 #ifdef WINDOWS
@@ -22,17 +22,13 @@
     #define PATH std::string("/.ChessCPP/")
 #endif
 
-//std::string textures_path = "";
-
-// Создание окна
-// 800*800 => 100*100 для каждой фигуры
-
 
 float scale = 0.5f;
 //      Небольшой экскурс:
 //      предлагаю хранить в массиве не имена файлов/фигур, а соотв. им занчение ИЛИ значение типа figure_type.
 //      Например вместо "bB" испольщовать 0 (ИЛИ b_Bishop), "bK" -> 1 и т.д.
 
+const float kegle2pixels = 0.431; // Для соот. шрифта и пикселей
 
 int figure_to_move_index = -1; // Индекс фигуры которую мы перетаскиваем
 
@@ -53,10 +49,12 @@ std::string GetCurrentWorkingDir( void ) {  //Получение текущей 
 
 
 void inputInSave(int IndexFigure,sf::Vector2f pos, int FieldIndex, ofstream *ChessMoves){
+
+#ifdef WINDOWS
     *ChessMoves <<"Figure " << IndexFigure << "\t"<< "x ="<<pos.x<<"\t"<<"y="<<pos.y<<"\n";
     if (FieldIndex!=0)
         *ChessMoves <<"Figure "<<FieldIndex<<" is die \n";
-
+#endif
 
 };
 
@@ -119,6 +117,13 @@ int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функц�
     
 }
 
+float getShift(std::string text)
+{
+    int len = text.length();
+    float shift = (len * kegle2pixels * 30) / 2;
+    return shift;
+}
+
 int main() 
 {
     //Получаем рабочую директорию (windows/Unix-like)
@@ -127,8 +132,8 @@ int main()
     //Создаем ОС-зависимую переменные (пути к ресурсам)
     std::string resource_path = path_to_workdir + PATH + "resources/";
 
-    ofstream ChessMoves( resource_path + "/Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
-    ofstream filesave ( resource_path +"fuck_file.txt",ios_base::trunc ) ; //Описание fuck_file есть в документации
+    ofstream ChessMoves( resource_path + "Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
+    ofstream filesave ( resource_path + "fuck_file.txt",ios_base::trunc ) ; //Описание fuck_file есть в документации
 
 
     map<string, string> config = loadConfig( resource_path );   // Подгружаем конфиг
@@ -198,11 +203,27 @@ int main()
     progress.setPosition( 50 * scale, 830 * scale);
     progress.setCharacterSize(30 * scale);
 
+    //Popup
+    sf::Texture texture;
+    texture.loadFromFile(resource_path + "/popup.png");
+    sf::Sprite popup(texture);
+    popup.setScale(scale, scale);
+    popup.setPosition(0.0f, 800.0f * scale);
+
+    sf::Text popup_text;
+    popup_text.setFont(font);
+    popup_text.setCharacterSize(30 * scale);
+    popup_text.setFillColor(sf::Color::Black);
+    bool isPopupShow = false;
+    int popup_time = -1;
+
+
     bool isClicked = false; // Перемнная, которая хранит состояние мышки. Если false - то это "первый" клик.
                             // Если true - то это "второй" клик, а значит нужно передвинуть фигуру выбранную на первом клике
                             // в(???) координаты второго клика
 
     bool isWhiteQueue = true;
+
     while (window.isOpen())
     {
         sf::Time elapsed = clock.getElapsedTime(); //Получаем время со старта 
@@ -212,7 +233,6 @@ int main()
         sec -= min * 60;
 
         time.setString( std::to_string(min) + ":" + std::to_string(sec) ); //Составляем строку
-
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -264,7 +284,13 @@ int main()
                                         inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
 
                                     } else if(field_index != figure_to_move_index) //Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру
-                                        std::cout << "This position is taken by an allied figure." << std::endl;
+                                    {
+                                        popup_text.setString("This position is taken by an allied figure.");
+                                        float shift = getShift("This position is taken by an allied figure.");
+                                        popup_text.setPosition( (400 - shift) * scale, 825 * scale);
+                                        isPopupShow = true;
+                                        popup_time = int( elapsed.asSeconds() ) + 5;
+                                    }
                      
                                 }                     
 
@@ -299,17 +325,33 @@ int main()
         window.draw(chessdesk);
         window.draw(backBar);
         drawField(p_figures, &window);
+        
+
+
         if (isClicked) {
             window.draw(selected);
         }
         window.draw(time);
         window.draw(progress);
+
+        if (isPopupShow)
+        {
+            if ( int( elapsed.asSeconds() )  >=  popup_time )
+            {
+                isPopupShow = false;
+            }
+            window.draw(popup);
+            window.draw(popup_text);
+        }
         window.display();
     }
+
+#ifdef WINDOWS
     for (int i = 0; i < 32; i++){
         filesave << "figure_type[" << i << "] = "<< p_figures[i].position.x<<"\t"<<p_figures[i].position.y<<"\tIs live - "<<p_figures[i].isAlive<<"\n";
 
     }
+#endif
 
     delete[] p_figures;
     return EXIT_SUCCESS;
