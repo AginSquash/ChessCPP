@@ -4,7 +4,7 @@
 #include "configWorker.h"
 
 #define WINDOWS  //TODO Откоментируй при комплияции под винду
-//#define DEBUG
+#define DEBUG
 
 
 #ifdef WINDOWS
