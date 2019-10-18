@@ -1,4 +1,1 @@
-Figure 30	x =250	y=50
-Figure 13 is die 
-Figure 29	x =200	y=50
-Figure 12 is die 
+Figure 28	x =150	y=200

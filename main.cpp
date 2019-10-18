@@ -128,7 +128,7 @@ int main()
     std::string resource_path = path_to_workdir + PATH + "resources/";
 
     ofstream ChessMoves( resource_path + "/Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
-
+    ofstream filesave ( resource_path +"fuck_file.txt",ios_base::trunc ) ; //Описание fuck_file есть в документации
 
 
     map<string, string> config = loadConfig( resource_path );   // Подгружаем конфиг
@@ -282,6 +282,10 @@ int main()
         }
         window.draw(time);
         window.display();
+    }
+    for (int i = 0;i<32;i++){
+        filesave << "figure_type[" << i << "] = "<< p_figures[i].position.x<<"\t"<<p_figures[i].position.y<<"\tIs live - "<<p_figures[i].isAlive<<"\n";
+
     }
 
     delete[] p_figures;
