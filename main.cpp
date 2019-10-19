@@ -105,7 +105,7 @@ int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функц�
     pos.x = int( (pos.x/scale) / 100) * 100 * scale;
     pos.y = int( (pos.y/scale) / 100) * 100 * scale;
 
-    int index;
+    //int index;
     for (int i = 0; i < 32; i++)
     {
         if (p_figures[i].position == pos )
@@ -205,7 +205,7 @@ int main()
 
     //Popup
     sf::Texture texture;
-    texture.loadFromFile(resource_path + "/popup.png");
+    texture.loadFromFile(resource_path + "popup.png");
     sf::Sprite popup(texture);
     popup.setScale(scale, scale);
     popup.setPosition(0.0f, 800.0f * scale);
@@ -260,7 +260,7 @@ int main()
                                 pos.x = int( (pos.x/scale) / 100) * 100 * scale;
                                 pos.y = int( (pos.y/scale) / 100) * 100 * scale;
 
-                                int field_index = GetFigureByPosition( p_figures= p_figures, pos= pos);     // Получаем фигуру по координатам нажатия
+                                int field_index = GetFigureByPosition(p_figures, pos);     // Получаем фигуру по координатам нажатия
                                 if ( field_index == -1 )                                // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
                                                                                         //      пустую клетку
                                 {

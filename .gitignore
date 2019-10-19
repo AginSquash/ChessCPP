@@ -1,10 +1,11 @@
 # File-based project format
 *.iws
 
-# IntelliJ
+# IDE
 out/
 .idea/*
 .vscode
+xcode/*
 
 # Debug files
 cmake-build-debug/CMakeFiles
