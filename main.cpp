@@ -1,11 +1,13 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "DataLoading.h"
-#include "configWorker.h"
 #include <fstream>
 
-#define WINDOWS  //TODO Откоментируй при комплияции под винду
-#define DEBUG
+#include "DataLoading.h"
+#include "configWorker.h"
+#include "settings.hpp"
+
+//#define WINDOWS  //TODO Откоментируй при комплияции под винду
+//#define DEBUG
 
 
 #ifdef WINDOWS
@@ -100,12 +102,16 @@ sf::Sprite& drawChessDesk(std::string resource_path)
     return sprite;
 }
 
-int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
+sf::Vector2f getAbsoluteCoordinate(sf::Vector2f pos)
 {
     pos.x = int( (pos.x/scale) / 100) * 100 * scale;
     pos.y = int( (pos.y/scale) / 100) * 100 * scale;
+    return pos;
+}
 
-    //int index;
+int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
+{
+    pos = getAbsoluteCoordinate(pos);
     for (int i = 0; i < 32; i++)
     {
         if (p_figures[i].position == pos )
@@ -158,9 +164,14 @@ int main()
     }
     
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
+    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Setiings" );
 
+    
     window.setFramerateLimit(5);
-
+    settings.setFramerateLimit(30);
+    
+    main_settings( &settings );
+    
     //Функция из "configWorker.cpp". Читает конфиг и возвращает нужную папку с теустурами шахмат
     // (т.е. chess24, wikipedia и т.д.)
     //std::string chess_type = getChessType( resource_path );
@@ -217,7 +228,9 @@ int main()
     bool isPopupShow = false;
     int popup_time = -1;
 
-
+    //sf::Vector2f settings_coordinate = sf::Vector2f(700 * scale, 800 * scale );
+    
+    
     bool isClicked = false; // Перемнная, которая хранит состояние мышки. Если false - то это "первый" клик.
                             // Если true - то это "второй" клик, а значит нужно передвинуть фигуру выбранную на первом клике
                             // в(???) координаты второго клика
@@ -247,6 +260,10 @@ int main()
                     {
                         sf::Vector2i mouse_world = sf::Mouse::getPosition(window); //Получаем координаты мышки на экране
                         sf::Vector2f pos = window.mapPixelToCoords(mouse_world);   //Переводим в пиксели
+                        
+                        pos = getAbsoluteCoordinate(pos);
+                        
+                        
                         if (!isClicked) {       //Если это "первый" клик
                             figure_to_move_index = GetFigureByPosition(p_figures, pos);
                             selected.setPosition( p_figures[figure_to_move_index].position ); // Подсвечимваем выбранную область
@@ -257,12 +274,9 @@ int main()
 
                             if (figure_to_move_index != -1) {     // Если мы до этого выбрали пустую область - не стоит что-либо делать
 
-                                pos.x = int( (pos.x/scale) / 100) * 100 * scale;
-                                pos.y = int( (pos.y/scale) / 100) * 100 * scale;
-
                                 int field_index = GetFigureByPosition(p_figures, pos);     // Получаем фигуру по координатам нажатия
-                                if ( field_index == -1 )                                // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
-                                                                                        //      пустую клетку
+                                if ( field_index == -1 )                                   // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
+                                                                                           //      пустую клетку
                                 {
                                 p_figures[figure_to_move_index].position = pos;
                                     inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
