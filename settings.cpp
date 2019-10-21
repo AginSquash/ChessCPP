@@ -34,6 +34,13 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
     scale_text.setPosition(10.0f, 75.0f);
     scale_text.setString("Scale:");
     
+    sf::Text scale_end;
+    scale_end.setFont(*font);
+    scale_end.setFillColor(sf::Color::Cyan);
+    scale_end.setPosition(220.0f, 75.0f);
+    
+    
+    
     std::string scale_string = "";
     sf::Text scale_entered;
     scale_entered.setFont(*font);
@@ -99,6 +106,8 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
                                             scale_string += static_cast<char>(event.text.unicode);
                                         }
                                         scale_entered.setString(scale_string);
+                                        float scale = atof(scale_string.c_str());
+                                        scale_end.setString( std::to_string( int(800 * scale) ) + ":" + std::to_string( int(900 * scale) ) );
                                         _print("scale_string", scale_string);
                                         _print("event.text.unicode",  event.text.unicode);
                                     }
@@ -138,6 +147,7 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
 
            settings->draw(scale_text);
            settings->draw(scale_entered);
+           settings->draw(scale_end);
            
            settings->draw(texture_text);
            settings->draw(texture_entered);
