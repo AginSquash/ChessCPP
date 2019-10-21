@@ -40,6 +40,19 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
     scale_entered.setFillColor(sf::Color::Black);
     scale_entered.setPosition(95.0f, 75.0f);
     
+    
+    sf::Text texture_text;
+    texture_text.setFont(*font);
+    texture_text.setFillColor(sf::Color::Black);
+    texture_text.setPosition(10.0f, 150.0f);
+    texture_text.setString("Texture:");
+    
+    std::string texture_string = "";
+    sf::Text texture_entered;
+    texture_entered.setFont(*font);
+    texture_entered.setFillColor(sf::Color::Black);
+    texture_entered.setPosition(120.0f, 150.0f);
+    
     selected_text s_type = NONE;
     
        while (settings->isOpen())
@@ -64,6 +77,12 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
                            selected.setPosition(0, 70.0f);
                            s_type = SCALE;
                        }
+                       
+                       if ((pos.y == 100)||(pos.y == 150))
+                       {
+                           selected.setPosition(0, 145.0f);
+                           s_type = TEXTURE_TYPE;
+                       }
                    }
                
                if (event.type == sf::Event::TextEntered)
@@ -80,7 +99,23 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
                                             scale_string += static_cast<char>(event.text.unicode);
                                         }
                                         scale_entered.setString(scale_string);
-                                        _print("scale string", scale_string);
+                                        _print("scale_string", scale_string);
+                                        _print("event.text.unicode",  event.text.unicode);
+                                    }
+                           break;
+                           
+                           case TEXTURE_TYPE:
+                           if ( event.text.unicode < 128 )
+                                    {
+                                        if ( event.text.unicode == 8)
+                                        {
+                                            texture_string = texture_string.substr(0, texture_string.length() - 1 );
+                                        } else
+                                        {
+                                            texture_string += static_cast<char>(event.text.unicode);
+                                        }
+                                        texture_entered.setString(texture_string);
+                                        _print("texture_string", texture_string);
                                         _print("event.text.unicode",  event.text.unicode);
                                     }
                            break;
@@ -104,6 +139,8 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
            settings->draw(scale_text);
            settings->draw(scale_entered);
            
+           settings->draw(texture_text);
+           settings->draw(texture_entered);
            
            // Update the window
            settings->display();
