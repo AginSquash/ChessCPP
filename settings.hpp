@@ -13,4 +13,4 @@
 
 #endif /* settings_hpp */
 
-int main_settings(sf::RenderWindow *settings);
+int main_settings(sf::RenderWindow *settings, std::string path);

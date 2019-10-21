@@ -10,7 +10,7 @@
 
 //sf::RenderWindow settings (sf::VideoMode(400.0f, 400.0f), "settings" );
 
-int main_settings(sf::RenderWindow *settings)
+int main_settings(sf::RenderWindow *settings, std::string path)
 {
 
     std::cout << "Open settings" << std::endl;

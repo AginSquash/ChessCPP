@@ -32,7 +32,7 @@ float scale = 0.5f;
 
 const float kegle2pixels = 0.431; // Для соот. шрифта и пикселей
 
-int figure_to_move_index = -1; // Индекс фигуры которую мы перетаскиваем
+short figure_to_move_index = -1; // Индекс фигуры которую мы перетаскиваем
 
 std::string GetCurrentWorkingDir( void ) {  //Получение текущей директории
     char buff[FILENAME_MAX];
@@ -130,6 +130,13 @@ float getShift(std::string text)
     return shift;
 }
 
+void figureKill(chess_figure *p_figures, short field_index, short figure_to_move_index, sf::Vector2f pos)
+{
+    p_figures[field_index].isAlive = false;                // ставим figure_to_move_index
+    p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale); // Переносим за карту
+    p_figures[figure_to_move_index].position = pos;
+}
+
 int main() 
 {
     //Получаем рабочую директорию (windows/Unix-like)
@@ -137,7 +144,14 @@ int main()
 
     //Создаем ОС-зависимую переменные (пути к ресурсам)
     std::string resource_path = path_to_workdir + PATH + "resources/";
-
+    
+    //Создание окна лаунчера
+    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Setiings" );
+    settings.setFramerateLimit(30);
+    
+    main_settings( &settings, resource_path );
+    
+    
     ofstream ChessMoves( resource_path + "Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
     ofstream filesave ( resource_path + "fuck_file.txt",ios_base::trunc ) ; //Описание fuck_file есть в документации
 
@@ -164,13 +178,9 @@ int main()
     }
     
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
-    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Setiings" );
 
     
     window.setFramerateLimit(5);
-    settings.setFramerateLimit(30);
-    
-    main_settings( &settings );
     
     //Функция из "configWorker.cpp". Читает конфиг и возвращает нужную папку с теустурами шахмат
     // (т.е. chess24, wikipedia и т.д.)
@@ -274,30 +284,36 @@ int main()
 
                             if (figure_to_move_index != -1) {     // Если мы до этого выбрали пустую область - не стоит что-либо делать
 
-                                int field_index = GetFigureByPosition(p_figures, pos);     // Получаем фигуру по координатам нажатия
+                                short field_index = GetFigureByPosition(p_figures, pos);     // Получаем фигуру по координатам нажатия
                                 if ( field_index == -1 )                                   // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
                                                                                            //      пустую клетку
                                 {
                                 p_figures[figure_to_move_index].position = pos;
-                                    inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
+                                inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
 
                                 } else {     
 
-                                    if ( (field_index < 16 ) && (figure_to_move_index >= 16) ) // Значит field_index белая, а figure_to_move_index - черная
-                                    {                                                          // поэтому мы убираем field_index, а на ее место 
-                                        p_figures[field_index].isAlive = false;                // ставим figure_to_move_index
-                                        p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale); // Переносим за карту
-                                        p_figures[figure_to_move_index].position = pos;
+                                    if ( (field_index < 16 ) && (figure_to_move_index >= 16) )
+                                        /* Значит field_index белая, а figure_to_move_index - черная поэтому мы убираем
+                                        field_index, а на ее место */
+                                                                                              
+                                    {
+                                                                                              
+                                        figureKill(p_figures, field_index, figure_to_move_index, pos);
                                         inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
 
-                                    } else if ( (field_index >= 16) && (figure_to_move_index < 16) )// Та же функция что и выше, но при условии
-                                    {                                                            // что field_index черная, а figure_to_move_index - белая
-                                        p_figures[field_index].isAlive = false;  
-                                        p_figures[field_index].position = sf::Vector2f( 1100.0f * scale, 1100.0f * scale);          
-                                        p_figures[figure_to_move_index].position = pos;
+                                    } else if ( (field_index >= 16) && (figure_to_move_index < 16) )
+                                        /* Та же функция что и выше, но при условии что field_index черная, а
+                                        figure_to_move_index - белая */
+                                    {
+                                        
+                                        
+                                        figureKill(p_figures, field_index, figure_to_move_index, pos);
                                         inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
-
-                                    } else if(field_index != figure_to_move_index) //Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру
+                                         
+                                        
+                                    } else if(field_index != figure_to_move_index)
+                                    /* Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру */
                                     {
                                         popup_text.setString("This position is taken by an allied figure.");
                                         float shift = getShift("This position is taken by an allied figure.");
