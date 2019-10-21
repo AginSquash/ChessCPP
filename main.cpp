@@ -149,7 +149,12 @@ int main()
     sf::RenderWindow settings ( sf::VideoMode(400, 400), "Setiings" );
     settings.setFramerateLimit(30);
     
-    main_settings( &settings, resource_path );
+    //Загрузка шрифта
+    sf::Font font;
+    font.loadFromFile(resource_path + "sansation.ttf");
+    
+    //Запуск лаунчера
+    main_settings( &settings, resource_path, &font);
     
     
     ofstream ChessMoves( resource_path + "Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
@@ -207,10 +212,6 @@ int main()
 
     sf::Clock clock; //Запускаем часы
     clock.restart();
-
-    //Загрузка шрифта
-    sf::Font font;
-    font.loadFromFile(resource_path + "sansation.ttf");
 
     //Таймер
     sf::Text time;
@@ -382,7 +383,10 @@ int main()
 
     }
 #endif
-
+    
+    filesave.close();
+    ChessMoves.close();
+    
     delete[] p_figures;
     return EXIT_SUCCESS;
 }

@@ -29,3 +29,14 @@ map<string, string> loadConfig(string PATH) {
 
     return config;
 }
+
+bool saveConfig(string PATH, map<string, string> config)
+{
+    ofstream config_file ( PATH + "config.txt", ios_base::trunc);
+    for ( map<string, string> :: iterator it = config.begin(); it != config.end(); it++)
+    {
+        config_file << it->first << "=" << it->second << endl;
+    }
+    config_file.close();
+    return true;
+}

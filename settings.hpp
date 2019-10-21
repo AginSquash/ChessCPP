@@ -11,6 +11,13 @@
 #include <stdio.h>
 #include <SFML/Graphics.hpp>
 
-#endif /* settings_hpp */
+enum selected_text
+{
+    NONE = 0,
+    SCALE = 1,
+    TEXTURE_TYPE = 2
+};
 
-int main_settings(sf::RenderWindow *settings, std::string path);
+int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font);
+
+#endif /* settings_hpp */
