@@ -8,15 +8,49 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+#include "configWorker.h"
 #include "debug_func.hpp"
 
-//sf::RenderWindow settings (sf::VideoMode(400.0f, 400.0f), "settings" );
+void isConfigChange( std::string path, std::map<std::string, std::string> config, std::string scale, std::string texture_pack )
+{
+    if ( (config["scale"] != scale) || (config["texture_pack"] != texture_pack) )
+    {
+        config["scale"] = scale;
+        config["texture_pack"] = texture_pack;
+        _print("Saving...", 0);
+        saveConfig(path, config);
+    }
+}
+
 
 int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
 {
 
-    std::cout << "Open settings" << std::endl;
+    std::map<std::string, std::string> config = loadConfig(path);
+    
+    std::string chess_type;
+    std::string scale_config;
+    for ( map<string, string> :: iterator it = config.begin(); it != config.end(); it++ )   //Обработка конфига
+    {
+        cout << "Key: " << it->first << endl;
+        cout << "Value: " << it->second << endl;
+
+        string key = it->first;
+        string value = it->second;
+
+        if (key == "scale")
+        {
+            scale_config = value;    // без перевода
+        }
+        if (key == "texture_pack")
+        {
+            chess_type = value;
+        }
+    }
+    
+    _print("Open settings", "");
     // Start the game loop
+ 
     
     sf::Texture background_texture;
     background_texture.loadFromFile(path + "launcher_background.png");
@@ -40,8 +74,7 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
     scale_end.setPosition(220.0f, 75.0f);
     
     
-    
-    std::string scale_string = "";
+    std::string scale_string = scale_config;
     sf::Text scale_entered;
     scale_entered.setFont(*font);
     scale_entered.setFillColor(sf::Color::Black);
@@ -54,11 +87,29 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
     texture_text.setPosition(10.0f, 150.0f);
     texture_text.setString("Texture:");
     
-    std::string texture_string = "";
+    std::string texture_string = chess_type;
     sf::Text texture_entered;
     texture_entered.setFont(*font);
     texture_entered.setFillColor(sf::Color::Black);
     texture_entered.setPosition(120.0f, 150.0f);
+    
+    
+    sf::Text go;
+    go.setFont(*font);
+    go.setFillColor(sf::Color::Black);
+    go.setCharacterSize(40);
+    go.setString("GO!");
+    go.setPosition(165, 300);
+    sf::Vector2f button = sf::Vector2f(150, 275);
+    
+    
+    
+    scale_entered.setString(scale_string);
+    float scale = atof(scale_string.c_str());
+    scale_end.setString( std::to_string( int(800 * scale) ) + ":" + std::to_string( int(900 * scale) ) );
+    
+    texture_entered.setString(texture_string);
+    
     
     selected_text s_type = NONE;
     
@@ -70,7 +121,11 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
            {
                // Close window: exit
                if (event.type == sf::Event::Closed)
+               {
+                   isConfigChange(path, config, scale_string, texture_string);
                    settings->close();
+                   exit(0);
+               }
                
                if (event.type == sf::Event::MouseButtonReleased)
                    if (event.mouseButton.button == sf::Mouse::Left)
@@ -89,6 +144,16 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
                        {
                            selected.setPosition(0, 145.0f);
                            s_type = TEXTURE_TYPE;
+                       }
+                       
+                       if ((pos.y >= button.y)&&(pos.y <= button.y + 50))
+                       {
+                           if ( (pos.x >= button.x)&&(pos.x <= button.x + 100) )
+                           {
+                               isConfigChange(path, config, scale_string, texture_string);
+                               _print("button pressed", 0);
+                               settings->close();
+                           }
                        }
                    }
                
@@ -109,7 +174,7 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
                                         float scale = atof(scale_string.c_str());
                                         scale_end.setString( std::to_string( int(800 * scale) ) + ":" + std::to_string( int(900 * scale) ) );
                                         _print("scale_string", scale_string);
-                                        _print("event.text.unicode",  event.text.unicode);
+                                        _print("event.text.unicode",  int(event.text.unicode) );
                                     }
                            break;
                            
@@ -125,7 +190,7 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
                                         }
                                         texture_entered.setString(texture_string);
                                         _print("texture_string", texture_string);
-                                        _print("event.text.unicode",  event.text.unicode);
+                                        _print("event.text.unicode",  int(event.text.unicode) );
                                     }
                            break;
                            
@@ -152,6 +217,8 @@ int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font)
            settings->draw(texture_text);
            settings->draw(texture_entered);
            
+           
+           settings->draw(go);
            // Update the window
            settings->display();
        }

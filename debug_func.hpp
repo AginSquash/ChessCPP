@@ -15,3 +15,4 @@
 
 void _print(std::string var_name, int var);
 void _print(std::string var_name, std::string var);
+void _print(std::string var_name, float var);

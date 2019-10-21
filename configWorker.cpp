@@ -7,6 +7,7 @@
 #include <map>
 #include <string>
 
+#include "debug_func.hpp"
 map<string, string> loadConfig(string PATH) {
 
     map<string, string> config;
@@ -36,6 +37,8 @@ bool saveConfig(string PATH, map<string, string> config)
     for ( map<string, string> :: iterator it = config.begin(); it != config.end(); it++)
     {
         config_file << it->first << "=" << it->second << endl;
+        _print("it->first", it->first);
+        _print("it->second", it->second);
     }
     config_file.close();
     return true;
