@@ -12,6 +12,7 @@
 bool Qween_movement()
 {
     
+    
 }
 
 sf::Vector2f* orignalDesk(chess_figure* p_desk, sf::Vector2f NEW_desk[32], float scale)
