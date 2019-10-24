@@ -35,6 +35,7 @@ struct chess_figure //Структура (надеюсь) будет испол�
     bool isAlive = true;
 };
 
+
 sf::Texture LoadFigureTexture(figure_type type, std::string PATH);
 
 chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale);
