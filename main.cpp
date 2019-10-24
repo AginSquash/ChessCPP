@@ -286,7 +286,7 @@ int main()
                             // (дебаг или оставить?)
                             isClicked = true;
                             
-                            //isPosibleMoves(p_figures[figure_to_move_index].type, pos, p_figures, scale);
+                            isPosibleMoves(p_figures[figure_to_move_index].type, pos, p_figures, scale);
                             
                         } else {
 

@@ -16,82 +16,76 @@ bool Qween_movement()
 }
 
 
-bool orignalDeskBOOL(chess_figure* p_desk, float scale, bool** &table )
+bool getFreePosition(const chess_figure desk[32], float scale, bool bool_desk[8][8])
 {
-    scale *= 100;
-    
-    //bool table[8][8]; // = new bool[8][8];
-    
-    for (short i = 0; i < 32; i++)
-    {
-        short x = p_desk[i].position.x / scale;
-        short y = p_desk[i].position.y / scale;
+    for (int i = 0; i < 32; i++) {
         
-        if (p_desk[i].isAlive)
+        short x = (desk[i].position.x / scale) / 100;
+        short y = (desk[i].position.y / scale) / 100;
+        
+        //_print("desk[i].isAlive", desk[i].isAlive);
+        //_print("desk[i].x", x);
+        //_print("desk[i].y", y);
+        
+        if (desk[i].isAlive)
         {
             
-            table[x][y] = true;
-            
+            bool_desk[x][y] = true;
         } else {
-            
-            table[x][y] = false;
+            bool_desk[x][y] = false;
         }
     }
-    return table;
+    return bool_desk;
 }
 
-
-sf::Vector2f* orignalDesk(chess_figure* p_desk, sf::Vector2f NEW_desk[32], float scale)
+void getNulledMassive(bool bool_desk[8][8])
 {
-    scale *= 100;
-    
-    
-    
-    for (short i = 0; i < 32; i++)
-    {
-        if (p_desk[i].isAlive)
-        {
-            NEW_desk[i].x = p_desk[i].position.x / scale;
-            NEW_desk[i].y = p_desk[i].position.y / scale;
-        } else {
-            NEW_desk[i].x = -1;
-            NEW_desk[i].y = -1;
+    for (short y = 0; y < 8; y ++) {
+        for (short x = 0; x < 8; x++) {
+            bool_desk[x][y] = false;
         }
     }
-    return NEW_desk;
 }
 
-bool isPosibleMoves(figure_type figure, sf::Vector2f pos, chess_figure desk[32], float scale )
+bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figure desk[32], float scale )
 {
-    sf::Vector2f *NEW_desk =  new sf::Vector2f[32];
-    orignalDesk( desk, NEW_desk, scale);
+    _print("PossibleMove loaded", 1);
     
     pos.x = (pos.x/scale) / 100;
     pos.y = (pos.y/scale) / 100;
     
-   /* for (short i = 0; i < 32; i++)
-    {
-        _print("desk[x]", NEW_desk[i].x);
-        _print("desk[y]", NEW_desk[i].y);
-    }
+    _print("POS X/Y", 1);
+
     
-    _print("pos[x]", pos.x);
-    _print("pos[y]", pos.y);
-    */
+    bool bool_desk[8][8];
+    getNulledMassive(bool_desk);
     
-    bool **table = new bool *[8];
+    _print("Without function", bool_desk[0][0]);
+      
+    //getFreePosition(desk, scale, bool_desk);
     
-    orignalDeskBOOL(desk, scale, table);
+
+    std::cout << "~~~~~~~~~~~~~~~~" << std::endl;
+      for (short y = 0; y < 8; y ++) {
+          for (short x = 0; x < 8; x++) {
+              std::cout << bool_desk[x][y];
+          }
+          std::cout << std::endl;
+      }
+    std::cout << "~~~~~~~~~~~~~~~~" << std::endl;
     
-    for (short y = 0; y < 8; y++ )
-    {
-        for (short x = 0; x < 8; x++ )
-        {
-            std::cout << table[x][y];
+    
+    getFreePosition(desk, scale, bool_desk);
+  
+    
+    std::cout << "-------------------" << std::endl;
+    for (short y = 0; y < 8; y ++) {
+        for (short x = 0; x < 8; x++) {
+            std::cout << bool_desk[x][y];
         }
         std::cout << std::endl;
     }
-    
+    std::cout << "-------------------" << std::endl;
     
     switch (figure) {
         case (b_Qween || w_Qween):
@@ -102,10 +96,6 @@ bool isPosibleMoves(figure_type figure, sf::Vector2f pos, chess_figure desk[32],
             break;
     }
     
-    delete[] NEW_desk;
     
-    for (int i = 0; i < 8; i++) {
-        delete[] table[i];
-    }
-    delete[] table;
+    return bool_desk;
 }
