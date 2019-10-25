@@ -20,52 +20,52 @@ void setResourcePath(std::string PATH_external)
     PATH = PATH_external;
 }
 
-void chess_figure_TESTCLASS::LoadSprite( figure_type type ){
+void figures::LoadSprite( figure_type type ){
        sprite.setTexture(  LoadFigureTexture(type, PATH) );
 }
 
-void chess_figure_TESTCLASS::SetScale(float scale){
+void figures::SetScale(float scale){
     sprite.scale(scale, scale);
 }
 
-bool chess_figure_TESTCLASS::isAlive()
+bool figures::isAlive()
 {
     return Alive;
 }
 
-void chess_figure_TESTCLASS::kill()
+void figures::kill()
 {
     Alive = false;
 }
 
-void chess_figure_TESTCLASS::setFigureType(figure_type f_type)
+void figures::setFigureType(figure_type f_type)
 {
     type = f_type;
 }
 
-figure_type chess_figure_TESTCLASS::getFigureType()
+figure_type figures::getFigureType()
 {
     return type;
 }
 
-void chess_figure_TESTCLASS::Create(figure_type type, float scale_external)
+void figures::Create(figure_type type, float scale_external)
 {
     this->scale = scale_external;
     LoadSprite( type );
     SetScale( scale );
 }
  
-void chess_figure_TESTCLASS::SetPosotion(sf::Vector2f pos)
+void figures::SetPosotion(sf::Vector2f pos)
 {
     position = pos;
 }
 
-sf::Vector2f chess_figure_TESTCLASS::GetPosition()
+sf::Vector2f figures::GetPosition()
 {
     return position;
 }
 
-void chess_figure_TESTCLASS::Move(sf::Vector2f move_to)
+void figures::Move(sf::Vector2f move_to)
 {
     sf::Vector2f delta_move = (move_to - position) / scale / 100.0f;
     if (delta_move.x == delta_move.y)

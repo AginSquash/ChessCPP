@@ -16,7 +16,7 @@
 
 void setResourcePath(std::string PATH_external);
 
-class chess_figure_TESTCLASS
+class figures
 {
 public:
     bool White;
@@ -34,7 +34,7 @@ public:
     void Move(sf::Vector2f move_to);
     
     
-private:
+//private:
     bool Alive = true;
     float scale = 1.0f;
     sf::Sprite sprite;

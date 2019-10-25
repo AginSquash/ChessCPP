@@ -218,10 +218,11 @@ int main()
     
     //Создание шахмат
     chess_figure *p_figures = new chess_figure[32];
+    
     LoadFigures(p_figures, textures_path, scale);
 
     
-    chess_figure_TESTCLASS figureTEST[32];
+    figures f_figures[32];
     
 
     //isPosibleMoves(b_Qween, sf::Vector2f(0, 0), p_figures, scale);

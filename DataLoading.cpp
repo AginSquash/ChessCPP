@@ -4,6 +4,7 @@
 
 #include "DataLoading.h"
 #include <SFML/Graphics.hpp>
+#include "figure_class.hpp"
 
 sf::Texture LoadFigureTexture(figure_type type, std::string PATH) ///Можно поробовать это сделать через указатели
 {
@@ -57,7 +58,7 @@ sf::Texture LoadFigureTexture(figure_type type, std::string PATH) ///Можно 
     return texture;
 }
 
-chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale) {    //вот прям чую, что мы протупили и можно было нормально объявить
+chess_figure* LoadFigures(figures p_figures[32], std::string PATH, float scale) {    //вот прям чую, что мы протупили и можно было нормально объявить
     // но хз как именно
 
     p_figures[0].position.x = scale * 100; //координата по X
