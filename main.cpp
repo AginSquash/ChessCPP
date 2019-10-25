@@ -257,6 +257,8 @@ int main()
 
     bool isWhiteQueue = true;
 
+    bool freePositions[8][8];
+    
     while (window.isOpen())
     {
         sf::Time elapsed = clock.getElapsedTime(); //Получаем время со старта 
@@ -290,7 +292,7 @@ int main()
                             // (дебаг или оставить?)
                             isClicked = true;
                             
-                            isPosibleMoves(p_figures[figure_to_move_index].type, pos, p_figures, scale);
+                            isPosibleMoves(p_figures[figure_to_move_index].type, pos, p_figures, scale, freePositions);
                             
                         } else {
 

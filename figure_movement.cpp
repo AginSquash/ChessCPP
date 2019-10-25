@@ -47,7 +47,7 @@ void getNulledMassive(bool bool_desk[8][8])
     }
 }
 
-bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figure desk[32], float scale )
+bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figure desk[32], float scale, bool bool_desk[8][8] )
 {
     _print("PossibleMove loaded", 1);
     
@@ -57,7 +57,7 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
     _print("POS X/Y", 1);
 
     
-    bool bool_desk[8][8];
+    //bool bool_desk[8][8];
     getNulledMassive(bool_desk);
     
     _print("Without function", bool_desk[0][0]);
@@ -87,14 +87,7 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
     }
     std::cout << "----------------" << std::endl;
     
-    switch (figure) {
-        case (b_Qween || w_Qween):
-            
-            break;
-            
-        default:
-            break;
-    }
+
     
     
     return bool_desk;

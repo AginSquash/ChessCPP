@@ -8,6 +8,8 @@
 #ifndef types_h
 #define types_h
 
+#include "SFML/Graphics.hpp"
+
 enum figure_type {
 
     BLANK = -1,

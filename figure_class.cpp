@@ -23,6 +23,7 @@ void setResourcePath(std::string PATH_external)
 class chess_figure_TESTCLASS
 {
 public:
+    bool White;
     bool isAlive();
     void kill();
     void LoadSprite( figure_type type );
