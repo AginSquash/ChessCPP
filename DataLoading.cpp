@@ -58,14 +58,24 @@ sf::Texture LoadFigureTexture(figure_type type, std::string PATH) ///Можно 
     return texture;
 }
 
-chess_figure* LoadFigures(figures p_figures[32], std::string PATH, float scale) {    //вот прям чую, что мы протупили и можно было нормально объявить
+sf::Vector2f getVectorFromXY(float x, float y)
+{
+    return sf::Vector2f(x, y);
+}
+
+void LoadFigures(figures p_figures[32]) {    //вот прям чую, что мы протупили и можно было нормально объявить
     // но хз как именно
 
-    p_figures[0].position.x = scale * 100; //координата по X
-    p_figures[0].position.y  = 0;  //Координата по y
-    p_figures[0].type = b_Bishop;
-    p_figures[0].texture = LoadFigureTexture(b_Bishop, PATH);
+    //p_figures[0].position.x = scale * 100; //координата по X
+    //p_figures[0].position.y  = 0;  //Координата по y
+    
+    p_figures[0].Create(b_Bishop);
+    p_figures[0].SetPosition( getVectorFromXY(100, 0) );
+   
+    //p_figures[0].texture = LoadFigureTexture(b_Bishop, PATH);
 
+    
+   /*
     p_figures[1].position.x = scale * 600;
     p_figures[1].position.y = scale * 0;
     p_figures[1].type = b_Bishop;
@@ -168,6 +178,6 @@ chess_figure* LoadFigures(figures p_figures[32], std::string PATH, float scale) 
         p_figures[i].texture = LoadFigureTexture(w_Pawn, PATH);
 
     }
-
+    */
     return p_figures;
 }

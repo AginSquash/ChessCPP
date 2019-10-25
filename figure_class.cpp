@@ -20,12 +20,22 @@ void setResourcePath(std::string PATH_external)
     PATH = PATH_external;
 }
 
+static float scale = 1.0f;
+
+void setGlobalScale(float scale_external)
+{
+    scale = scale_external;
+}
+
 void figures::LoadSprite( figure_type type ){
        sprite.setTexture(  LoadFigureTexture(type, PATH) );
 }
 
 void figures::SetScale(float scale){
-    sprite.scale(scale, scale);
+    sf::Vector2f targetSize(100.0f * scale, 100.0f * scale);
+    this->sprite.setScale(
+            targetSize.x / sprite.getLocalBounds().width,
+            targetSize.y / sprite.getLocalBounds().height);
 }
 
 bool figures::isAlive()
@@ -48,14 +58,13 @@ figure_type figures::getFigureType()
     return type;
 }
 
-void figures::Create(figure_type type, float scale_external)
+void figures::Create(figure_type type)
 {
-    this->scale = scale_external;
     LoadSprite( type );
     SetScale( scale );
 }
  
-void figures::SetPosotion(sf::Vector2f pos)
+void figures::SetPosition(sf::Vector2f pos)
 {
     position = pos;
 }

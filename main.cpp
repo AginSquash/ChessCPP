@@ -64,21 +64,21 @@ void inputInSave(int IndexFigure,sf::Vector2f pos, int FieldIndex, ofstream *Che
 };
 
 
-void drawField(chess_figure* p_figures,sf::RenderWindow *window)
+void drawField(figures * p_figures,sf::RenderWindow *window)
 {
     for (int i = 0; i < 32; i++)
     {
-        if ( p_figures[i].isAlive ) {
-            sf::Sprite sprite(p_figures[i].texture);
+        if ( p_figures[i].isAlive() ) {
+            //sf::Sprite sprite(p_figures[i].texture);
 
-            sf::Vector2f targetSize(100.0f * scale, 100.0f * scale); //целевой размер
-            sprite.setScale(
-                    targetSize.x / sprite.getLocalBounds().width,
-                    targetSize.y / sprite.getLocalBounds().height);
+            //sf::Vector2f targetSize(100.0f * scale, 100.0f * scale); //целевой размер
+            //sprite.setScale(
+            //        targetSize.x / sprite.getLocalBounds().width,
+             //       targetSize.y / sprite.getLocalBounds().height);
 
 
-            sprite.setPosition( p_figures[i].position );
-            window->draw(sprite);
+//            sprite.setPosition( p_figures[i].position );
+            window->draw( p_figures[i].sprite );
         }
     }
 }
@@ -185,9 +185,7 @@ int main()
             chess_type = value;
         }
     }
-    
-    setResourcePath( resource_path + chess_type + "/" );
-    
+
     
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
 
@@ -203,6 +201,9 @@ int main()
 
     sf::Sprite chessdesk = drawChessDesk( resource_path ); //Думаю так это будет лучше выглядеть
 
+    setResourcePath( textures_path );
+    setGlobalScale(scale);
+    
     sf::Texture backBar_texture;
     backBar_texture.loadFromFile(resource_path + "backbar.png");
     sf::Sprite backBar(backBar_texture);
@@ -219,11 +220,12 @@ int main()
     //Создание шахмат
     chess_figure *p_figures = new chess_figure[32];
     
-    LoadFigures(p_figures, textures_path, scale);
+    //LoadFigures(p_figures, textures_path, scale);
 
     
     figures f_figures[32];
-    
+    //figures()
+    LoadFigures(f_figures);
 
     //isPosibleMoves(b_Qween, sf::Vector2f(0, 0), p_figures, scale);
     
@@ -376,7 +378,7 @@ int main()
         window.clear();
         window.draw(chessdesk);
         window.draw(backBar);
-        drawField(p_figures, &window);
+        drawField(f_figures, &window);
         
 
 

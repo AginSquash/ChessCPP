@@ -12,9 +12,9 @@
 
 #include <iostream>
 #include "types.h"
-#include "DataLoading.h"
 
 void setResourcePath(std::string PATH_external);
+void setGlobalScale(float scale_external);
 
 class figures
 {
@@ -26,10 +26,10 @@ public:
     void SetScale(float scale);
     void setFigureType( figure_type f_type );
     figure_type getFigureType();
-    void SetPosotion( sf::Vector2f pos );
+    void SetPosition( sf::Vector2f pos );
     sf::Vector2f GetPosition();
     
-    void Create( figure_type type, float scale );
+    void Create( figure_type type);
     
     void Move(sf::Vector2f move_to);
     
