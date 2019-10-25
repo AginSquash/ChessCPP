@@ -20,32 +20,6 @@ void setResourcePath(std::string PATH_external)
     PATH = PATH_external;
 }
 
-class chess_figure_TESTCLASS
-{
-public:
-    bool White;
-    bool isAlive();
-    void kill();
-    void LoadSprite( figure_type type );
-    void SetScale(float scale);
-    void setFigureType( figure_type f_type );
-    figure_type getFigureType();
-    void SetPosotion( sf::Vector2f pos );
-    sf::Vector2f GetPosition();
-    
-    void Create( figure_type type, float scale );
-    
-    void Move(sf::Vector2f move_to);
-    
-    
-private:
-    bool Alive = true;
-    float scale = 1.0f;
-    sf::Sprite sprite;
-    figure_type type = BLANK;
-    sf::Vector2f position;
-};
-
 void chess_figure_TESTCLASS::LoadSprite( figure_type type ){
        sprite.setTexture(  LoadFigureTexture(type, PATH) );
 }
@@ -76,11 +50,11 @@ figure_type chess_figure_TESTCLASS::getFigureType()
 
 void chess_figure_TESTCLASS::Create(figure_type type, float scale_external)
 {
-    scale = scale_external;
+    this->scale = scale_external;
     LoadSprite( type );
     SetScale( scale );
 }
-
+ 
 void chess_figure_TESTCLASS::SetPosotion(sf::Vector2f pos)
 {
     position = pos;

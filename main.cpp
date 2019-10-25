@@ -6,7 +6,8 @@
 #include "configWorker.h"
 #include "settings.hpp"
 #include "figure_movement.hpp"
-#include "figure_class.hpp";
+
+#include "figure_class.hpp"
 
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
 //#define DEBUG
@@ -213,9 +214,15 @@ int main()
     sf::Sprite selected(selected_texture);
     selected.setScale(scale, scale);
 
+    
+    
+    //Создание шахмат
     chess_figure *p_figures = new chess_figure[32];
     LoadFigures(p_figures, textures_path, scale);
 
+    
+    chess_figure_TESTCLASS figureTEST[32];
+    
 
     //isPosibleMoves(b_Qween, sf::Vector2f(0, 0), p_figures, scale);
     

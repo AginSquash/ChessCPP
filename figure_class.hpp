@@ -11,9 +11,35 @@
 #include <stdio.h>
 
 #include <iostream>
+#include "types.h"
+#include "DataLoading.h"
 
 void setResourcePath(std::string PATH_external);
 
-class chess_figure_TESTCLASS;
+class chess_figure_TESTCLASS
+{
+public:
+    bool White;
+    bool isAlive();
+    void kill();
+    void LoadSprite( figure_type type );
+    void SetScale(float scale);
+    void setFigureType( figure_type f_type );
+    figure_type getFigureType();
+    void SetPosotion( sf::Vector2f pos );
+    sf::Vector2f GetPosition();
+    
+    void Create( figure_type type, float scale );
+    
+    void Move(sf::Vector2f move_to);
+    
+    
+private:
+    bool Alive = true;
+    float scale = 1.0f;
+    sf::Sprite sprite;
+    figure_type type = BLANK;
+    sf::Vector2f position;
+};
 
 #endif /* figure_class_hpp */
