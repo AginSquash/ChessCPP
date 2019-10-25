@@ -6,6 +6,7 @@
 #include "configWorker.h"
 #include "settings.hpp"
 #include "figure_movement.hpp"
+#include "figure_class.hpp";
 
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
 //#define DEBUG
@@ -148,7 +149,7 @@ int main()
     std::string resource_path = path_to_workdir + PATH + "resources/";
     
     //Создание окна лаунчера
-    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Setiings" );
+    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Settings" );
     settings.setFramerateLimit(30);
     
     //Загрузка шрифта
@@ -183,6 +184,9 @@ int main()
             chess_type = value;
         }
     }
+    
+    setResourcePath( resource_path + chess_type + "/" );
+    
     
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
 

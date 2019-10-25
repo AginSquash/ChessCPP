@@ -10,4 +10,10 @@
 
 #include <stdio.h>
 
+#include <iostream>
+
+void setResourcePath(std::string PATH_external);
+
+class chess_figure_TESTCLASS;
+
 #endif /* figure_class_hpp */
