@@ -13,17 +13,15 @@
 //#define DEBUG
 
 
-#ifdef WINDOWS
+#ifdef _WIN32
     #include <direct.h>
     #define GetCurrentDir _getcwd
-#else
-    #include <unistd.h> 
-    #define GetCurrentDir getcwd
+    #define PATH std::string("/")
 #endif
 
-#if defined(WINDOWS) || defined(DEBUG)
-    #define PATH std::string("/")
-#else
+#ifdef __APPLE__ || __unix__
+    #include <unistd.h> 
+    #define GetCurrentDir getcwd
     #define PATH std::string("/.ChessCPP/")
 #endif
 
