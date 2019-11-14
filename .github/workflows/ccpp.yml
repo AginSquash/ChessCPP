@@ -19,6 +19,6 @@ jobs:
     - name: cd
       run: cd CI
     - name: configure 
-      run: cmake CMakeListsCI.txt ..
+      run: cmake CMakeListsCI.txt -S /home/runner/work/ChessCPP/ChessCPP/ 
     - name: make
       run: make
