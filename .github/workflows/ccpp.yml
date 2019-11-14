@@ -9,6 +9,8 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: install sfml
+      run: sudo apt-get install libsfml-dev
     - name: configure 
       run: cmake CMakeLists.txt
     - name: make
