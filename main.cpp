@@ -6,6 +6,9 @@
 #include "configWorker.h"
 #include "settings.hpp"
 
+#include "figure_movement.hpp"
+
+
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
 //#define DEBUG
 
@@ -182,6 +185,7 @@ int main()
         }
     }
     
+
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
 
     
@@ -209,6 +213,9 @@ int main()
 
     chess_figure *p_figures = new chess_figure[32];
     LoadFigures(p_figures, textures_path, scale);
+
+    //isPosibleMoves(b_Qween, sf::Vector2f(0, 0), p_figures, scale);
+    
 
     sf::Clock clock; //Запускаем часы
     clock.restart();
