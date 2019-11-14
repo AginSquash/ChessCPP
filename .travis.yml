@@ -4,14 +4,14 @@ sudo:     required  # используем Virtual Machine (а не Docker conta
 language: cpp       # на практике разницы между специфичным для C++ окружением
                     # и, скажем, python -- никакой. Но пусть будет cpp.
 
-os: linux
+os: osx
     # будем прогонять CI и на Linux, и на Mac OS X...
 
-compiler: gcc
+compiler: clang
     # ... и с помощью GCC, и Clang
 
 install:
-    - sudo apt-get install libsfml-dev
+    - brew install sfml
 
 script:
     # скрипт сборки и тестирования проекта:
