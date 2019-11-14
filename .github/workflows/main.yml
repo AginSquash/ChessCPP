@@ -9,7 +9,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Starting cpp review!
-    - name: action-cpp-lint
-      uses: CyberZHG/github-action-cpp-lint@0.0.2
+    - name: CPP Evaluation
+      uses: luke142367/cpp-evaluation-action@0.0.1
