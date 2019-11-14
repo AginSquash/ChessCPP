@@ -9,7 +9,16 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: download sfml
+      run: wget https://www.sfml-dev.org/files/SFML-2.5.1-linux-gcc-64-bit.tar.gz
+    - name: unarchive
+      run: tar xvzf archive.tar.gz SFML-2.5.1-linux-gcc-64-bit.tar.gz
+    - name: ls
+      run: ls
+    
+    - name: cd
+      run: cd CI
     - name: configure 
-      run: cmake CMakeLists.txt
+      run: cmake CMakeListsCI.txt ..
     - name: make
       run: make
