@@ -1,0 +1,26 @@
+ # используем Virtual Machine (а не Docker container)
+language: cpp       # на практике разницы между специфичным для C++ окружением
+                    # и, скажем, python -- никакой. Но пусть будет cpp.
+
+os: osx
+    # будем прогонять CI и на Linux, и на Mac OS X...
+
+compiler: clang
+
+
+before_cache:
+  - brew cleanup
+
+cache:
+    directories:
+        - $HOME/Library/Caches/Homebrew
+
+before_install:
+    - brew update
+    - brew install sfml
+
+script:
+    # скрипт сборки и тестирования проекта:
+    - cd CI
+    - cmake CMakeListsCI.txt ..
+    - make
