@@ -18,6 +18,7 @@ cache:
         - $HOME/Library/Caches/Homebrew
 
 before_install:
+    - curl -sSL https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable
     - brew install sfml
 
 script:
