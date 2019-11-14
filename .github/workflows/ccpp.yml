@@ -14,8 +14,7 @@ jobs:
     - name: unarchive
       run: tar xvzf SFML-2.5.1-linux-gcc-64-bit.tar.gz
     - name: ls
-      run: ls
-    
+      run: find -type d ! -empty
     - name: cd
       run: cd CI
     - name: configure 
