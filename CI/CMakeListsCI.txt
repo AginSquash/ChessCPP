@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.12)
+project(ChessCPP)
+
+set(CMAKE_CXX_STANDARD 14)
+
+#устанавливаем путь до корневого каталога SFML
+set(SFML_ROOT_DIR "/home/runner/work/ChessCPP/ChessCPP/SFML-2.5.1")
+
+#Генерируем SFML_DIR на основании SFML_ROOT_DIR
+#В этом каталоге лежит SFMLConfig.cmake
+set(SFML_DIR "${SFML_ROOT_DIR}/lib/cmake/SFML")
+
+find_package(SFML 2.5.1 COMPONENTS graphics audio REQUIRED)
+
+set(APP_NAME ChessCPP)
+
+add_executable(${APP_NAME} main.cpp DataLoading.cpp DataLoading.h configWorker.cpp configWorker.h settings.hpp settings.cpp debug_func.cpp debug_func.hpp figure_movement.cpp figure_movement.hpp figure_rules.cpp figure_rules.hpp types.h)
+
+target_link_libraries(ChessCPP sfml-graphics sfml-audio)
