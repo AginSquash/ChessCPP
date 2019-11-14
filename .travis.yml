@@ -10,7 +10,14 @@ os: osx
 compiler: clang
     # ... и с помощью GCC, и Clang
 
-install:
+before_cache:
+  - brew cleanup
+
+cache:
+    directories:
+        - $HOME/Library/Caches/Homebrew
+
+before_install:
     - brew install sfml
 
 script:
