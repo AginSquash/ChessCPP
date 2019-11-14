@@ -309,6 +309,7 @@ int main()
 
                                 } else {     
 
+                                    
                                     if ( (field_index < 16 ) && (figure_to_move_index >= 16) )
                                         /* Значит field_index белая, а figure_to_move_index - черная поэтому мы убираем
                                         field_index, а на ее место */
