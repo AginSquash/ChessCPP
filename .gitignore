@@ -21,7 +21,7 @@ build/*
 cmake-build-release/*
 
 #CMakeFiles
-CMakeLists.txt
+#CMakeLists.txt
 
 # Prerequisites
 *.d
