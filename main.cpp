@@ -5,22 +5,23 @@
 #include "DataLoading.h"
 #include "configWorker.h"
 #include "settings.hpp"
+#include "figure_movement.hpp"
+
+#include "figure_class.hpp"
 
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
 //#define DEBUG
 
 
-#ifdef WINDOWS
+#ifdef _WIN32
     #include <direct.h>
     #define GetCurrentDir _getcwd
-#else
-    #include <unistd.h> 
-    #define GetCurrentDir getcwd
+    #define PATH std::string("/")
 #endif
 
-#if defined(WINDOWS) || defined(DEBUG)
-    #define PATH std::string("/")
-#else
+#ifdef __APPLE__ || __unix__
+    #include <unistd.h> 
+    #define GetCurrentDir getcwd
     #define PATH std::string("/.ChessCPP/")
 #endif
 
@@ -139,6 +140,7 @@ void figureKill(chess_figure *p_figures, short field_index, short figure_to_move
 
 int main() 
 {
+    
     //Получаем рабочую директорию (windows/Unix-like)
     std::string path_to_workdir = GetCurrentWorkingDir();
 
@@ -146,7 +148,7 @@ int main()
     std::string resource_path = path_to_workdir + PATH + "resources/";
     
     //Создание окна лаунчера
-    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Setiings" );
+    sf::RenderWindow settings ( sf::VideoMode(400, 400), "Settings" );
     settings.setFramerateLimit(30);
     
     //Загрузка шрифта
@@ -182,6 +184,9 @@ int main()
         }
     }
     
+    setResourcePath( resource_path + chess_type + "/" );
+    
+    
     sf::RenderWindow window ( sf::VideoMode(800 * scale, 900 * scale), "ChessCPP" );
 
     
@@ -207,9 +212,18 @@ int main()
     sf::Sprite selected(selected_texture);
     selected.setScale(scale, scale);
 
+    
+    
+    //Создание шахмат
     chess_figure *p_figures = new chess_figure[32];
     LoadFigures(p_figures, textures_path, scale);
 
+    
+    chess_figure_TESTCLASS figureTEST[32];
+    
+
+    //isPosibleMoves(b_Qween, sf::Vector2f(0, 0), p_figures, scale);
+    
     sf::Clock clock; //Запускаем часы
     clock.restart();
 
@@ -248,6 +262,8 @@ int main()
 
     bool isWhiteQueue = true;
 
+    bool freePositions[8][8];
+    
     while (window.isOpen())
     {
         sf::Time elapsed = clock.getElapsedTime(); //Получаем время со старта 
@@ -280,6 +296,8 @@ int main()
                             selected.setPosition( p_figures[figure_to_move_index].position ); // Подсвечимваем выбранную область
                             // (дебаг или оставить?)
                             isClicked = true;
+                            
+                            isPosibleMoves(p_figures[figure_to_move_index].type, pos, p_figures, scale, freePositions);
                             
                         } else {
 
