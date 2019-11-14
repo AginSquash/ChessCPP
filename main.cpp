@@ -7,8 +7,6 @@
 #include "settings.hpp"
 #include "figure_movement.hpp"
 
-#include "figure_class.hpp"
-
 #include "figure_movement.hpp"
 
 
