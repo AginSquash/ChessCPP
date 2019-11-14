@@ -1,6 +1,4 @@
-dist:     trusty    # используем Ubuntu 14.04 Trusty Tahr (а не 12.02 Precise Pangolin)
-sudo:     required  # используем Virtual Machine (а не Docker container)
-
+ # используем Virtual Machine (а не Docker container)
 language: cpp       # на практике разницы между специфичным для C++ окружением
                     # и, скажем, python -- никакой. Но пусть будет cpp.
 
@@ -8,7 +6,7 @@ os: osx
     # будем прогонять CI и на Linux, и на Mac OS X...
 
 compiler: clang
-    # ... и с помощью GCC, и Clang
+
 
 before_cache:
   - brew cleanup
@@ -18,7 +16,7 @@ cache:
         - $HOME/Library/Caches/Homebrew
 
 before_install:
-    - curl -sSL https://raw.githubusercontent.com/rvm/rvm/master/binscripts/rvm-installer | bash -s stable
+    - brew update
     - brew install sfml
 
 script:
