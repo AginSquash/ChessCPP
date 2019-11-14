@@ -4,7 +4,7 @@ project(ChessCPP)
 set(CMAKE_CXX_STANDARD 14)
 
 #устанавливаем путь до корневого каталога SFML
-set(SFML_ROOT_DIR "/home/runner/work/ChessCPP/ChessCPP/SFML-2.5.1")
+set(SFML_ROOT_DIR "/SFML-2.5.1")
 
 #Генерируем SFML_DIR на основании SFML_ROOT_DIR
 #В этом каталоге лежит SFMLConfig.cmake
