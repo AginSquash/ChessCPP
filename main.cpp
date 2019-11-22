@@ -271,7 +271,7 @@ int main()
 
         time.setString( std::to_string(min) + ":" + std::to_string(sec) ); //Составляем строку
         sf::Event event;
-        while (window.pollEvent(event))
+        while (window.pollEvent(event)&&(p_figures[5].isAlive==1 && p_figures[21].isAlive==1))
         {
             switch (event.type)
             {
@@ -368,6 +368,7 @@ int main()
         }
 
 
+
         window.clear();
         window.draw(chessdesk);
         window.draw(backBar);
@@ -392,6 +393,7 @@ int main()
         }
         window.display();
     }
+    window.close();
 
 #ifdef WINDOWS
     for (int i = 0; i < 32; i++){
@@ -402,7 +404,7 @@ int main()
     
     filesave.close();
     ChessMoves.close();
-    
+
     delete[] p_figures;
     return EXIT_SUCCESS;
 }
