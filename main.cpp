@@ -141,18 +141,16 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
     int locationForMove;
     sf::Vector2f newpos;
     if (j >= 8 && j < 16) {
-        
-            {
-                if (p_figures[j].position.y == scale * 100) {
-                    return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) ||
-                           ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 200 * scale)));
 
-                }
-                newpos = pos;
-                if (GetFigureByPositionBool(p_figures, newpos) &&
-                    (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
-                    return true;
-            }
+
+                if (p_figures[j].position.y == scale * 100) {
+            return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) ||
+
+        }
+        newpos = pos;
+        if (GetFigureByPositionBool(p_figures, newpos) &&(newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
+            return true;
+
 
     }
 
@@ -161,10 +159,51 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
                 if (((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 100 * scale))) ||
                     ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 200 * scale)))) {
                     return true;
-                } else return false;
+                }
             }
+            newpos = pos;
+            if (GetFigureByPositionBool(p_figures, newpos) &&
+                (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y -100 * scale))
+                return true;
 
         }
+
+}
+
+bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos){
+
+    if (figure_to_move_index>7 && figure_to_move_index<16) {
+        sf::Vector2f newposL;
+        newposL.x = p_figures[figure_to_move_index].position.x + 100*scale;
+        newposL.y = p_figures[figure_to_move_index].position.y + 100*scale;
+        sf::Vector2f newposR;
+        newposR.x = p_figures[figure_to_move_index].position.x - 100*scale;
+        newposR.y = p_figures[figure_to_move_index].position.y + 100*scale;
+        if (GetFigureByPosition(p_figures, newposL) > 23 && GetFigureByPosition(p_figures, newposL) < 32)
+            if (newposL == pos) {
+                return true;
+            }
+        if (GetFigureByPosition(p_figures, newposR) > 23 && GetFigureByPosition(p_figures, newposR) < 32)
+            if (newposR == pos) {
+                return true;
+            }
+    }
+    if (figure_to_move_index>23 && figure_to_move_index<32) {
+        sf::Vector2f newposL;
+        newposL.x = p_figures[figure_to_move_index].position.x - 100*scale;
+        newposL.y = p_figures[figure_to_move_index].position.y - 100*scale;
+        sf::Vector2f newposR;
+        newposR.x = p_figures[figure_to_move_index].position.x + 100*scale;
+        newposR.y = p_figures[figure_to_move_index].position.y - 100*scale;
+        if (GetFigureByPosition(p_figures, newposL) > 7 && GetFigureByPosition(p_figures, newposL) < 16)
+            if (newposL == pos) {
+                return true;
+            }
+        if (GetFigureByPosition(p_figures, newposR) > 7 && GetFigureByPosition(p_figures, newposR) < 16)
+            if (newposR == pos) {
+                return true;
+            }
+    }
 
 }
 
@@ -344,22 +383,29 @@ int main()
                             if (figure_to_move_index != -1) {     // Если мы до этого выбрали пустую область - не стоит что-либо делать
 
                                 short field_index = GetFigureByPosition(p_figures, pos);     // Получаем фигуру по координатам нажатия
-                                if ( field_index == -1 )                                   // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
+                                if ( field_index == -1 )                                   // Если GetFigureByPosition возвращает -1, значит мы нажимаем на
                                                                                            //      пустую клетку
                                 {
                                  if (Possiblemove(p_figures,figure_to_move_index,pos)) {
                                      p_figures[figure_to_move_index].position = pos;
                                      inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
                                  }
-                                } else {     
+                                }
+                                 if ( field_index != -1){
+                                     if (((figure_to_move_index > 7 && figure_to_move_index <16)||(figure_to_move_index > 23 && figure_to_move_index <31)) && (figurekillforpawns(p_figures,field_index,figure_to_move_index,pos))) {
+                                         p_figures[figure_to_move_index].position = pos;
+                                         figureKill(p_figures, field_index, figure_to_move_index,pos );
+                                     }
+                                 }
+                                else {
 
                                     
                                     if ( (field_index < 16 ) && (figure_to_move_index >= 16) )
                                         /* Значит field_index белая, а figure_to_move_index - черная поэтому мы убираем
                                         field_index, а на ее место */
-                                                                                              
+
                                     {
-                                                                                              
+
                                         figureKill(p_figures, field_index, figure_to_move_index, pos);
                                         inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
 
@@ -367,12 +413,12 @@ int main()
                                         /* Та же функция что и выше, но при условии что field_index черная, а
                                         figure_to_move_index - белая */
                                     {
-                                        
-                                        
+
+
                                         figureKill(p_figures, field_index, figure_to_move_index, pos);
                                         inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
-                                         
-                                        
+
+
                                     } else if(field_index != figure_to_move_index)
                                     /* Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру */
                                     {
@@ -382,8 +428,8 @@ int main()
                                         isPopupShow = true;
                                         popup_time = int( elapsed.asSeconds() ) + 5;
                                     }
-                     
-                                }                     
+
+                                }
 
                             }
 
