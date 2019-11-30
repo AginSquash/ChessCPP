@@ -124,25 +124,48 @@ int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функц�
     return -1;
 }
 
-bool Possiblemove(chess_figure* p_figures,int i,sf::Vector2f pos){
+bool GetFigureByPositionBool(chess_figure* p_figures, sf::Vector2f pos) //Функция находит фигуру соотв. координатам
+{
+    pos = getAbsoluteCoordinate(pos);
+    for (int i = 0; i < 32; i++)
+    {
+        if (p_figures[i].position == pos )
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
     int locationForMove;
+    sf::Vector2f newpos;
+    if (j >= 8 && j < 16) {
+        
+            {
+                if (p_figures[j].position.y == scale * 100) {
+                    return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) ||
+                           ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 200 * scale)));
 
-    if (i>=8 && i<16){
-        if (p_figures[i].position.y == scale*100){
-            if (((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y-100*scale)))|| ((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y-200*scale)))){
-                return true;
-            } else return false;
-        }
+                }
+                newpos = pos;
+                if (GetFigureByPositionBool(p_figures, newpos) &&
+                    (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
+                    return true;
+            }
 
     }
-    if (i>23 && i<32){
-        if (p_figures[i].position.y == scale*600){
-            if (((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y+100*scale)))|| ((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y+200*scale)))){
-                return true;
-            } else return false;
+
+        if (j > 23 && j < 32) {
+            if (p_figures[j].position.y == scale * 600) {
+                if (((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 100 * scale))) ||
+                    ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 200 * scale)))) {
+                    return true;
+                } else return false;
+            }
+
         }
 
-    }
 }
 
 float getShift(std::string text)
