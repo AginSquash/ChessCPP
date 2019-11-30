@@ -145,6 +145,7 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
 
                 if (p_figures[j].position.y == scale * 100) {
             return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) ||
+                   ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 200 * scale)));
 
         }
         newpos = pos;
