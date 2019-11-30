@@ -122,7 +122,27 @@ int GetFigureByPosition(chess_figure* p_figures, sf::Vector2f pos) //Функц�
         }
     }
     return -1;
-    
+}
+
+bool Possiblemove(chess_figure* p_figures,int i,sf::Vector2f pos){
+    int locationForMove;
+
+    if (i>=8 && i<16){
+        if (p_figures[i].position.y == scale*100){
+            if (((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y-100*scale)))|| ((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y-200*scale)))){
+                return true;
+            } else return false;
+        }
+
+    }
+    if (i>23 && i<32){
+        if (p_figures[i].position.y == scale*600){
+            if (((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y+100*scale)))|| ((p_figures[i].position.x == pos.x)&&(p_figures[i].position.y == (pos.y+200*scale)))){
+                return true;
+            } else return false;
+        }
+
+    }
 }
 
 float getShift(std::string text)
@@ -304,9 +324,10 @@ int main()
                                 if ( field_index == -1 )                                   // Если GetFigureByPosition возвращает -1, значит мы нажимаем на 
                                                                                            //      пустую клетку
                                 {
-                                p_figures[figure_to_move_index].position = pos;
-                                inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
-
+                                 if (Possiblemove(p_figures,figure_to_move_index,pos)) {
+                                     p_figures[figure_to_move_index].position = pos;
+                                     inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
+                                 }
                                 } else {     
 
                                     

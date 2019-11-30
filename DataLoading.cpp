@@ -64,32 +64,45 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale
     p_figures[0].position.y  = 0;  //Координата по y
     p_figures[0].type = b_Bishop;
     p_figures[0].texture = LoadFigureTexture(b_Bishop, PATH);
+    p_figures[0].x_move = 12;
+    p_figures[0].y_move = 12; // универсальный код для слонов
 
     p_figures[1].position.x = scale * 600;
     p_figures[1].position.y = scale * 0;
     p_figures[1].type = b_Bishop;
     p_figures[1].texture = LoadFigureTexture(b_Bishop, PATH);
+    p_figures[1].x_move = 12;
+    p_figures[1].y_move = 12; // универсальный код для слонов
+
 
 
     p_figures[2].position.x = scale * 200;
     p_figures[2].position.y = scale * 0;
     p_figures[2].type = b_Night;
     p_figures[2].texture = LoadFigureTexture( b_Night, PATH);
+    p_figures[2].x_move = 3;
+    p_figures[2].y_move=1;
 
     p_figures[3].position.x = scale * 500;
     p_figures[3].position.y = scale * 0;
     p_figures[3].type = b_Night;
     p_figures[3].texture = LoadFigureTexture( b_Night, PATH);
+    p_figures[3].x_move = 3;
+    p_figures[3].y_move=1;
 
     p_figures[4].position.x = scale * 300;
     p_figures[4].position.y = scale * 0;
     p_figures[4].type = b_Qween;
     p_figures[4].texture = LoadFigureTexture( b_Qween, PATH);
+    p_figures[4].x_move = 11;//специальный код для королевы
+    p_figures[4].y_move= 11;
 
     p_figures[5].position.x = scale * 400;
     p_figures[5].position.y = scale * 0;
     p_figures[5].type = b_King;
     p_figures[5].texture = LoadFigureTexture( b_King, PATH);
+    p_figures[5].x_move = 1;
+    p_figures[5].y_move = 1;
 
     p_figures[6].position.x = scale * 0;
     p_figures[6].position.y = scale * 0;
@@ -128,6 +141,8 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale
     p_figures[20].position.y = scale * 700;
     p_figures[20].type = w_Qween;
     p_figures[20].texture = LoadFigureTexture( w_Qween, PATH);
+    p_figures[20].x_move = 11;//специальный код для королевы
+    p_figures[20].y_move= 11;
 
     p_figures[21].position.x = scale * 400;
     p_figures[21].position.y = scale * 700;
@@ -156,6 +171,8 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale
         p_figures[i].position.y = scale * 100;
         p_figures[i].type = b_Pawn;
         p_figures[i].texture = LoadFigureTexture(b_Pawn, PATH);
+        p_figures[i].x_move=0;
+        p_figures[i].y_move=1;
 
     }
 
@@ -165,6 +182,8 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale
         p_figures[i].position.y = scale * 600;
         p_figures[i].type = w_Pawn;
         p_figures[i].texture = LoadFigureTexture(w_Pawn, PATH);
+        p_figures[i].x_move=0;
+        p_figures[i].y_move=1;
 
     }
 
