@@ -217,7 +217,7 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
         }
 
     }
-    if (j > 21 && j < 24) { //Черная ладья (Rook)
+    if (j > 21 && j < 24) { //Белая ладья ладья (Rook)
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y==newpos.y) {
             while (newpos.x != pos.x) {
@@ -265,6 +265,29 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
         }
 
     }
+    if (j == 2 || j == 3 || j == 18 || j == 19){
+        sf::Vector2f PosNight[8];
+        PosNight[0].x = p_figures[j].position.x + 100*scale;
+        PosNight[0].y = p_figures[j].position.y + 200*scale;
+        PosNight[1].x = p_figures[j].position.x - 100*scale;
+        PosNight[1].y = p_figures[j].position.y + 200*scale;
+        PosNight[2].x = p_figures[j].position.x + 100*scale;
+        PosNight[2].y = p_figures[j].position.y - 200*scale;
+        PosNight[3].x = p_figures[j].position.x - 100*scale;
+        PosNight[3].y = p_figures[j].position.y - 200*scale;
+        PosNight[4].x = p_figures[j].position.x + 200*scale;
+        PosNight[4].y = p_figures[j].position.y + 100*scale;
+        PosNight[5].x = p_figures[j].position.x + 200*scale;
+        PosNight[5].y = p_figures[j].position.y - 100*scale;
+        PosNight[6].x = p_figures[j].position.x - 200*scale;
+        PosNight[6].y = p_figures[j].position.y + 100*scale;
+        PosNight[7].x = p_figures[j].position.x - 200*scale;
+        PosNight[7].y = p_figures[j].position.y - 100*scale;
+        for (int i = 0; i<8;i++){
+            if (PosNight[i] == pos)
+                return true;
+        }
+    }
 }
 
 bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue ){
@@ -303,6 +326,14 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
     }
 
 }
+
+bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue) {
+    sf::Vector2f newpos;
+    newpos = p_figures[figure_to_move_index].position;
+   return true;
+    }
+
+
 
 float getShift(std::string text)
 {
@@ -491,8 +522,11 @@ int main()
                                 }
                                  if ( field_index != -1){
                                      if (((figure_to_move_index > 7 && figure_to_move_index <16)||(figure_to_move_index > 23 && figure_to_move_index <31)) && (figurekillforpawns(p_figures,field_index,figure_to_move_index,pos, isWhiteQueue))) {
-                                         p_figures[figure_to_move_index].position = pos;
                                          figureKill(p_figures, field_index, figure_to_move_index,pos );
+                                     if ((figure_to_move_index == 6 || figure_to_move_index ==7 || figure_to_move_index == 22 || figure_to_move_index ==23)){
+                                         figureKill(p_figures, field_index, figure_to_move_index,pos );
+                                     }
+
 
                                      }
                                  }
