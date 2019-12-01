@@ -140,40 +140,136 @@ bool GetFigureByPositionBool(chess_figure* p_figures, sf::Vector2f pos) //Фун
 bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
     int locationForMove;
     sf::Vector2f newpos;
-    if (j >= 8 && j < 16) {
+    if (j >= 8 && j < 16) { //Черные пешки
 
 
-                if (p_figures[j].position.y == scale * 100) {
+        if (p_figures[j].position.y == scale * 100) {
             return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) ||
                    ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 200 * scale)));
 
         }
         newpos = pos;
-        if (GetFigureByPositionBool(p_figures, newpos) &&(newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
+        if (GetFigureByPositionBool(p_figures, newpos) &&
+            (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
             return true;
 
 
     }
 
-        if (j > 23 && j < 32) {
-            if (p_figures[j].position.y == scale * 600) {
-                if (((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 100 * scale))) ||
-                    ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 200 * scale)))) {
+    if (j > 23 && j < 32) { //белые пешки
+        if (p_figures[j].position.y == scale * 600) {
+            if (((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 100 * scale))) ||
+                ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 200 * scale)))) {
+                return true;
+            }
+        }
+        newpos = pos;
+        if (GetFigureByPositionBool(p_figures, newpos) &&
+            (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y - 100 * scale))
+            return true;
+
+    }
+    if (j > 5 && j < 8) { //Черная ладья (Rook)
+        newpos = p_figures[j].position;
+        if (pos.x > newpos.x && pos.y==newpos.y) {
+            while (newpos.x != pos.x) {
+                newpos.x += 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.x == newpos.x) {
                     return true;
                 }
             }
-            newpos = pos;
-            if (GetFigureByPositionBool(p_figures, newpos) &&
-                (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y -100 * scale))
-                return true;
+        }
+        if (pos.x < newpos.x && pos.y==newpos.y) {
+            while (newpos.x != pos.x) {
+                newpos.x -= 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.x == newpos.x) {
+                    return true;
+                }
+            }
+
+        }
+        if (pos.y > newpos.y && pos.x==newpos.x) {
+            while (newpos.y != pos.y) {
+                newpos.y += 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.y == newpos.y) {
+                    return true;
+                }
+            }
+
+        }
+        if (pos.y < newpos.y && pos.x==newpos.x) {
+            while (newpos.y != pos.y) {
+                newpos.y -= 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+
+                if (pos.y == newpos.y) {
+                    return true;
+                }
+            }
 
         }
 
+    }
+    if (j > 21 && j < 24) { //Черная ладья (Rook)
+        newpos = p_figures[j].position;
+        if (pos.x > newpos.x && pos.y==newpos.y) {
+            while (newpos.x != pos.x) {
+                newpos.x += 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.x == newpos.x) {
+                    return true;
+                }
+            }
+        }
+        if (pos.x < newpos.x && pos.y==newpos.y) {
+            while (newpos.x != pos.x) {
+                newpos.x -= 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.x == newpos.x) {
+                    return true;
+                }
+            }
+
+        }
+        if (pos.y > newpos.y && pos.x==newpos.x) {
+            while (newpos.y != pos.y) {
+                newpos.y += 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.y == newpos.y) {
+                    return true;
+                }
+            }
+
+        }
+        if (pos.y < newpos.y && pos.x==newpos.x) {
+            while (newpos.y != pos.y) {
+                newpos.y -= 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+
+                if (pos.y == newpos.y) {
+                    return true;
+                }
+            }
+
+        }
+
+    }
 }
 
-bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos){
+bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue ){
 
-    if (figure_to_move_index>7 && figure_to_move_index<16) {
+    if (figure_to_move_index>7 && figure_to_move_index<16 && isWhiteQueue== false) {
         sf::Vector2f newposL;
         newposL.x = p_figures[figure_to_move_index].position.x + 100*scale;
         newposL.y = p_figures[figure_to_move_index].position.y + 100*scale;
@@ -189,7 +285,7 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
                 return true;
             }
     }
-    if (figure_to_move_index>23 && figure_to_move_index<32) {
+    if (figure_to_move_index>23 && figure_to_move_index<32 && isWhiteQueue) {
         sf::Vector2f newposL;
         newposL.x = p_figures[figure_to_move_index].position.x - 100*scale;
         newposL.y = p_figures[figure_to_move_index].position.y - 100*scale;
@@ -390,23 +486,17 @@ int main()
                                  if (Possiblemove(p_figures,figure_to_move_index,pos)) {
                                      p_figures[figure_to_move_index].position = pos;
                                      inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
+
                                  }
                                 }
                                  if ( field_index != -1){
-                                     if (((figure_to_move_index > 7 && figure_to_move_index <16)||(figure_to_move_index > 23 && figure_to_move_index <31)) && (figurekillforpawns(p_figures,field_index,figure_to_move_index,pos))) {
+                                     if (((figure_to_move_index > 7 && figure_to_move_index <16)||(figure_to_move_index > 23 && figure_to_move_index <31)) && (figurekillforpawns(p_figures,field_index,figure_to_move_index,pos, isWhiteQueue))) {
                                          p_figures[figure_to_move_index].position = pos;
                                          figureKill(p_figures, field_index, figure_to_move_index,pos );
+
                                      }
                                  }
-                                else {
 
-                                    
-
-
-
-
-
-                                }
 
                             }
 
