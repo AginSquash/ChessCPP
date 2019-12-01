@@ -180,11 +180,11 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
         sf::Vector2f newposR;
         newposR.x = p_figures[figure_to_move_index].position.x - 100*scale;
         newposR.y = p_figures[figure_to_move_index].position.y + 100*scale;
-        if (GetFigureByPosition(p_figures, newposL) > 23 && GetFigureByPosition(p_figures, newposL) < 32)
+        if (GetFigureByPosition(p_figures, newposL) > 15 && GetFigureByPosition(p_figures, newposL) < 31)
             if (newposL == pos) {
                 return true;
             }
-        if (GetFigureByPosition(p_figures, newposR) > 23 && GetFigureByPosition(p_figures, newposR) < 32)
+        if (GetFigureByPosition(p_figures, newposR) > 15 && GetFigureByPosition(p_figures, newposR) < 31)
             if (newposR == pos) {
                 return true;
             }
@@ -196,11 +196,11 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
         sf::Vector2f newposR;
         newposR.x = p_figures[figure_to_move_index].position.x + 100*scale;
         newposR.y = p_figures[figure_to_move_index].position.y - 100*scale;
-        if (GetFigureByPosition(p_figures, newposL) > 7 && GetFigureByPosition(p_figures, newposL) < 16)
+        if (GetFigureByPosition(p_figures, newposL) > -1 && GetFigureByPosition(p_figures, newposL) < 16)
             if (newposL == pos) {
                 return true;
             }
-        if (GetFigureByPosition(p_figures, newposR) > 7 && GetFigureByPosition(p_figures, newposR) < 16)
+        if (GetFigureByPosition(p_figures, newposR) > -1 && GetFigureByPosition(p_figures, newposR) < 16)
             if (newposR == pos) {
                 return true;
             }
@@ -401,34 +401,10 @@ int main()
                                 else {
 
                                     
-                                    if ( (field_index < 16 ) && (figure_to_move_index >= 16) )
-                                        /* Значит field_index белая, а figure_to_move_index - черная поэтому мы убираем
-                                        field_index, а на ее место */
-
-                                    {
-
-                                        figureKill(p_figures, field_index, figure_to_move_index, pos);
-                                        inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
-
-                                    } else if ( (field_index >= 16) && (figure_to_move_index < 16) )
-                                        /* Та же функция что и выше, но при условии что field_index черная, а
-                                        figure_to_move_index - белая */
-                                    {
 
 
-                                        figureKill(p_figures, field_index, figure_to_move_index, pos);
-                                        inputInSave(figure_to_move_index,pos,field_index, &ChessMoves);
 
 
-                                    } else if(field_index != figure_to_move_index)
-                                    /* Этот if фиксит вывод надписи, когда несколько раз жмякаешь на одну фигуру */
-                                    {
-                                        popup_text.setString("This position is taken by an allied figure.");
-                                        float shift = getShift("This position is taken by an allied figure.");
-                                        popup_text.setPosition( (400 - shift) * scale, 825 * scale);
-                                        isPopupShow = true;
-                                        popup_time = int( elapsed.asSeconds() ) + 5;
-                                    }
 
                                 }
 
