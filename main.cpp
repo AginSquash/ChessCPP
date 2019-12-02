@@ -1027,6 +1027,10 @@ int main()
 
                     if (!isClicked) { //Если это "первый" клик
                         figure_to_move_index = GetFigureByPosition(p_figures, pos);
+                        if (figure_to_move_index == -1)
+                        {
+                            break;
+                        }
                         if ((figure_to_move_index < 16) && (isWhiteQueue)) {
                             popup_text.setString(
                                 "is White queue!");
