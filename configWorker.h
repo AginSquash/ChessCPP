@@ -6,8 +6,8 @@
 #define CHESSCPP_CONFIGWORKER_H
 
 #include <iostream>
-#include <string>
 #include <map>
+#include <string>
 
 using namespace std;
 
