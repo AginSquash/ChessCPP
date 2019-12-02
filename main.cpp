@@ -288,11 +288,55 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
                 return true;
         }
     }
+    //0,1 - черные словн . 16, 17 - белые
+    if (j == 0 || j== 1 ||  j == 16 || j == 17){
+        newpos = p_figures[j].position;
+        if (pos.x>newpos.x && pos.y>newpos.y){
+            while(pos != newpos){
+                newpos.x += 100*scale;
+                newpos.y += 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x<newpos.x && pos.y<newpos.y){
+            while(pos != newpos){
+                newpos.x -= 100*scale;
+                newpos.y -= 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x>newpos.x && pos.y<newpos.y){
+            while(pos != newpos){
+                newpos.x += 100*scale;
+                newpos.y -= 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x<newpos.x && pos.y>newpos.y){
+            while(pos != newpos){
+                newpos.x -= 100*scale;
+                newpos.y += 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+    }
 }
 
 bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue ){
 
-    if (figure_to_move_index>7 && figure_to_move_index<16 && isWhiteQueue== false) {
+    if (figure_to_move_index>7 && figure_to_move_index<16 ) {
         sf::Vector2f newposL;
         newposL.x = p_figures[figure_to_move_index].position.x + 100*scale;
         newposL.y = p_figures[figure_to_move_index].position.y + 100*scale;
