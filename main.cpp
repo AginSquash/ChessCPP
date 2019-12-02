@@ -352,7 +352,7 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
                 return true;
             }
     }
-    if (figure_to_move_index>23 && figure_to_move_index<32 && isWhiteQueue) {
+    if (figure_to_move_index>23 && figure_to_move_index<32 ) {
         sf::Vector2f newposL;
         newposL.x = p_figures[figure_to_move_index].position.x - 100*scale;
         newposL.y = p_figures[figure_to_move_index].position.y - 100*scale;
@@ -483,7 +483,115 @@ bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to
     }
 }
 
+bool figureKillForBishop(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue){
+    sf::Vector2f newpos = p_figures[figure_to_move_index].position;
+    if(figure_to_move_index == 0 || figure_to_move_index == 1) {
+        if (field_index > 15) {
+            if (pos.x > newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
 
+                }
+            }
+            if (pos.x < newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x > newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+
+        }
+    }
+    if(figure_to_move_index == 16 || figure_to_move_index == 17) {
+        if (field_index < 16) {
+            if (pos.x > newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x > newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+
+        }
+    }
+}
 
 float getShift(std::string text)
 {
@@ -679,6 +787,9 @@ int main()
                                      }
 
                                      if((figure_to_move_index == 2 || figure_to_move_index ==3 ||figure_to_move_index == 18 ||figure_to_move_index == 19) && figureKillForKnight(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
+                                         figureKill(p_figures,field_index,figure_to_move_index,pos);
+
+                                     if((figure_to_move_index == 0 || figure_to_move_index ==1 ||figure_to_move_index == 16 ||figure_to_move_index == 17) && figureKillForBishop(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
                                          figureKill(p_figures,field_index,figure_to_move_index,pos);
 
 
