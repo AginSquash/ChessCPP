@@ -447,10 +447,9 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
     }
 }
 
-void endGame(chess_figure *p_figures)
+void endGame(chess_figure* p_figures)
 {
-    for (short i = 0; i < 32; i++)
-    {
+    for (short i = 0; i < 32; i++) {
         p_figures[i].isAlive = false;
     }
 }
@@ -1101,29 +1100,27 @@ int main()
                         }
                     }
                 }
-                    if (!p_figures[5].isAlive)
-                    {
-                        popup_text.setString(
-                            "White win!");
-                        float shift = getShift("White win!");
-                        popup_text.setPosition((400 - shift) * scale, 825 * scale);
-                        isPopupShow = true;
-                        popup_time = int(elapsed.asSeconds()) + 1000;
-                        endGame(p_figures);
-                        break;
-                    }
-                        
-                    if (!p_figures[21].isAlive)
-                    {
-                        popup_text.setString(
-                            "Black win!");
-                        float shift = getShift("Black win!");
-                        popup_text.setPosition((400 - shift) * scale, 825 * scale);
-                        isPopupShow = true;
-                        popup_time = int(elapsed.asSeconds()) + 1000;
-                        endGame(p_figures);
-                        break;
-                    }
+                if (!p_figures[5].isAlive) {
+                    popup_text.setString(
+                        "White win!");
+                    float shift = getShift("White win!");
+                    popup_text.setPosition((400 - shift) * scale, 825 * scale);
+                    isPopupShow = true;
+                    popup_time = int(elapsed.asSeconds()) + 1000;
+                    endGame(p_figures);
+                    break;
+                }
+
+                if (!p_figures[21].isAlive) {
+                    popup_text.setString(
+                        "Black win!");
+                    float shift = getShift("Black win!");
+                    popup_text.setPosition((400 - shift) * scale, 825 * scale);
+                    isPopupShow = true;
+                    popup_time = int(elapsed.asSeconds()) + 1000;
+                    endGame(p_figures);
+                    break;
+                }
                 break;
 
             default:
