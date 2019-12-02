@@ -6,6 +6,7 @@
 #include "configWorker.h"
 #include "figure_movement.hpp"
 #include "settings.hpp"
+#include "debug_func.hpp"
 
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
 //#define DEBUG
@@ -346,6 +347,28 @@ int main()
 
                     if (!isClicked) { //Если это "первый" клик
                         figure_to_move_index = GetFigureByPosition(p_figures, pos);
+                        if ((figure_to_move_index < 16 )&&(isWhiteQueue))
+                        {
+                            popup_text.setString(
+                                "is White queue!");
+                            float shift = getShift("is White queue!");
+                            popup_text.setPosition((400 - shift) * scale, 825 * scale);
+                            isPopupShow = true;
+                            popup_time = int(elapsed.asSeconds()) + 5;
+                            break;
+                        }
+                        
+                        if ((figure_to_move_index > 15 )&&(!isWhiteQueue))
+                        {
+                            popup_text.setString(
+                                "is Black queue!");
+                            float shift = getShift("is Black queue!");
+                            popup_text.setPosition((400 - shift) * scale, 825 * scale);
+                            isPopupShow = true;
+                            popup_time = int(elapsed.asSeconds()) + 5;
+                            break;
+                        }
+                        
                         selected.setPosition(
                             p_figures[figure_to_move_index]
                                 .position); // Подсвечимваем выбранную область
@@ -408,8 +431,17 @@ int main()
                                     popup_time = int(elapsed.asSeconds()) + 5;
                                 }
                             }
+                            // isWhiteQueue != isWhiteQueue - почему-то не работает,
+                            // приходится через костыли
+                            if (isWhiteQueue) //Чет плюсы меня огорчают
+                            {
+                                isWhiteQueue = false;
+                            } else {
+                                isWhiteQueue = true;
+                            }
+                            isClicked = false;
                         }
-
+/*
                         // isWhiteQueue != isWhiteQueue - почему-то не работает,
                         // приходится через костыли
                         if (isWhiteQueue) //Чет плюсы меня огорчают
@@ -419,6 +451,7 @@ int main()
                             isWhiteQueue = true;
                         }
                         isClicked = false;
+ */
                     }
                 }
                 break;

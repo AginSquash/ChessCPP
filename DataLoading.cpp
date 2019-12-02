@@ -61,7 +61,8 @@ sf::Texture LoadFigureTexture(
 chess_figure* LoadFigures(chess_figure* p_figures,
     std::string PATH,
     float scale)
-{ //вот прям чую, что мы протупили и
+{
+    //вот прям чую, что мы протупили и
     //можно было нормально объявить
     // но хз как именно
 
