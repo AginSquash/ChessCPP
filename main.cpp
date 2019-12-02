@@ -737,6 +737,183 @@ bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_m
         }
     }
 }
+
+bool figureKillForQueen(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue){
+    sf::Vector2f newpos = p_figures[figure_to_move_index].position;
+    if(figure_to_move_index == 4 ) {
+        if (field_index > 15) {
+            if(pos.y == newpos.y && pos.x > newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.y == newpos.y && pos.x < newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y > newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y < newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+
+            if (pos.x > newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x > newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+
+        }
+    }
+    if(figure_to_move_index == 20) {
+        if (field_index < 16) {
+            if(pos.y == newpos.y && pos.x > newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.y == newpos.y && pos.x < newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y > newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y < newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+
+
+        if (pos.x > newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x > newpos.x && pos.y < newpos.y) {
+                while (pos != newpos) {
+                    newpos.x += 100 * scale;
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+            if (pos.x < newpos.x && pos.y > newpos.y) {
+                while (pos != newpos) {
+                    newpos.x -= 100 * scale;
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPositionBool(p_figures, newpos) == false) {
+                        if (GetFigureByPosition(p_figures, newpos) == field_index)
+                            return true;
+                        else return false;
+                    }
+
+                }
+            }
+
+        }
+    }
+}
 float getShift(std::string text)
 {
     int len = text.length();
@@ -939,7 +1116,8 @@ int main()
                                      if((figure_to_move_index == 21 || figure_to_move_index == 5 ) && figureKillForKing(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
                                          figureKill(p_figures,field_index,figure_to_move_index,pos);
 
-
+                                     if((figure_to_move_index == 20 || figure_to_move_index == 4 ) && figureKillForQueen(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
+                                         figureKill(p_figures,field_index,figure_to_move_index,pos);
 
                                  }
 
