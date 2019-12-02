@@ -332,6 +332,29 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
             }
         }
     }
+    if (j == 5 || j == 21){
+        sf::Vector2f PosKing[8];
+        PosKing[0].x = p_figures[j].position.x - 100*scale;
+        PosKing[0].y = p_figures[j].position.y - 100*scale;
+        PosKing[1].x = p_figures[j].position.x;
+        PosKing[1].y = p_figures[j].position.y - 100*scale;
+        PosKing[2].x = p_figures[j].position.x + 100*scale;
+        PosKing[2].y = p_figures[j].position.y - 100*scale;
+        PosKing[3].x = p_figures[j].position.x + 100*scale;
+        PosKing[3].y = p_figures[j].position.y;
+        PosKing[4].x = p_figures[j].position.x + 100*scale;
+        PosKing[4].y = p_figures[j].position.y + 100*scale;
+        PosKing[5].x = p_figures[j].position.x ;
+        PosKing[5].y = p_figures[j].position.y + 100*scale;
+        PosKing[6].x = p_figures[j].position.x - 100*scale;
+        PosKing[6].y = p_figures[j].position.y + 100*scale;
+        PosKing[7].x = p_figures[j].position.x - 100*scale;
+        PosKing[7].y = p_figures[j].position.y ;
+        for (int i = 0; i<8;i++){
+            if (PosKing[i] == pos)
+                return true;
+        }
+    }
 }
 
 bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue ){
