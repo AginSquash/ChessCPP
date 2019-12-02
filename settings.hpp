@@ -8,16 +8,15 @@
 #ifndef settings_hpp
 #define settings_hpp
 
-#include <stdio.h>
 #include <SFML/Graphics.hpp>
+#include <stdio.h>
 
-enum selected_text
-{
+enum selected_text {
     NONE = 0,
     SCALE = 1,
     TEXTURE_TYPE = 2
 };
 
-int main_settings(sf::RenderWindow *settings, std::string path, sf::Font *font);
+int main_settings(sf::RenderWindow* settings, std::string path, sf::Font* font);
 
 #endif /* settings_hpp */

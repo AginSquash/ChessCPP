@@ -8,9 +8,7 @@
 #ifndef figure_rules_hpp
 #define figure_rules_hpp
 
-#include <stdio.h>
 #include "types.h"
-
-
+#include <stdio.h>
 
 #endif /* figure_rules_hpp */

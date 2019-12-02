@@ -5,9 +5,8 @@
 #ifndef CHESSCPP_DATALOADING_H
 #define CHESSCPP_DATALOADING_H
 
-#include <SFML/Graphics.hpp>
 #include "types.h"
-
+#include <SFML/Graphics.hpp>
 
 sf::Texture LoadFigureTexture(figure_type type, std::string PATH);
 

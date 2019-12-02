@@ -8,8 +8,8 @@
 #ifndef debug_func_hpp
 #define debug_func_hpp
 
-#include <stdio.h>
 #include <iostream>
+#include <stdio.h>
 
 #endif /* debug_func_hpp */
 
