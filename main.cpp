@@ -1047,7 +1047,7 @@ int main()
 
                     } else {
 
-                        if (figure_to_move_index != -1) { // Если мы до этого выбрали пустую область - не стоит что-либо делать
+                        if ((figure_to_move_index != -1)&&(p_figures[figure_to_move_index].position != pos)) { // Если мы до этого выбрали пустую область - не стоит что-либо делать
 
                             short field_index = GetFigureByPosition(p_figures, pos); // Получаем фигуру по координатам нажатия
                             if (field_index == -1) // Если GetFigureByPosition возвращает -1, значит мы нажимаем на
