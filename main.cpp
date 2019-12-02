@@ -1047,7 +1047,7 @@ int main()
 
                     } else {
 
-                        if ((figure_to_move_index != -1)&&(p_figures[figure_to_move_index].position != pos)) { // Если мы до этого выбрали пустую область - не стоит что-либо делать
+                        if ((figure_to_move_index != -1) && (p_figures[figure_to_move_index].position != pos)) { // Если мы до этого выбрали пустую область - не стоит что-либо делать
 
                             short field_index = GetFigureByPosition(p_figures, pos); // Получаем фигуру по координатам нажатия
                             if (field_index == -1) // Если GetFigureByPosition возвращает -1, значит мы нажимаем на
@@ -1056,7 +1056,9 @@ int main()
                                 if (Possiblemove(p_figures, figure_to_move_index, pos)) {
                                     p_figures[figure_to_move_index].position = pos;
                                     inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
-                                } else { break; }
+                                } else {
+                                    break;
+                                }
                             }
                             if (field_index != -1) {
                                 if (((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))) {
