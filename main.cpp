@@ -1056,7 +1056,7 @@ int main()
                                 if (Possiblemove(p_figures, figure_to_move_index, pos)) {
                                     p_figures[figure_to_move_index].position = pos;
                                     inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
-                                }
+                                } else { break; }
                             }
                             if (field_index != -1) {
                                 if (((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))) {
