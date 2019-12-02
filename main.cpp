@@ -330,8 +330,109 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
 bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue) {
     sf::Vector2f newpos;
     newpos = p_figures[figure_to_move_index].position;
-   return true;
+    if (figure_to_move_index == 6 || figure_to_move_index == 7) {
+        if (GetFigureByPosition(p_figures, pos) > 15) {
+            if (pos.x == newpos.x && pos.y < newpos.y) {
+                while (newpos.y != pos.y) {
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    }
+                }
+            }
+       /*     if (pos.x == newpos.x && pos.y > newpos.y) {
+                while (newpos.y != pos.y) {
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    }
+                }
+            }
+            if (pos.y == newpos.y && pos.x < newpos.x) {
+                while (newpos.x != pos.x) {
+                    newpos.x -= 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    }
+                }
+            }
+            if (pos.y == newpos.y && pos.x > newpos.x) {
+                while (newpos.x != pos.x) {
+                    newpos.x += 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    }
+                }
+            }
+        }
     }
+    if (figure_to_move_index == 22 || figure_to_move_index == 23) {
+        if (GetFigureByPosition(p_figures, pos) < 16) {
+            if (pos.x == newpos.x && pos.y < newpos.y) {
+                while (newpos.y != pos.y) {
+                    newpos.y -= 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    } else return false;
+                }
+            }
+            if (pos.x == newpos.x && pos.y > newpos.y) {
+                while (newpos.y != pos.y) {
+                    newpos.y += 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    } else return false;
+                }
+            }
+            if (pos.y == newpos.y && pos.x < newpos.x) {
+                while (newpos.x != pos.x) {
+                    newpos.x -= 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    }
+                }
+            }
+            if (pos.y == newpos.y && pos.x > newpos.x) {
+                while (newpos.x != pos.x) {
+                    newpos.x += 100 * scale;
+                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
+                        return true;
+                    }
+                }
+            }*/
+        }
+    }
+
+}
+
+bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue){
+    if (figure_to_move_index == 2 || figure_to_move_index == 3 || figure_to_move_index == 18 || figure_to_move_index == 19){
+        sf::Vector2f PosNight[8];
+        PosNight[0].x = p_figures[figure_to_move_index].position.x + 100*scale;
+        PosNight[0].y = p_figures[figure_to_move_index].position.y + 200*scale;
+        PosNight[1].x = p_figures[figure_to_move_index].position.x - 100*scale;
+        PosNight[1].y = p_figures[figure_to_move_index].position.y + 200*scale;
+        PosNight[2].x = p_figures[figure_to_move_index].position.x + 100*scale;
+        PosNight[2].y = p_figures[figure_to_move_index].position.y - 200*scale;
+        PosNight[3].x = p_figures[figure_to_move_index].position.x - 100*scale;
+        PosNight[3].y = p_figures[figure_to_move_index].position.y - 200*scale;
+        PosNight[4].x = p_figures[figure_to_move_index].position.x + 200*scale;
+        PosNight[4].y = p_figures[figure_to_move_index].position.y + 100*scale;
+        PosNight[5].x = p_figures[figure_to_move_index].position.x + 200*scale;
+        PosNight[5].y = p_figures[figure_to_move_index].position.y - 100*scale;
+        PosNight[6].x = p_figures[figure_to_move_index].position.x - 200*scale;
+        PosNight[7].x = p_figures[figure_to_move_index].position.x - 200*scale;
+        PosNight[7].y = p_figures[figure_to_move_index].position.y - 100*scale;
+        for (int i = 0; i<8;i++){
+            if (PosNight[i] == pos) {
+                if (figure_to_move_index < 16 && field_index > 15)
+                    return true;
+                if (figure_to_move_index > 15 && field_index < 16)
+                    return true;
+            }
+        }
+    }
+}
 
 
 
@@ -522,13 +623,16 @@ int main()
                                 }
                                  if ( field_index != -1){
                                      if (((figure_to_move_index > 7 && figure_to_move_index <16)||(figure_to_move_index > 23 && figure_to_move_index <31)) && (figurekillforpawns(p_figures,field_index,figure_to_move_index,pos, isWhiteQueue))) {
-                                         figureKill(p_figures, field_index, figure_to_move_index,pos );
-                                     if ((figure_to_move_index == 6 || figure_to_move_index ==7 || figure_to_move_index == 22 || figure_to_move_index ==23)){
+                                         figureKill(p_figures, field_index, figure_to_move_index, pos);
+                                     }
+                                     if ((figure_to_move_index == 6 || figure_to_move_index ==7 || figure_to_move_index == 22 || figure_to_move_index ==23)&&figureKillForRook(p_figures,field_index,figure_to_move_index,pos,isWhiteQueue)){
                                          figureKill(p_figures, field_index, figure_to_move_index,pos );
                                      }
 
+                                     if((figure_to_move_index == 2 || figure_to_move_index ==3 ||figure_to_move_index == 18 ||figure_to_move_index == 19) && figureKillForKnight(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
+                                         figureKill(p_figures,field_index,figure_to_move_index,pos);
 
-                                     }
+
                                  }
 
 
