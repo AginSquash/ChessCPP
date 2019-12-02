@@ -616,6 +616,37 @@ bool figureKillForBishop(chess_figure* p_figures, int field_index, int figure_to
     }
 }
 
+bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue){
+    sf::Vector2f PosKing[8];
+    PosKing[0].x = p_figures[figure_to_move_index].position.x - 100*scale;
+    PosKing[0].y = p_figures[figure_to_move_index].position.y - 100*scale;
+    PosKing[1].x = p_figures[figure_to_move_index].position.x;
+    PosKing[1].y = p_figures[figure_to_move_index].position.y - 100*scale;
+    PosKing[2].x = p_figures[figure_to_move_index].position.x + 100*scale;
+    PosKing[2].y = p_figures[figure_to_move_index].position.y - 100*scale;
+    PosKing[3].x = p_figures[figure_to_move_index].position.x + 100*scale;
+    PosKing[3].y = p_figures[figure_to_move_index].position.y;
+    PosKing[4].x = p_figures[figure_to_move_index].position.x + 100*scale;
+    PosKing[4].y = p_figures[figure_to_move_index].position.y + 100*scale;
+    PosKing[5].x = p_figures[figure_to_move_index].position.x ;
+    PosKing[5].y = p_figures[figure_to_move_index].position.y + 100*scale;
+    PosKing[6].x = p_figures[figure_to_move_index].position.x - 100*scale;
+    PosKing[6].y = p_figures[figure_to_move_index].position.y + 100*scale;
+    PosKing[7].x = p_figures[figure_to_move_index].position.x - 100*scale;
+    PosKing[7].y = p_figures[figure_to_move_index].position.y ;
+    if (figure_to_move_index == 5 && field_index > 15){
+        for(int i = 0; i<8; i++){
+            if(PosKing[i] == pos)
+                return true;
+        }
+    }
+    if (figure_to_move_index == 21 && field_index < 16){
+        for(int i = 0; i<8; i++){
+            if(PosKing[i] == pos)
+                return true;
+        }
+    }
+}
 float getShift(std::string text)
 {
     int len = text.length();
@@ -814,6 +845,10 @@ int main()
 
                                      if((figure_to_move_index == 0 || figure_to_move_index ==1 ||figure_to_move_index == 16 ||figure_to_move_index == 17) && figureKillForBishop(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
                                          figureKill(p_figures,field_index,figure_to_move_index,pos);
+
+                                     if((figure_to_move_index == 21 || figure_to_move_index == 5 ) && figureKillForKing(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
+                                         figureKill(p_figures,field_index,figure_to_move_index,pos);
+                                     
 
 
                                  }
