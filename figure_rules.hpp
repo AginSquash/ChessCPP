@@ -9,8 +9,7 @@
 #define figure_rules_hpp
 
 #include <stdio.h>
+
 #include "types.h"
-
-
 
 #endif /* figure_rules_hpp */

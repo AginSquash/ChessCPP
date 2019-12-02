@@ -6,6 +6,7 @@
 //
 
 #include "debug_func.hpp"
+
 #include <iostream>
 
 void _print(std::string var_name, int var)
@@ -20,5 +21,6 @@ void _print(std::string var_name, std::string var)
 
 void _print(std::string var_name, float var)
 {
-    std::cout << "DEBUG: " << var_name << " = " << std::to_string(var) << std::endl;
+    std::cout << "DEBUG: " << var_name << " = " << std::to_string(var)
+              << std::endl;
 }

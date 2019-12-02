@@ -6,11 +6,13 @@
 #define CHESSCPP_DATALOADING_H
 
 #include <SFML/Graphics.hpp>
-#include "types.h"
 
+#include "types.h"
 
 sf::Texture LoadFigureTexture(figure_type type, std::string PATH);
 
-chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale);
+chess_figure* LoadFigures(chess_figure* p_figures,
+    std::string PATH,
+    float scale);
 
-#endif //CHESSCPP_DATALOADING_H
+#endif // CHESSCPP_DATALOADING_H
