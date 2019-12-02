@@ -330,79 +330,23 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
 bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue) {
     sf::Vector2f newpos;
     newpos = p_figures[figure_to_move_index].position;
-    if (figure_to_move_index == 6 || figure_to_move_index == 7) {
-        if (GetFigureByPosition(p_figures, pos) > 15) {
-            if (pos.x == newpos.x && pos.y < newpos.y) {
-                while (newpos.y != pos.y) {
-                    newpos.y -= 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    }
-                }
-            }
-       /*     if (pos.x == newpos.x && pos.y > newpos.y) {
-                while (newpos.y != pos.y) {
-                    newpos.y += 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    }
-                }
-            }
-            if (pos.y == newpos.y && pos.x < newpos.x) {
-                while (newpos.x != pos.x) {
-                    newpos.x -= 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    }
-                }
-            }
-            if (pos.y == newpos.y && pos.x > newpos.x) {
-                while (newpos.x != pos.x) {
-                    newpos.x += 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    }
-                }
-            }
-        }
-    }
-    if (figure_to_move_index == 22 || figure_to_move_index == 23) {
-        if (GetFigureByPosition(p_figures, pos) < 16) {
-            if (pos.x == newpos.x && pos.y < newpos.y) {
-                while (newpos.y != pos.y) {
-                    newpos.y -= 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    } else return false;
-                }
-            }
-            if (pos.x == newpos.x && pos.y > newpos.y) {
-                while (newpos.y != pos.y) {
-                    newpos.y += 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    } else return false;
-                }
-            }
-            if (pos.y == newpos.y && pos.x < newpos.x) {
-                while (newpos.x != pos.x) {
-                    newpos.x -= 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    }
-                }
-            }
-            if (pos.y == newpos.y && pos.x > newpos.x) {
-                while (newpos.x != pos.x) {
-                    newpos.x += 100 * scale;
-                    if (GetFigureByPosition(p_figures, newpos) == field_index) {
-                        return true;
-                    }
-                }
-            }*/
-        }
-    }
+    if (figure_to_move_index == 6 || figure_to_move_index == 7){
+        if(field_index>15){
+            if(pos.y == newpos.y && pos.x > newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false; //Пишу сам для себя, чтобы через час не забыть на чем я остановился
+                                      //Ладья теперь хорошо есть направо, надо теперь написать возможные ходы вверх, вниз, влево, вправо
+                                      //Также нежно написать все то же самое для белых фигур
 
+                }
+        }
+
+
+    }
 }
 
 bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue){
