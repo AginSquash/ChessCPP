@@ -355,6 +355,96 @@ bool Possiblemove(chess_figure* p_figures,int j,sf::Vector2f pos) {
                 return true;
         }
     }
+    // Черная королева - 4, белая - 20
+    if(j == 4 || j == 20){
+
+        newpos = p_figures[j].position;
+        if (pos.x>newpos.x && pos.y>newpos.y){
+            while(pos != newpos){
+                newpos.x += 100*scale;
+                newpos.y += 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x<newpos.x && pos.y<newpos.y){
+            while(pos != newpos){
+                newpos.x -= 100*scale;
+                newpos.y -= 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x>newpos.x && pos.y<newpos.y){
+            while(pos != newpos){
+                newpos.x += 100*scale;
+                newpos.y -= 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x<newpos.x && pos.y>newpos.y){
+            while(pos != newpos){
+                newpos.x -= 100*scale;
+                newpos.y += 100*scale;
+                if (GetFigureByPositionBool(p_figures,newpos) == false)
+                    return false;
+                if (pos == newpos)
+                    return true;
+            }
+        }
+        if (pos.x > newpos.x && pos.y==newpos.y) {
+            while (newpos.x != pos.x) {
+                newpos.x += 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.x == newpos.x) {
+                    return true;
+                }
+            }
+        }
+        if (pos.x < newpos.x && pos.y==newpos.y) {
+            while (newpos.x != pos.x) {
+                newpos.x -= 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.x == newpos.x) {
+                    return true;
+                }
+            }
+
+        }
+        if (pos.y > newpos.y && pos.x==newpos.x) {
+            while (newpos.y != pos.y) {
+                newpos.y += 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+                if (pos.y == newpos.y) {
+                    return true;
+                }
+            }
+
+        }
+        if (pos.y < newpos.y && pos.x==newpos.x) {
+            while (newpos.y != pos.y) {
+                newpos.y -= 100 * scale;
+                if (GetFigureByPositionBool(p_figures, newpos)==false)
+                    return false;
+
+                if (pos.y == newpos.y) {
+                    return true;
+                }
+            }
+
+        }
+
+    }
 }
 
 bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_move_index,sf::Vector2f pos, bool isWhiteQueue ){
@@ -848,7 +938,7 @@ int main()
 
                                      if((figure_to_move_index == 21 || figure_to_move_index == 5 ) && figureKillForKing(p_figures,field_index, figure_to_move_index , pos, isWhiteQueue) )
                                          figureKill(p_figures,field_index,figure_to_move_index,pos);
-                                     
+
 
 
                                  }
