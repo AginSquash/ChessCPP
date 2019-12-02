@@ -338,12 +338,73 @@ bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_m
                     if ((GetFigureByPosition(p_figures, newpos) == field_index))
                         return  true;
                     if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
-                        return false; //Пишу сам для себя, чтобы через час не забыть на чем я остановился
-                                      //Ладья теперь хорошо есть направо, надо теперь написать возможные ходы вверх, вниз, влево, вправо
-                                      //Также нежно написать все то же самое для белых фигур
-
+                        return false;
+                }
+            if(pos.y == newpos.y && pos.x < newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y > newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y < newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
                 }
         }
+
+
+
+    }
+    if (figure_to_move_index == 22 || figure_to_move_index == 23){
+        if(field_index<16){
+            if(pos.y == newpos.y && pos.x > newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.y == newpos.y && pos.x < newpos.x)
+                while (pos.x != newpos.x){
+                    newpos.x -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y > newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y += 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+            if(pos.x == newpos.x && pos.y < newpos.y)
+                while (pos.y != newpos.y){
+                    newpos.y -= 100*scale;
+                    if ((GetFigureByPosition(p_figures, newpos) == field_index))
+                        return  true;
+                    if(GetFigureByPosition(p_figures,newpos) != field_index && GetFigureByPositionBool(p_figures,newpos)==false )
+                        return false;
+                }
+        }
+
 
 
     }
