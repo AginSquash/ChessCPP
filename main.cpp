@@ -255,7 +255,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
                 return true;
         }
     }
-    //0,1 - черные словн . 16, 17 - белые
+    //0,1 - черные слоны . 16, 17 - белые
     if (j == 0 || j == 1 || j == 16 || j == 17) {
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y > newpos.y) {
@@ -1035,8 +1035,8 @@ int main()
                         }
                         if ((figure_to_move_index < 16) && (isWhiteQueue)) {
                             popup_text.setString(
-                                "is White queue!");
-                            float shift = getShift("is White queue!");
+                                "The white side makes a move!");
+                            float shift = getShift("The white side makes a move!");
                             popup_text.setPosition((400 - shift) * scale, 825 * scale);
                             isPopupShow = true;
                             popup_time = int(elapsed.asSeconds()) + 5;
@@ -1045,8 +1045,8 @@ int main()
 
                         if ((figure_to_move_index > 15) && (!isWhiteQueue)) {
                             popup_text.setString(
-                                "is Black queue!");
-                            float shift = getShift("is Black queue!");
+                                "The black side makes a move!");
+                            float shift = getShift("The black  side makes a move!");
                             popup_text.setPosition((400 - shift) * scale, 825 * scale);
                             isPopupShow = true;
                             popup_time = int(elapsed.asSeconds()) + 5;
@@ -1136,9 +1136,9 @@ int main()
         }
 
         if (isWhiteQueue) {
-            progress.setString("Now white to move!");
+            progress.setString("White side move!");
         } else {
-            progress.setString("Now black to move!");
+            progress.setString("Black side move!");
         }
 
         window.clear();
