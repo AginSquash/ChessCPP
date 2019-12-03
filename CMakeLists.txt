@@ -10,6 +10,4 @@ set(APP_NAME ChessCPP)
 add_executable(${APP_NAME} main.cpp DataLoading.cpp DataLoading.h configWorker.cpp configWorker.h settings.hpp settings.cpp debug_func.cpp debug_func.hpp figure_movement.cpp figure_movement.hpp figure_rules.cpp figure_rules.hpp types.h)
 
 target_link_libraries(ChessCPP sfml-graphics sfml-audio)
-set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CXX_STANDARD_LIBRARIES}")
 
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive")

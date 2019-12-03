@@ -60,3 +60,4 @@ CMakeLists.txt
 /cmake-build-debug/CPackSourceConfig.cmake
 /resources/
 cmake-build-debug/ChessCPP 2
+CMakeLists.txt
