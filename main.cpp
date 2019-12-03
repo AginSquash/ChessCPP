@@ -692,14 +692,16 @@ bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_m
     PosKing[7].y = p_figures[figure_to_move_index].position.y;
     if (figure_to_move_index == 5 && field_index > 15) {
         for (int i = 0; i < 8; i++) {
-            if (PosKing[i] == pos)
+            if (PosKing[i] == pos) {
                 return true;
+            }
         }
     }
     if (figure_to_move_index == 21 && field_index < 16) {
         for (int i = 0; i < 8; i++) {
-            if (PosKing[i] == pos)
+            if (PosKing[i] == pos) {
                 return true;
+            }
         }
     }
 }
