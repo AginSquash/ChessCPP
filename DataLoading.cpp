@@ -59,28 +59,28 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale
 { //вот прям чую, что мы протупили и можно было нормально объявить
     // но хз как именно
 
-    p_figures[0].position.x = scale * 100; //координата по X
+    p_figures[0].position.x = scale * 200; //координата по X
     p_figures[0].position.y = 0; //Координата по y
     p_figures[0].type = b_Bishop;
     p_figures[0].texture = LoadFigureTexture(b_Bishop, PATH);
     p_figures[0].x_move = 12;
     p_figures[0].y_move = 12; // универсальный код для слонов
 
-    p_figures[1].position.x = scale * 600;
+    p_figures[1].position.x = scale * 500;
     p_figures[1].position.y = scale * 0;
     p_figures[1].type = b_Bishop;
     p_figures[1].texture = LoadFigureTexture(b_Bishop, PATH);
     p_figures[1].x_move = 12;
     p_figures[1].y_move = 12; // универсальный код для слонов
 
-    p_figures[2].position.x = scale * 200;
+    p_figures[2].position.x = scale * 100;
     p_figures[2].position.y = scale * 0;
     p_figures[2].type = b_Night;
     p_figures[2].texture = LoadFigureTexture(b_Night, PATH);
     p_figures[2].x_move = 3;
     p_figures[2].y_move = 1;
 
-    p_figures[3].position.x = scale * 500;
+    p_figures[3].position.x = scale * 600;
     p_figures[3].position.y = scale * 0;
     p_figures[3].type = b_Night;
     p_figures[3].texture = LoadFigureTexture(b_Night, PATH);
@@ -113,22 +113,22 @@ chess_figure* LoadFigures(chess_figure* p_figures, std::string PATH, float scale
 
     // /////////
 
-    p_figures[16].position.x = scale * 100; //координата по X
+    p_figures[16].position.x = scale * 200; //координата по X
     p_figures[16].position.y = scale * 700; //Координата по y
     p_figures[16].type = w_Bishop;
     p_figures[16].texture = LoadFigureTexture(w_Bishop, PATH);
 
-    p_figures[17].position.x = scale * 600;
+    p_figures[17].position.x = scale * 500;
     p_figures[17].position.y = scale * 700;
     p_figures[17].type = w_Bishop;
     p_figures[17].texture = LoadFigureTexture(w_Bishop, PATH);
 
-    p_figures[18].position.x = scale * 200;
+    p_figures[18].position.x = scale * 100;
     p_figures[18].position.y = scale * 700;
     p_figures[18].type = w_Night;
     p_figures[18].texture = LoadFigureTexture(w_Night, PATH);
 
-    p_figures[19].position.x = scale * 500;
+    p_figures[19].position.x = scale * 600;
     p_figures[19].position.y = scale * 700;
     p_figures[19].type = w_Night;
     p_figures[19].texture = LoadFigureTexture(w_Night, PATH);
