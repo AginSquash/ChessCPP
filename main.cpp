@@ -877,8 +877,60 @@ bool figureKillForQueen(chess_figure* p_figures, int field_index, int figure_to_
                     }
                 }
             }
+
+
         }
     }
+}
+
+void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
+    std::cout << "You can change type of figure. Choose new type.";
+    std::cout << "Example of your anwser: [first word of your color]_NewFigure - b.Bishop \n If you want to choose Knight, you should write Night";
+
+
+    string newtype;
+    cin >> newtype;
+
+    if(newtype == "b_Bishop") {
+        p_figures[figure_to_move_index].type = b_Bishop; //Хотел сделать через swtich, но оно не хотело работать
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Bishop, PATH);
+    }
+
+    if(newtype == "w_Bishop") {
+        p_figures[figure_to_move_index].type = w_Bishop;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Bishop, PATH);
+    }
+    if(newtype == "b_Night") {
+        p_figures[figure_to_move_index].type = b_Night;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Night, PATH);
+    }
+    if(newtype == "w_Night") {
+        p_figures[figure_to_move_index].type = w_Night;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Night, PATH);
+    }
+    if(newtype == "b_Qween") {
+        p_figures[figure_to_move_index].type = b_Qween;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Qween, PATH);
+    }
+    if(newtype == "w_Qween") {
+        p_figures[figure_to_move_index].type = w_Qween;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Qween, PATH);
+    }
+    if(newtype == "b_Rook") {
+        p_figures[figure_to_move_index].type = b_Rook;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Rook, PATH);
+    }
+    if(newtype == "w_Rook") {
+        p_figures[figure_to_move_index].type = w_Rook;
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Rook, PATH);
+    }
+}
+void ChangeFigureType(chess_figure* p_figures, int figure_to_move_index){
+    ChooseTypeOfFigure(p_figures, figure_to_move_index);
+
+
+
+
 }
 float getShift(std::string text)
 {
@@ -887,7 +939,7 @@ float getShift(std::string text)
     return shift;
 }
 
-void figureKill(chess_figure* p_figures, short field_index, short figure_to_move_index, sf::Vector2f pos)
+void figureKill(chess_figure* p_figures, short field_index, short f1igure_to_move_index, sf::Vector2f pos)
 {
     p_figures[field_index].isAlive = false; // ставим figure_to_move_index
     p_figures[field_index].position = sf::Vector2f(1100.0f * scale, 1100.0f * scale); // Переносим за карту
@@ -1069,10 +1121,14 @@ int main()
                             {
                                 if (Possiblemove(p_figures, figure_to_move_index, pos)) {
                                     p_figures[figure_to_move_index].position = pos;
+                                    if (p_figures[figure_to_move_index].position.y == 0 || p_figures[figure_to_move_index].position.y == 700*scale){
+                                        ChangeFigureType(p_figures, figure_to_move_index);
+                                    }
                                     inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
                                 } else {
                                     break;
                                 }
+
                             }
                             if (field_index != -1) {
                                 if (((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))) {
