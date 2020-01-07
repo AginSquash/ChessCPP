@@ -7,6 +7,7 @@ def copytree(src, dst, symlinks=0):
   names = os.listdir(src)
   if not os.path.exists(dst):
     os.mkdir(dst)
+
   for name in names:
     srcname = os.path.join(src, name)
     dstname = os.path.join(dst, name)
@@ -27,8 +28,10 @@ appName = "ChessCPP"
 
 login = os.getlogin()
 
-data_path = "/Users/" + login + "/." + appName + "/"
 
+data_path = "/Users/" + login + "/." + appName + "/"
+if not os.path.exists(data_path):
+  os.mkdir(data_path)
 copytree( "resources/", data_path + "resources/")
 
 print("All data succefull instaled into " + data_path + "\nNow you can run ChessCPP (just double-click on it).")
