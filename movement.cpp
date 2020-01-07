@@ -7,6 +7,7 @@
 
 #include "movement.hpp"
 #include "types.h"
+#include "debug_func.hpp"
 
 extern short figure_to_move_index;
 extern float scale;
@@ -134,7 +135,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             }
         }
     }
-    if ( (j == 2 || j == 3 || j == 18 || j == 19)||(p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night )) { //2, 3 - черный конь. 18,19 - белый конь
+    if ( (j == 2 || j == 3 || j == 18 || j == 19)&&(p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night )) { //2, 3 - черный конь. 18,19 - белый конь
         sf::Vector2f PosNight[8];
         PosNight[0].x = p_figures[j].position.x + 100 * scale;
         PosNight[0].y = p_figures[j].position.y + 200 * scale;
@@ -154,11 +155,15 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
         PosNight[7].y = p_figures[j].position.y - 100 * scale;
         for (int i = 0; i < 8; i++) {
             if (PosNight[i] == pos)
+            {
+                _print("[posible move] POS.x", pos.x);
+                _print("[posible move] POS.y", pos.y);
                 return true;
+            }
         }
     }
     //0,1 - черные слоны . 16, 17 - белые
-    if ( (j == 0 || j == 1 || j == 16 || j == 17)||(p_figures[figure_to_move_index].type==b_Bishop||p_figures[figure_to_move_index].type==w_Bishop) ) {
+    if ( (j == 0 || j == 1 || j == 16 || j == 17)&&(p_figures[figure_to_move_index].type==b_Bishop||p_figures[figure_to_move_index].type==w_Bishop) ) {
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y > newpos.y) {
             while (pos != newpos) {
@@ -221,7 +226,11 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
         PosKing[7].y = p_figures[j].position.y;
         for (int i = 0; i < 8; i++) {
             if (PosKing[i] == pos)
+            {
                 return true;
+            } else {
+                return false;
+            }
         }
     }
     // Черная королева - 4, белая - 20
@@ -475,11 +484,13 @@ bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to
         PosNight[7].y = p_figures[figure_to_move_index].position.y - 100 * scale;
         for (int i = 0; i < 8; i++) {
             if (PosNight[i] == pos) {
+                _print("POS.x", pos.x);
+                _print("POS.y", pos.y);
                 if (figure_to_move_index < 16 && field_index > 15)
                     return true;
                 if (figure_to_move_index > 15 && field_index < 16)
                     return true;
-            }
+            } else { return false; }
         }
     }
 }
@@ -616,6 +627,8 @@ bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_m
         for (int i = 0; i < 8; i++) {
             if (PosKing[i] == pos) {
                 return true;
+            } else {
+                return false;
             }
         }
     }
@@ -623,6 +636,8 @@ bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_m
         for (int i = 0; i < 8; i++) {
             if (PosKing[i] == pos) {
                 return true;
+            } else {
+                return false;
             }
         }
     }

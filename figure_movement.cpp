@@ -59,7 +59,7 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
 
     //getFreePosition(desk, scale, bool_desk);
 
-    std::cout << "~~~~~~~~~~~~~~~~" << std::endl;
+    /*std::cout << "~~~~~~~~~~~~~~~~" << std::endl;
     for (short y = 0; y < 8; y++) {
         for (short x = 0; x < 8; x++) {
             std::cout << bool_desk[x][y];
@@ -67,9 +67,9 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
         std::cout << std::endl;
     }
     std::cout << "~~~~~~~~~~~~~~~~" << std::endl;
-
+     */
     getFreePosition(desk, scale, bool_desk);
-
+    /*
     std::cout << "----------------" << std::endl;
     for (short y = 0; y < 8; y++) {
         for (short x = 0; x < 8; x++) {
@@ -78,6 +78,6 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
         std::cout << std::endl;
     }
     std::cout << "----------------" << std::endl;
-
+     */
     return bool_desk;
 }

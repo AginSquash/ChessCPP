@@ -117,7 +117,7 @@ int main_settings(sf::RenderWindow* settings, std::string path, sf::Font* font)
                     sf::Vector2i mouse_world = sf::Mouse::getPosition(*settings); //Получаем координаты мышки на экране
                     sf::Vector2f pos = settings->mapPixelToCoords(mouse_world); //Переводим в пиксели
                     pos.y = int(pos.y / 50) * 50;
-                    _print("pos.y", pos.y);
+                    //_print("pos.y", pos.y);
                     if ((pos.y == 50) || (pos.y == 100)) {
                         selected.setPosition(0, 70.0f);
                         s_type = SCALE;
