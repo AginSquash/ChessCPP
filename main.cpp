@@ -421,11 +421,11 @@ bool figurekillforpawns(chess_figure* p_figures, int field_index, int figure_to_
         sf::Vector2f newposR;
         newposR.x = p_figures[figure_to_move_index].position.x - 100 * scale;
         newposR.y = p_figures[figure_to_move_index].position.y + 100 * scale;
-        if (GetFigureByPosition(p_figures, newposL) > 15 && GetFigureByPosition(p_figures, newposL) < 31)
+        if (GetFigureByPosition(p_figures, newposL) > 15 && GetFigureByPosition(p_figures, newposL) < 32)
             if (newposL == pos) {
                 return true;
             }
-        if (GetFigureByPosition(p_figures, newposR) > 15 && GetFigureByPosition(p_figures, newposR) < 31)
+        if (GetFigureByPosition(p_figures, newposR) > 15 && GetFigureByPosition(p_figures, newposR) < 32)
             if (newposR == pos) {
                 return true;
             }
@@ -459,7 +459,7 @@ bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_m
 {
     sf::Vector2f newpos;
     newpos = p_figures[figure_to_move_index].position;
-    if (figure_to_move_index == 6 || figure_to_move_index == 7) {
+    if (figure_to_move_index == 6 || figure_to_move_index == 7|| p_figures[figure_to_move_index].type==b_Rook) {
         if (field_index > 15) {
             if (pos.y == newpos.y && pos.x > newpos.x)
                 while (pos.x != newpos.x) {
@@ -495,7 +495,7 @@ bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_m
                 }
         }
     }
-    if (figure_to_move_index == 22 || figure_to_move_index == 23) {
+    if (figure_to_move_index == 22 || figure_to_move_index == 23 || p_figures[figure_to_move_index].type==w_Rook) {
         if (field_index < 16) {
             if (pos.y == newpos.y && pos.x > newpos.x)
                 while (pos.x != newpos.x) {
@@ -535,7 +535,7 @@ bool figureKillForRook(chess_figure* p_figures, int field_index, int figure_to_m
 
 bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to_move_index, sf::Vector2f pos, bool isWhiteQueue)
 {
-    if (figure_to_move_index == 2 || figure_to_move_index == 3 || figure_to_move_index == 18 || figure_to_move_index == 19) {
+    if (figure_to_move_index == 2 || figure_to_move_index == 3 || figure_to_move_index == 18 || figure_to_move_index == 19 || p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night) {
         sf::Vector2f PosNight[8];
         PosNight[0].x = p_figures[figure_to_move_index].position.x + 100 * scale;
         PosNight[0].y = p_figures[figure_to_move_index].position.y + 200 * scale;
@@ -566,7 +566,7 @@ bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to
 bool figureKillForBishop(chess_figure* p_figures, int field_index, int figure_to_move_index, sf::Vector2f pos, bool isWhiteQueue)
 {
     sf::Vector2f newpos = p_figures[figure_to_move_index].position;
-    if (figure_to_move_index == 0 || figure_to_move_index == 1) {
+    if (figure_to_move_index == 0 || figure_to_move_index == 1 || p_figures[figure_to_move_index].type==b_Bishop) {
         if (field_index > 15) {
             if (pos.x > newpos.x && pos.y > newpos.y) {
                 while (pos != newpos) {
@@ -618,7 +618,7 @@ bool figureKillForBishop(chess_figure* p_figures, int field_index, int figure_to
             }
         }
     }
-    if (figure_to_move_index == 16 || figure_to_move_index == 17) {
+    if (figure_to_move_index == 16 || figure_to_move_index == 17 || p_figures[figure_to_move_index].type==w_Bishop) {
         if (field_index < 16) {
             if (pos.x > newpos.x && pos.y > newpos.y) {
                 while (pos != newpos) {
@@ -710,7 +710,7 @@ bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_m
 bool figureKillForQueen(chess_figure* p_figures, int field_index, int figure_to_move_index, sf::Vector2f pos, bool isWhiteQueue)
 {
     sf::Vector2f newpos = p_figures[figure_to_move_index].position;
-    if (figure_to_move_index == 4) {
+    if (figure_to_move_index == 4 || p_figures[figure_to_move_index].type==b_Qween) {
         if (field_index > 15) {
             if (pos.y == newpos.y && pos.x > newpos.x)
                 while (pos.x != newpos.x) {
@@ -795,7 +795,7 @@ bool figureKillForQueen(chess_figure* p_figures, int field_index, int figure_to_
             }
         }
     }
-    if (figure_to_move_index == 20) {
+    if (figure_to_move_index == 20 || p_figures[figure_to_move_index].type==w_Qween) {
         if (field_index < 16) {
             if (pos.y == newpos.y && pos.x > newpos.x)
                 while (pos.x != newpos.x) {
@@ -904,11 +904,11 @@ void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
     }
     if(newtype == "b_Night") {
         p_figures[figure_to_move_index].type = b_Night;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Night, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Night, PATH);
     }
     if(newtype == "w_Night") {
         p_figures[figure_to_move_index].type = w_Night;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Night, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Night, PATH);
     }
     if(newtype == "b_Qween") {
         p_figures[figure_to_move_index].type = b_Qween;
@@ -1134,23 +1134,23 @@ int main()
 
                             }
                             if (field_index != -1) {
-                                if (((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))) {
+                                if ((((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)))&& (p_figures[figure_to_move_index].type==w_Pawn||p_figures[figure_to_move_index].type==b_Pawn)) {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
                                 }
-                                if ((figure_to_move_index == 6 || figure_to_move_index == 7 || figure_to_move_index == 22 || figure_to_move_index == 23) && figureKillForRook(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)) {
+                                if ((figure_to_move_index == 6 || figure_to_move_index == 7 || figure_to_move_index == 22 || figure_to_move_index == 23 || p_figures[figure_to_move_index].type==w_Rook || p_figures[figure_to_move_index].type==b_Rook) && figureKillForRook(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)) {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
                                 }
 
-                                if ((figure_to_move_index == 2 || figure_to_move_index == 3 || figure_to_move_index == 18 || figure_to_move_index == 19) && figureKillForKnight(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                if ((figure_to_move_index == 2 || figure_to_move_index == 3 || figure_to_move_index == 18 || figure_to_move_index == 19 || p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night) && figureKillForKnight(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
 
-                                if ((figure_to_move_index == 0 || figure_to_move_index == 1 || figure_to_move_index == 16 || figure_to_move_index == 17) && figureKillForBishop(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                if ((figure_to_move_index == 0 || figure_to_move_index == 1 || figure_to_move_index == 16 || figure_to_move_index == 17 || p_figures[figure_to_move_index].type==w_Bishop || p_figures[figure_to_move_index].type==b_Bishop) && figureKillForBishop(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
 
                                 if ((figure_to_move_index == 21 || figure_to_move_index == 5) && figureKillForKing(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
 
-                                if ((figure_to_move_index == 20 || figure_to_move_index == 4) && figureKillForQueen(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                if ((figure_to_move_index == 20 || figure_to_move_index == 4 || p_figures[figure_to_move_index].type==w_Qween || p_figures[figure_to_move_index].type==b_Qween) && figureKillForQueen(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
                             }
 
