@@ -42,7 +42,7 @@ std::string GetCurrentWorkingDir(void)
 }
 
 //int desk[8][8]; остатки какой то более развитой цивилизации.
-
+/*
 void inputInSave(int IndexFigure, sf::Vector2f pos, int FieldIndex, ofstream* ChessMoves)
 {
 
@@ -54,7 +54,7 @@ void inputInSave(int IndexFigure, sf::Vector2f pos, int FieldIndex, ofstream* Ch
         *ChessMoves << "Figure " << FieldIndex << " is die \n";
 #endif
 };
-
+*/
 void drawField(chess_figure* p_figures, sf::RenderWindow* window)
 {
     for (int i = 0; i < 32; i++) {
@@ -174,7 +174,7 @@ int main()
     //Запуск лаунчера
     main_settings(&settings, resource_path, &font);
 
-    ofstream ChessMoves(resource_path + "Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
+    //ofstream ChessMoves(resource_path + "Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
     //Описание fuck_file есть в документации
 
     map<string, string> config = loadConfig(resource_path); // Подгружаем конфиг
@@ -333,7 +333,7 @@ int main()
                                     if (p_figures[figure_to_move_index].position.y == 0 || p_figures[figure_to_move_index].position.y == 700*scale){
                                         ChangeFigureType(p_figures, figure_to_move_index);
                                     }
-                                    inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
+                                    //inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
                                     isWhiteQueue = !isWhiteQueue;
                                 } else {
                                     isClicked = false;
@@ -457,7 +457,7 @@ int main()
 #endif
 
 
-    ChessMoves.close();
+    //ChessMoves.close();
 
     delete[] p_figures;
     return EXIT_SUCCESS;
