@@ -150,7 +150,7 @@ void figureKill(chess_figure* p_figures, short field_index, short f1igure_to_mov
     p_figures[field_index].position = sf::Vector2f(1100.0f * scale, 1100.0f * scale); // Переносим за карту
     p_figures[figure_to_move_index].position = pos;
 }
-void MakeSave(chess_figure* p_figures);
+
 
 
 
@@ -342,6 +342,9 @@ int main()
                             if (field_index != -1) {
                                 if ((((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)))&& (p_figures[figure_to_move_index].type==w_Pawn||p_figures[figure_to_move_index].type==b_Pawn)) {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
+                                    if (p_figures[figure_to_move_index].position.y == 0 || p_figures[figure_to_move_index].position.y == 700*scale) {
+                                        ChangeFigureType(p_figures, figure_to_move_index);
+                                    }
                                 }
                                 if ((figure_to_move_index == 6 || figure_to_move_index == 7 || figure_to_move_index == 22 || figure_to_move_index == 23 || p_figures[figure_to_move_index].type==w_Rook || p_figures[figure_to_move_index].type==b_Rook) && figureKillForRook(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)) {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
@@ -426,13 +429,7 @@ int main()
         }
         window.display();
     }
-    cout << "You can save your game. If you want to say press Y, else N \n";
-    string save;
-    cin >> save ;
-    if  (save == "Y"){
-        MakeSave(p_figures);
-    }
-    window.close();
+
 
 #ifdef WINDOWS
     for (int i = 0; i < 32; i++) {
@@ -440,15 +437,11 @@ int main()
     }
 #endif
 
-    filesave.close();
+
     ChessMoves.close();
 
     delete[] p_figures;
     return EXIT_SUCCESS;
 }
 
-/*void MakeSave(chess_figure* p_figures, fstream *filesave,resource_path){
-    ofstream filesave(resource_path + "fuck_file.txt", ios_base::trunc);
-    filesave.open
-    "lol" >> filesave;
-}*/
+
