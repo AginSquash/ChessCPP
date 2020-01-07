@@ -334,7 +334,9 @@ int main()
                                         ChangeFigureType(p_figures, figure_to_move_index);
                                     }
                                     inputInSave(figure_to_move_index, pos, 0, &ChessMoves);
+                                    isWhiteQueue = !isWhiteQueue;
                                 } else {
+                                    isClicked = false;
                                     break;
                                 }
 
@@ -345,32 +347,36 @@ int main()
                                     if (p_figures[figure_to_move_index].position.y == 0 || p_figures[figure_to_move_index].position.y == 700*scale) {
                                         ChangeFigureType(p_figures, figure_to_move_index);
                                     }
+                                    isWhiteQueue = !isWhiteQueue;
                                 }
                                 if ((figure_to_move_index == 6 || figure_to_move_index == 7 || figure_to_move_index == 22 || figure_to_move_index == 23 || p_figures[figure_to_move_index].type==w_Rook || p_figures[figure_to_move_index].type==b_Rook) && figureKillForRook(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)) {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
+                                    isWhiteQueue = !isWhiteQueue;
                                 }
 
                                 if ((figure_to_move_index == 2 || figure_to_move_index == 3 || figure_to_move_index == 18 || figure_to_move_index == 19 || p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night) && figureKillForKnight(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
-
+                                    isWhiteQueue = !isWhiteQueue;
+                                }
                                 if ((figure_to_move_index == 0 || figure_to_move_index == 1 || figure_to_move_index == 16 || figure_to_move_index == 17 || p_figures[figure_to_move_index].type==w_Bishop || p_figures[figure_to_move_index].type==b_Bishop) && figureKillForBishop(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
+                                    isWhiteQueue = !isWhiteQueue;
+                                }
 
                                 if ((figure_to_move_index == 21 || figure_to_move_index == 5) && figureKillForKing(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
-
+                                    isWhiteQueue = !isWhiteQueue;
+                                }
                                 if ((figure_to_move_index == 20 || figure_to_move_index == 4 || p_figures[figure_to_move_index].type==w_Qween || p_figures[figure_to_move_index].type==b_Qween) && figureKillForQueen(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue))
+                                {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
+                                    isWhiteQueue = !isWhiteQueue;
+                                }
                             }
 
-                            // isWhiteQueue = !isWhiteQueue - почему-то не работает,
-                            // приходится через костыли
-                            /*if (isWhiteQueue) //Чет плюсы меня огорчают
-                            {
-                                isWhiteQueue = false;
-                            } else {
-                                isWhiteQueue = true;
-                            } */
                             isClicked = false;
                         }
                     }
