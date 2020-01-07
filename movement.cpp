@@ -160,7 +160,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
                 _print("[posible move] POS.y", pos.y);
                 return true;
             }
-        }
+        } return false;
     }
     //0,1 - черные слоны . 16, 17 - белые
     if ( (j == 0 || j == 1 || j == 16 || j == 17)&&(p_figures[figure_to_move_index].type==b_Bishop||p_figures[figure_to_move_index].type==w_Bishop) ) {
@@ -228,10 +228,9 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             if (PosKing[i] == pos)
             {
                 return true;
-            } else {
-                return false;
             }
         }
+        return false;
     }
     // Черная королева - 4, белая - 20
     if ((j == 4 || j == 20)||(p_figures[figure_to_move_index].type==b_Qween)||p_figures[figure_to_move_index].type==w_Qween) {
@@ -490,8 +489,8 @@ bool figureKillForKnight(chess_figure* p_figures, int field_index, int figure_to
                     return true;
                 if (figure_to_move_index > 15 && field_index < 16)
                     return true;
-            } else { return false; }
-        }
+            }
+        } return false;
     }
 }
 
@@ -623,23 +622,19 @@ bool figureKillForKing(chess_figure* p_figures, int field_index, int figure_to_m
     PosKing[6].y = p_figures[figure_to_move_index].position.y + 100 * scale;
     PosKing[7].x = p_figures[figure_to_move_index].position.x - 100 * scale;
     PosKing[7].y = p_figures[figure_to_move_index].position.y;
-    if (figure_to_move_index == 5 && field_index > 15) {
+    if (figure_to_move_index == 5 && field_index > 15 ) {
         for (int i = 0; i < 8; i++) {
             if (PosKing[i] == pos) {
                 return true;
-            } else {
-                return false;
             }
-        }
+        } return false;
     }
     if (figure_to_move_index == 21 && field_index < 16) {
         for (int i = 0; i < 8; i++) {
             if (PosKing[i] == pos) {
                 return true;
-            } else {
-                return false;
             }
-        }
+        } return false;
     }
 }
 
