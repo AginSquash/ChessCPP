@@ -6,7 +6,6 @@
 //
 
 #include "SaveLoad.hpp"
-#include "DataLoading.h"
 
 bool saveGame(string PATH, chess_figure* p_figures, bool isWhiteQueue, float scale)
 {
@@ -30,7 +29,7 @@ bool saveGame(string PATH, chess_figure* p_figures, bool isWhiteQueue, float sca
     return true;
 }
 
-bool loadGame(string PATH, chess_figure* p_figures, bool& isWhiteQueue, float& scale, string texture_path)
+bool loadGame(string PATH, chess_figure* p_figures, bool& isWhiteQueue, float scale, string texture_path)
 {
     string line;
     std::ifstream in(PATH + "savedGame.txt");
