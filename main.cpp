@@ -363,14 +363,14 @@ int main()
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
                             }
 
-                            // isWhiteQueue != isWhiteQueue - почему-то не работает,
+                            // isWhiteQueue = !isWhiteQueue - почему-то не работает,
                             // приходится через костыли
-                            if (isWhiteQueue) //Чет плюсы меня огорчают
+                            /*if (isWhiteQueue) //Чет плюсы меня огорчают
                             {
                                 isWhiteQueue = false;
                             } else {
                                 isWhiteQueue = true;
-                            }
+                            } */
                             isClicked = false;
                         }
                     }
