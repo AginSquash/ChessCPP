@@ -948,6 +948,9 @@ void figureKill(chess_figure* p_figures, short field_index, short f1igure_to_mov
     p_figures[field_index].position = sf::Vector2f(1100.0f * scale, 1100.0f * scale); // Переносим за карту
     p_figures[figure_to_move_index].position = pos;
 }
+void MakeSave(chess_figure* p_figures);
+
+
 
 int main()
 {
@@ -970,7 +973,7 @@ int main()
     main_settings(&settings, resource_path, &font);
 
     ofstream ChessMoves(resource_path + "Save.txt", ios_base::trunc); // Связываем класс с файлом и чистим его. Пока это тестовый файл, потом поменяем.
-    ofstream filesave(resource_path + "fuck_file.txt", ios_base::trunc); //Описание fuck_file есть в документации
+    //Описание fuck_file есть в документации
 
     map<string, string> config = loadConfig(resource_path); // Подгружаем конфиг
 
@@ -1070,6 +1073,7 @@ int main()
         time.setString(std::to_string(min) + ":" + std::to_string(sec)); //Составляем строку
         sf::Event event;
         while (window.pollEvent(event)) {
+
             switch (event.type) {
             case sf::Event::Closed: //Если закрываем окно
                 window.close();
@@ -1220,6 +1224,12 @@ int main()
         }
         window.display();
     }
+    cout << "You can save your game. If you want to say press Y, else N \n";
+    string save;
+    cin >> save ;
+    if  (save == "Y"){
+        MakeSave(p_figures);
+    }
     window.close();
 
 #ifdef WINDOWS
@@ -1234,3 +1244,9 @@ int main()
     delete[] p_figures;
     return EXIT_SUCCESS;
 }
+
+/*void MakeSave(chess_figure* p_figures, fstream *filesave,resource_path){
+    ofstream filesave(resource_path + "fuck_file.txt", ios_base::trunc);
+    filesave.open
+    "lol" >> filesave;
+}*/
