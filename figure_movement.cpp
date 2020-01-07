@@ -45,6 +45,7 @@ void getNulledMassive(bool bool_desk[8][8])
 
 bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figure desk[32], float scale, bool bool_desk[8][8])
 {
+    /*
     _print("PossibleMove loaded", 1);
 
     pos.x = (pos.x / scale) / 100;
@@ -53,7 +54,7 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
     _print("POS X/Y", 1);
 
     //bool bool_desk[8][8];
-    getNulledMassive(bool_desk);
+    //getNulledMassive(bool_desk);
 
     _print("Without function", bool_desk[0][0]);
 
@@ -68,7 +69,7 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
     }
     std::cout << "~~~~~~~~~~~~~~~~" << std::endl;
      */
-    getFreePosition(desk, scale, bool_desk);
+    //getFreePosition(desk, scale, bool_desk);
     /*
     std::cout << "----------------" << std::endl;
     for (short y = 0; y < 8; y++) {
@@ -78,6 +79,6 @@ bool isPosibleMoves(const figure_type figure, sf::Vector2f pos, const chess_figu
         std::cout << std::endl;
     }
     std::cout << "----------------" << std::endl;
-     */
-    return bool_desk;
+     
+    return bool_desk; */
 }

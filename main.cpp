@@ -10,8 +10,6 @@
 #include "SaveLoad.hpp"
 #include "figure_movement.hpp"
 
-//#define WINDOWS  //TODO Откоментируй при комплияции под винду
-//#define DEBUG
 
 #ifdef _WIN32
 #include <direct.h>
@@ -224,8 +222,6 @@ int main()
     chess_figure* p_figures = new chess_figure[32];
     LoadFigures(p_figures, textures_path, scale);
 
-    //isPosibleMoves(b_Qween, sf::Vector2f(0, 0), p_figures, scale);
-
     sf::Clock clock; //Запускаем часы
     clock.restart();
 
@@ -317,8 +313,7 @@ int main()
                         // (дебаг или оставить?)
                         isClicked = true;
 
-                        isPosibleMoves(p_figures[figure_to_move_index].type, pos, p_figures, scale, freePositions);
-
+                       
                     } else {
 
                         short field_index = GetFigureByPosition(p_figures, pos); // Получаем фигуру по координатам нажатия
