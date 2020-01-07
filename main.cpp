@@ -31,6 +31,8 @@ const float kegle2pixels = 0.431; // Для соот. шрифта и пиксе
 
 short figure_to_move_index = -1; // Индекс фигуры которую мы перетаскиваем
 
+std::string textures_path;
+
 std::string GetCurrentWorkingDir(void)
 { //Получение текущей директории
     char buff[FILENAME_MAX];
@@ -89,8 +91,7 @@ sf::Sprite& drawChessDesk(std::string resource_path)
     return sprite;
 }
 
-
-void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
+void ChooseTypeOfFigure (chess_figure* p_figures, int figure_to_move_index){
     std::cout << "You can change type of figure. Choose new type.";
     std::cout << "Example of your anwser: [first letter of your color b/w] NewFigure - b_Bishop. \n If you want to choose Knight, you should write Night \n";
 
@@ -100,47 +101,42 @@ void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
 
     if(newtype == "b_Bishop") {
         p_figures[figure_to_move_index].type = b_Bishop; //Хотел сделать через swtich, но оно не хотело работать
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Bishop, PATH);
-
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Bishop, textures_path);
     }
-
     if(newtype == "w_Bishop") {
         p_figures[figure_to_move_index].type = w_Bishop;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Bishop, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Bishop, textures_path) ;
     }
     if(newtype == "b_Night") {
         p_figures[figure_to_move_index].type = b_Night;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Night, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Night, textures_path);
     }
     if(newtype == "w_Night") {
         p_figures[figure_to_move_index].type = w_Night;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Night, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Night, textures_path);
     }
     if(newtype == "b_Qween") {
         p_figures[figure_to_move_index].type = b_Qween;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Qween, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Qween, textures_path);
     }
     if(newtype == "w_Qween") {
         p_figures[figure_to_move_index].type = w_Qween;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Qween, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Qween, textures_path);
     }
     if(newtype == "b_Rook") {
         p_figures[figure_to_move_index].type = b_Rook;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Rook, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Rook, textures_path);
     }
     if(newtype == "w_Rook") {
         p_figures[figure_to_move_index].type = w_Rook;
-        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Rook, PATH);
+        p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Rook, textures_path);
     }
 
 }
 void ChangeFigureType(chess_figure* p_figures, int figure_to_move_index){
     ChooseTypeOfFigure(p_figures, figure_to_move_index);
-
-
-
-
 }
+
 float getShift(std::string text)
 {
     int len = text.length();
@@ -206,7 +202,7 @@ int main()
     //std::string chess_type = getChessType( resource_path );
 
     //Создаем ОС-зависимую переменные (пути к текстурам)
-    std::string textures_path = path_to_workdir + PATH + "resources/textures/" + chess_type + "/";
+    textures_path = path_to_workdir + PATH + "resources/textures/" + chess_type + "/";
 
     sf::Sprite chessdesk = drawChessDesk(resource_path); //Думаю так это будет лучше выглядеть
 
