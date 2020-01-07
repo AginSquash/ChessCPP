@@ -412,11 +412,13 @@ int main()
         window.clear();
         window.draw(chessdesk);
         window.draw(backBar);
-        drawField(p_figures, &window);
-
+        
         if (isClicked) {
             window.draw(selected);
         }
+        
+        drawField(p_figures, &window);
+
         window.draw(time);
         window.draw(progress);
 
