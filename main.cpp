@@ -7,7 +7,7 @@
 #include "figure_movement.hpp"
 #include "settings.hpp"
 #include "movement.hpp"
-
+#include "SaveLoad.hpp"
 #include "figure_movement.hpp"
 
 //#define WINDOWS  //TODO Откоментируй при комплияции под винду
@@ -404,6 +404,17 @@ int main()
                 }
                 break;
 
+                case sf::Event::KeyPressed:
+                    if (event.key.code == sf::Keyboard::S)
+                    {
+                        saveGame(resource_path, p_figures, isWhiteQueue, scale);
+                    }
+                    if (event.key.code == sf::Keyboard::L)
+                    {
+                        loadGame(resource_path, p_figures, isWhiteQueue, scale, textures_path);
+                    }
+                    break;
+                    
             default:
                 break;
             }
