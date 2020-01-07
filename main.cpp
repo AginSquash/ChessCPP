@@ -122,29 +122,10 @@ bool GetFigureByPositionBool(chess_figure* p_figures, sf::Vector2f pos) //Фун
 
 bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
 {
-    int locationForMove;
+
     sf::Vector2f newpos;
-    if (j >= 8 && j < 16) { //Черные пешки
 
-        if (p_figures[j].position.y == scale * 100) {
-            return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) || ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 200 * scale)));
-        }
-        newpos = pos;
-        if (GetFigureByPositionBool(p_figures, newpos) && (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
-            return true;
-    }
-
-    if (j > 23 && j < 32) { //белые пешки
-        if (p_figures[j].position.y == scale * 600) {
-            if (((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 100 * scale))) || ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 200 * scale)))) {
-                return true;
-            }
-        }
-        newpos = pos;
-        if (GetFigureByPositionBool(p_figures, newpos) && (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y - 100 * scale))
-            return true;
-    }
-    if (j > 5 && j < 8) { //Черная ладья (Rook)
+    if ( (j > 5 && j < 8)||p_figures[figure_to_move_index].type==b_Rook) { //Черная ладья (Rook)
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y == newpos.y) {
             while (newpos.x != pos.x) {
@@ -188,7 +169,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             }
         }
     }
-    if (j > 21 && j < 24) { //Белая ладья ладья (Rook)
+    if ( (j > 21 && j < 24)||p_figures[figure_to_move_index].type==w_Rook ) { //Белая ладья ладья (Rook)
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y == newpos.y) {
             while (newpos.x != pos.x) {
@@ -232,7 +213,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             }
         }
     }
-    if (j == 2 || j == 3 || j == 18 || j == 19) {
+    if ( (j == 2 || j == 3 || j == 18 || j == 19)||(p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night )) { //2, 3 - черный конь. 18,19 - белый конь
         sf::Vector2f PosNight[8];
         PosNight[0].x = p_figures[j].position.x + 100 * scale;
         PosNight[0].y = p_figures[j].position.y + 200 * scale;
@@ -256,7 +237,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
         }
     }
     //0,1 - черные слоны . 16, 17 - белые
-    if (j == 0 || j == 1 || j == 16 || j == 17) {
+    if ( (j == 0 || j == 1 || j == 16 || j == 17)||(p_figures[figure_to_move_index].type==b_Bishop||p_figures[figure_to_move_index].type==w_Bishop) ) {
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y > newpos.y) {
             while (pos != newpos) {
@@ -299,7 +280,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             }
         }
     }
-    if (j == 5 || j == 21) {
+    if  (j == 5 || j == 21) { //5 - черный король. 21 - белый король
         sf::Vector2f PosKing[8];
         PosKing[0].x = p_figures[j].position.x - 100 * scale;
         PosKing[0].y = p_figures[j].position.y - 100 * scale;
@@ -323,7 +304,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
         }
     }
     // Черная королева - 4, белая - 20
-    if (j == 4 || j == 20) {
+    if ((j == 4 || j == 20)||(p_figures[figure_to_move_index].type==b_Qween)||p_figures[figure_to_move_index].type==w_Qween) {
 
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y > newpos.y) {
@@ -407,6 +388,26 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
                 }
             }
         }
+    }
+    if (j >= 8 && j < 16) { //Черные пешки
+
+        if (p_figures[j].position.y == scale * 100) {
+            return ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 100 * scale))) || ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y - 200 * scale)));
+        }
+        newpos = pos;
+        if (GetFigureByPositionBool(p_figures, newpos) && (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y + 100 * scale))
+            return true;
+    }
+
+    if (j > 23 && j < 32) { //белые пешки
+        if (p_figures[j].position.y == scale * 600) {
+            if (((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 100 * scale))) || ((p_figures[j].position.x == pos.x) && (p_figures[j].position.y == (pos.y + 200 * scale)))) {
+                return true;
+            }
+        }
+        newpos = pos;
+        if (GetFigureByPositionBool(p_figures, newpos) && (newpos.x == p_figures[j].position.x && newpos.y == p_figures[j].position.y - 100 * scale))
+            return true;
     }
 }
 
@@ -885,7 +886,7 @@ bool figureKillForQueen(chess_figure* p_figures, int field_index, int figure_to_
 
 void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
     std::cout << "You can change type of figure. Choose new type.";
-    std::cout << "Example of your anwser: [first word of your color]_NewFigure - b.Bishop \n If you want to choose Knight, you should write Night";
+    std::cout << "Example of your anwser: [first letter of your color b/w] NewFigure - b_Bishop. \n If you want to choose Knight, you should write Night \n";
 
 
     string newtype;
@@ -894,6 +895,7 @@ void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
     if(newtype == "b_Bishop") {
         p_figures[figure_to_move_index].type = b_Bishop; //Хотел сделать через swtich, но оно не хотело работать
         p_figures[figure_to_move_index].texture = LoadFigureTexture(b_Bishop, PATH);
+
     }
 
     if(newtype == "w_Bishop") {
@@ -924,6 +926,7 @@ void ChooseTypeOfFigure (chess_figure* p_figures,int figure_to_move_index){
         p_figures[figure_to_move_index].type = w_Rook;
         p_figures[figure_to_move_index].texture = LoadFigureTexture(w_Rook, PATH);
     }
+
 }
 void ChangeFigureType(chess_figure* p_figures, int figure_to_move_index){
     ChooseTypeOfFigure(p_figures, figure_to_move_index);
