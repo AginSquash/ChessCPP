@@ -14,7 +14,7 @@ bool saveGame(string PATH, chess_figure* p_figures, bool isWhiteQueue, float sca
     unsigned short Queu = isWhiteQueue;
     save_file << Queu << std::endl;
     
-    for (short i = 0; i < 33; i++) {
+    for (short i = 0; i < 32; i++) {
         
         unsigned short type = p_figures[i].type;
         unsigned int x = p_figures[i].position.x / scale;
