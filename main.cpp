@@ -41,17 +41,6 @@ std::string GetCurrentWorkingDir(void)
 
 //int desk[8][8]; остатки какой то более развитой цивилизации.
 /*
-void inputInSave(int IndexFigure, sf::Vector2f pos, int FieldIndex, ofstream* ChessMoves)
-{
-
-#ifdef WINDOWS
-    *ChessMoves << "Figure " << IndexFigure << "\t"
-                << "x =" << pos.x << "\t"
-                << "y=" << pos.y << "\n";
-    if (FieldIndex != 0)
-        *ChessMoves << "Figure " << FieldIndex << " is die \n";
-#endif
-};
 */
 void drawField(chess_figure* p_figures, sf::RenderWindow* window)
 {
@@ -131,8 +120,8 @@ void ChooseTypeOfFigure (chess_figure* p_figures, int figure_to_move_index){
     }
 
 }
-void ChangeFigureType(chess_figure* p_figures, int figure_to_move_index){
-    ChooseTypeOfFigure(p_figures, figure_to_move_index);
+void ChangeFigureType(chess_figure* p_figures, int figure_to_move_index){ //Ты нашел волшебную функцию. Она выпадает с шансом 1 к 1000.
+    ChooseTypeOfFigure(p_figures, figure_to_move_index); //Не трогай ее, а то она может все сломать.
 }
 
 float getShift(std::string text)
