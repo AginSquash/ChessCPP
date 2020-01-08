@@ -323,7 +323,7 @@ int main()
                             if (field_index == -1) // Если GetFigureByPosition возвращает -1, значит мы нажимаем на
                             //      пустую клетку
                             {
-                                if (Possiblemove(p_figures, figure_to_move_index, pos)) {
+                                if (Possiblemove(p_figures, figure_to_move_index, pos) && (pos.y != 800 * scale)) {
                                     p_figures[figure_to_move_index].position = pos;
                                     if ((p_figures[figure_to_move_index].position.y == 0 || p_figures[figure_to_move_index].position.y == 700*scale)&&(p_figures[figure_to_move_index].type == w_Pawn || p_figures[figure_to_move_index].type == b_Pawn )){
                                         ChangeFigureType(p_figures, figure_to_move_index);
@@ -337,7 +337,7 @@ int main()
 
                             }
                             if (field_index != -1) {
-                                if ((((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 31)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)))&& (p_figures[figure_to_move_index].type==w_Pawn||p_figures[figure_to_move_index].type==b_Pawn)) {
+                                if ((((figure_to_move_index > 7 && figure_to_move_index < 16) || (figure_to_move_index > 23 && figure_to_move_index < 32)) && (figurekillforpawns(p_figures, field_index, figure_to_move_index, pos, isWhiteQueue)))&& (p_figures[figure_to_move_index].type==w_Pawn||p_figures[figure_to_move_index].type==b_Pawn)) {
                                     figureKill(p_figures, field_index, figure_to_move_index, pos);
                                     if (p_figures[figure_to_move_index].position.y == 0 || p_figures[figure_to_move_index].position.y == 700*scale) {
                                         ChangeFigureType(p_figures, figure_to_move_index);
