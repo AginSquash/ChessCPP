@@ -135,7 +135,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             }
         }
     }
-    if ( (p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night )) { //2, 3 - черный конь. 18,19 - белый конь
+    if ( (p_figures[figure_to_move_index].type==w_Night || p_figures[figure_to_move_index].type==b_Night )) {
         sf::Vector2f PosNight[8];
         PosNight[0].x = p_figures[j].position.x + 100 * scale;
         PosNight[0].y = p_figures[j].position.y + 200 * scale;
@@ -162,7 +162,7 @@ bool Possiblemove(chess_figure* p_figures, int j, sf::Vector2f pos)
             }
         } return false;
     }
-    //0,1 - черные слоны . 16, 17 - белые
+
     if ( (p_figures[figure_to_move_index].type==b_Bishop||p_figures[figure_to_move_index].type==w_Bishop) ) {
         newpos = p_figures[j].position;
         if (pos.x > newpos.x && pos.y > newpos.y) {
