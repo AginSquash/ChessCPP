@@ -91,7 +91,7 @@ sf::Sprite& drawChessDesk(std::string resource_path)
 
 void ChooseTypeOfFigure (chess_figure* p_figures, int figure_to_move_index){
     std::cout << "You can change type of figure. Choose new type.";
-    std::cout << "Example of your anwser: [first letter of your color b/w] NewFigure - b_Bishop. \n If you want to choose Knight, you should write Night \n";
+    std::cout << "Example of your anwser: [first letter of your color b/w]_NewFigure - 'b_Bishop'. \n If you want to choose Knight, you should write Night \n";
 
 
     string newtype;
@@ -260,7 +260,7 @@ int main()
     bool isWhiteQueue = true;
 
     bool freePositions[8][8];
-    cout << "You can save your game. Press 'S' for save and 'L' for load last game";
+    cout << "You can save your game. Press 'S' on keyboard for save and 'L' for load last game";
     while (window.isOpen()) {
         sf::Time elapsed = clock.getElapsedTime(); //Получаем время со старта
 
