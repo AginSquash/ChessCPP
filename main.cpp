@@ -260,7 +260,7 @@ int main()
     bool isWhiteQueue = true;
 
     bool freePositions[8][8];
-
+    cout << "You can save your game. Press 'S' for save and 'L' for load last game";
     while (window.isOpen()) {
         sf::Time elapsed = clock.getElapsedTime(); //Получаем время со старта
 
