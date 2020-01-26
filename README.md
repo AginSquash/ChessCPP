@@ -1,0 +1,3 @@
+# ChessCPP
+
+SFML lib required
